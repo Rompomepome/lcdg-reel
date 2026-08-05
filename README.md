@@ -6,6 +6,9 @@ sur Instagram, Facebook et LinkedIn en sortie.
 
 Fonctionne sur Windows et macOS.
 
+Pour l'installation pas à pas, le déroulé hebdomadaire et le dépannage, voir
+[MANUEL.md](MANUEL.md).
+
 ---
 
 ## Installation
