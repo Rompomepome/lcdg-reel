@@ -1,0 +1,19 @@
+{
+  "slug": "violences-cabinet",
+  "date": "2026-07-31",
+  "rubrique": "pro",
+  "label": "Violences au cabinet",
+  "sous_titre": "L’Ordre peut désormais porter plainte à votre place",
+  "musique": "relaxation-04",
+  "blocs": [
+    { "duree": 3.8, "texte": null, "requete": "medical clinic entrance door", "fichier": "B0.mp4" },
+    { "duree": 5.6, "texte": "Depuis le *22 juillet*, un soignant libéral agressé n’a plus à porter seul sa plainte.", "requete": "doctor walking hallway back view", "fichier": "B1.mp4" },
+    { "duree": 5.6, "texte": "Le décret n° 2026-641 autorise *l’Ordre et l’URPS* à déposer plainte en son nom.", "requete": "french government building flag", "fichier": "B2.mp4" },
+    { "duree": 6.0, "texte": "Il couvre les *violences*, les menaces et les dégradations subies à l’occasion de l’exercice.", "requete": "empty hospital waiting room", "fichier": "B3.mp4" },
+    { "duree": 5.6, "texte": "Une seule condition : *un mandat écrit*, accompagné d’une pièce d’identité.", "requete": "signing document close up pen", "fichier": "B4.mp4" },
+    { "duree": 6.4, "texte": "Conseil départemental, conseil national ou URPS *peuvent agir*. Ils s’informent mutuellement pour éviter les doublons.", "requete": "paperwork files desk office", "fichier": "B5.mp4" },
+    { "duree": 5.8, "texte": "Le praticien reste informé de la procédure et peut mettre fin au mandat *à tout moment*.", "requete": "doctor writing notes laptop", "fichier": "B6.mp4" },
+    { "duree": 6.2, "texte": "Le texte applique la *loi Pradal* du 9 juillet 2025, qui aggrave les peines et étend le délit d’outrage aux soignants.", "requete": "lawyer desk law books justice", "fichier": "B7.mp4" },
+    { "duree": 5.0, "texte": "Reste un point : connaître la procédure *avant d’en avoir besoin*.", "requete": "general practitioner portrait white coat", "fichier": "B8.mp4" }
+  ]
+}

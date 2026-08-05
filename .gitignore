@@ -1,0 +1,21 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# fichiers audio : licence Mixkit, redistribution interdite
+assets/audio/*
+!assets/audio/README.md
+
+# sorties de travail
+episodes/*/broll/
+episodes/*/segments/
+episodes/*/*.mp4
+episodes/*/*.jpg
+episodes/*/*.mp3
+episodes/*/*.wav
+episodes/*/concat.txt
+!episodes/exemple/script.json
+smoke_test.mp4
+smoke.log

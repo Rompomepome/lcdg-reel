@@ -1,0 +1,113 @@
+{
+  "_lisezmoi": "Les fichiers audio ne sont pas versionnes : la licence Mixkit interdit leur redistribution. Telecharge-les depuis ton compte et depose-les dans assets/audio/ sous le nom indique.",
+  "musiques": [
+    {
+      "cle": "relaxation-04",
+      "titre": "Relaxation 04",
+      "fichier": "relaxation-04.mp3",
+      "source": "Mixkit",
+      "registre": "sobre",
+      "url_page": "https://mixkit.co/free-stock-music/chillout/",
+      "mixkit_id": "750",
+      "mesures": {
+        "amplitude_db": 3.9,
+        "centroide_hz": 693,
+        "attaques_par_s": 2.24
+      }
+    },
+    {
+      "cle": "lofi-05",
+      "titre": "Lo-Fi 05",
+      "fichier": "lofi-05.mp3",
+      "source": "Mixkit",
+      "registre": "news",
+      "url_page": "https://mixkit.co/free-stock-music/lo-fi/",
+      "mixkit_id": "767",
+      "mesures": {
+        "amplitude_db": 1.0,
+        "centroide_hz": 1189,
+        "attaques_par_s": 3.84
+      }
+    },
+    {
+      "cle": "close-up",
+      "titre": "Close Up",
+      "fichier": "close-up.mp3",
+      "source": "Mixkit",
+      "registre": "news",
+      "url_page": "https://mixkit.co/free-stock-music/futuristic/",
+      "mixkit_id": "1167",
+      "mesures": {
+        "amplitude_db": 2.4,
+        "centroide_hz": 1796,
+        "attaques_par_s": 5.86
+      }
+    },
+    {
+      "cle": "digital-clouds",
+      "titre": "Digital Clouds",
+      "fichier": "digital-clouds.mp3",
+      "source": "Mixkit",
+      "registre": "news",
+      "url_page": "https://mixkit.co/free-stock-music/chillout/",
+      "mixkit_id": "175",
+      "mesures": {
+        "amplitude_db": 4.2,
+        "centroide_hz": 2247,
+        "attaques_par_s": 4.24
+      }
+    },
+    {
+      "cle": "you",
+      "titre": "You",
+      "fichier": "you.mp3",
+      "source": "Mixkit",
+      "registre": "sobre",
+      "url_page": "https://mixkit.co/free-stock-music/chillout/",
+      "mixkit_id": "185",
+      "mesures": {
+        "amplitude_db": 3.2,
+        "centroide_hz": 1287,
+        "attaques_par_s": 3.26
+      }
+    },
+    {
+      "cle": "relaxation-07",
+      "titre": "Relaxation 07",
+      "fichier": "relaxation-07.mp3",
+      "source": "Mixkit",
+      "registre": "sobre",
+      "url_page": "https://mixkit.co/free-stock-music/ambient/",
+      "mixkit_id": "760",
+      "mesures": {
+        "amplitude_db": 1.9,
+        "centroide_hz": 1021,
+        "attaques_par_s": 0.73
+      }
+    }
+  ],
+  "effets": [
+    {
+      "cle": "tap-texte",
+      "titre": "Wood hard hit",
+      "fichier": "tap-texte.mp3",
+      "source": "Mixkit",
+      "usage": "respirations du recit (4 par reel, jamais les 8 changements)",
+      "url_page": "https://mixkit.co/free-sound-effects/wood/",
+      "mixkit_id": "2182",
+      "traitement": "volume=0.7,highpass=f=70,lowpass=f=4200,afade=t=out:st=0.3:d=0.2",
+      "coupe_a": 0.5
+    },
+    {
+      "cle": "bass-structure",
+      "titre": "Deep heartbeat impact",
+      "fichier": "bass-structure.mp3",
+      "source": "Mixkit",
+      "usage": "retraction du bandeau et ouverture de la croix",
+      "url_page": "https://mixkit.co/free-sound-effects/impact/",
+      "mixkit_id": "498",
+      "traitement": "volume=0.55,lowpass=f=2500,afade=t=out:st=1.15:d=0.45",
+      "coupe_a": 1.6
+    }
+  ]
+}
