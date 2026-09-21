@@ -1,0 +1,64 @@
+{
+  "slug": "arrets-de-travail",
+  "date": "2026-09-18",
+  "rubrique": "pro",
+  "label": "Arrêts de travail",
+  "sous_titre": "Hors ALD, l’indemnisation passe à un an",
+  "musique": "relaxation-04",
+  "blocs": [
+    {
+      "duree": 3.8,
+      "texte": null,
+      "requete": "man sitting alone at home window",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 6.1,
+      "texte": "Arrêt hors ALD : durée maximale dérogatoire d’indemnisation ramenée *à un an*, contre trois.",
+      "requete": "hourglass sand timer",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 5.7,
+      "texte": "C’est le décret n° 2026-866 du *16 septembre*, publié au Journal officiel.",
+      "requete": "signing official document pen",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Il s’applique aux arrêts prescrits *à partir du 15 octobre*.",
+      "requete": "autumn leaves falling",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 6.1,
+      "texte": "Les arrêts en cours qui atteignent *six mois* à cette date sont aussi concernés.",
+      "requete": "person resting on sofa under blanket",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "ALD exonérante : la durée reste fixée *à trois ans*.",
+      "requete": "senior man medication home",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 5.3,
+      "texte": "Nouveau motif de pénalité pour l’assuré : obtenir un arrêt *non justifié*.",
+      "requete": "insurance form paperwork desk",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 5.3,
+      "texte": "Les critères d’un arrêt « non justifié » ne sont *pas précisés*.",
+      "requete": "person reading document thoughtful",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 5.7,
+      "texte": "Avant de prolonger, vérifiez le *statut ALD* et documentez la justification au dossier.",
+      "requete": "female doctor typing laptop office",
+      "fichier": "B8.mp4"
+    }
+  ]
+}

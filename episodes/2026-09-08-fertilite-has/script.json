@@ -1,0 +1,64 @@
+{
+  "slug": "fertilite-has",
+  "date": "2026-09-08",
+  "rubrique": "clinique",
+  "label": "Fertilité",
+  "sous_titre": "À aborder, même sans projet d’enfant",
+  "musique": "relaxation-04",
+  "blocs": [
+    {
+      "duree": 3.8,
+      "texte": null,
+      "requete": "woman looking out window thoughtful",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 5.3,
+      "texte": "La HAS veut ouvrir le sujet en consultation, même *sans projet d’enfant*.",
+      "requete": "young adult sitting alone park bench",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 6.3,
+      "texte": "Son projet de page destinée aux patients est en ligne *depuis le 4 septembre*.",
+      "requete": "official documents on desk",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 5.5,
+      "texte": "Chez la femme, la fertilité diminue progressivement *à partir de 35 ans*.",
+      "requete": "calendar pages close up",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 6.1,
+      "texte": "Chez l’homme, quantité et qualité des spermatozoïdes baissent *dès 30 à 35 ans*.",
+      "requete": "laboratory microscope slide close up",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Facteurs modifiables listés : *IST non dépistées*, alcool, tabac, cannabis, sommeil.",
+      "requete": "ashtray cigarette table close up",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Le *médecin traitant* figure parmi les professionnels à solliciter.",
+      "requete": "general practitioner office patient consultation",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Aucune *rémunération spécifique* n’est annoncée pour ces consultations.",
+      "requete": "general practitioner office patient consultation",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Projet en relecture : donnez votre avis *jusqu’au 30 septembre*.",
+      "requete": "hand writing form pen close up",
+      "fichier": "B8.mp4"
+    }
+  ]
+}

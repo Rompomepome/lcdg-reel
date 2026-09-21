@@ -1,0 +1,64 @@
+{
+  "slug": "prevention-vrs",
+  "date": "2026-09-18",
+  "rubrique": "clinique",
+  "label": "Prévention du VRS",
+  "sous_titre": "Sûre, mais pas toujours bien administrée",
+  "musique": "relaxation-04",
+  "blocs": [
+    {
+      "duree": 3.8,
+      "texte": null,
+      "requete": "newborn baby sleeping hospital crib",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 5.5,
+      "texte": "L’ANSM relève *91 erreurs* d’administration en un an de prévention du VRS.",
+      "requete": "vaccine vials tray laboratory",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 5.7,
+      "texte": "Exemple : un *vaccin VRS* injecté à un nourrisson au lieu de l’anticorps.",
+      "requete": "nurse preparing syringe",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Autres erreurs : *dose incorrecte* ou double administration.",
+      "requete": "syringe close up medical",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 5.3,
+      "texte": "Côté sécurité, *aucun nouveau risque* pour les vaccins ni pour le nirsévimab.",
+      "requete": "scientist reading report office",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 5.3,
+      "texte": "Abrysvo et prématurité : l’étude Epi-phare ne montre *pas de risque accru*.",
+      "requete": "pregnant woman sitting by window",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 6.5,
+      "texte": "Mère vaccinée trop près de l’accouchement : il faut *plusieurs jours* pour protéger le bébé.",
+      "requete": "mother holding newborn baby",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 6.5,
+      "texte": "Vaccin maternel ou anticorps : *jamais les deux*, sauf exception évaluée au cas par cas.",
+      "requete": "two medicine vials on table",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Toute erreur se déclare au *centre régional* de pharmacovigilance.",
+      "requete": "nurse phone call hospital",
+      "fichier": "B8.mp4"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "slug": "revenu-generalistes",
+  "date": "2026-09-14",
+  "rubrique": "pro",
+  "label": "Revenus",
+  "sous_titre": "Une moyenne qui ne vous ressemble pas",
+  "musique": "relaxation-04",
+  "blocs": [
+    {
+      "duree": 3.8,
+      "texte": null,
+      "requete": "doctor office evening lamp",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 5.5,
+      "texte": "*98 300 euros* : revenu d’activité moyen d’un omnipraticien en 2021.",
+      "requete": "calculator invoices desk",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 5.5,
+      "texte": "Le chiffre vient d’une étude de la Drees publiée le *15 septembre*.",
+      "requete": "statistics report pages",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 6.7,
+      "texte": "De 2017 à 2021, il progresse de *0,7 % par an*, en euros constants.",
+      "requete": "bar chart printed report",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 5.9,
+      "texte": "À profil de profession inchangé, la hausse serait de *1,8 % par an*.",
+      "requete": "financial documents pen",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "L’écart tient à la *féminisation* et au rajeunissement des omnipraticiens.",
+      "requete": "woman doctor white coat walking",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 5.7,
+      "texte": "Une moyenne évolue avec *qui exerce*, pas seulement avec ce que chacun facture.",
+      "requete": "group of medical staff",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 6.1,
+      "texte": "Comparez-vous à 98 300 euros, *pas à 124 000* toutes spécialités confondues.",
+      "requete": "doctor reviewing financial documents",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 5.1,
+      "texte": "Données arrêtées à *2021*, une année marquée par des indemnités exceptionnelles.",
+      "requete": "2021 calendar",
+      "fichier": "B8.mp4"
+    }
+  ]
+}

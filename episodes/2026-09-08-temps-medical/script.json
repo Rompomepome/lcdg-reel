@@ -1,0 +1,64 @@
+{
+  "slug": "temps-medical",
+  "date": "2026-09-08",
+  "rubrique": "pro",
+  "label": "Temps médical",
+  "sous_titre": "Moins de jours, des journées plus remplies",
+  "musique": "relaxation-04",
+  "blocs": [
+    {
+      "duree": 3.8,
+      "texte": null,
+      "requete": "doctor office at night lamp",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 6.9,
+      "texte": "Un généraliste libéral exerce en moyenne *205 jours* en 2025, contre 222 en 2021.",
+      "requete": "wall calendar pages",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "C’est le constat du rapport Igas-IGF publié le *25 août*.",
+      "requete": "government documents folder",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 7.0,
+      "texte": "*29 %* des généralistes exercent quatre jours par semaine ou moins, contre 18 % en 2021.",
+      "requete": "clock on wall office",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 6.5,
+      "texte": "L’offre de soins ne recule pas d’autant : l’activité se concentre *sur moins de journées*.",
+      "requete": "waiting room chairs clinic",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Parmi les leviers cités : sanctionner le défaut d’alimentation du *DMP*.",
+      "requete": "doctor typing computer patient record",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Aucune des *seize propositions* n’a de calendrier d’application.",
+      "requete": "empty meeting room table chairs",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 5.3,
+      "texte": "L’assistant médical libère-t-il du temps ? La mission *ne peut pas l’établir*.",
+      "requete": "reception desk clinic computer",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 5.3,
+      "texte": "Notez vos jours d’exercice sur *trois mois*, puis comparez à la moyenne.",
+      "requete": "notebook writing schedule pen",
+      "fichier": "B8.mp4"
+    }
+  ]
+}

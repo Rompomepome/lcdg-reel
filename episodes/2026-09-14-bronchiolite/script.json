@@ -1,0 +1,64 @@
+{
+  "slug": "bronchiolite",
+  "date": "2026-09-14",
+  "rubrique": "clinique",
+  "label": "Bronchiolite",
+  "sous_titre": "Deux stratégies, des calendriers qui divergent",
+  "musique": "relaxation-04",
+  "blocs": [
+    {
+      "duree": 3.8,
+      "texte": null,
+      "requete": "baby sleeping crib",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Avant d’immuniser un nourrisson, vérifiez la *vaccination de la mère*.",
+      "requete": "mother holding newborn hand close up",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 5.5,
+      "texte": "La campagne 2026-2027 a démarré le *14 septembre*, jusqu’au 28 février.",
+      "requete": "autumn rain window",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 5.3,
+      "texte": "Deux options : *Abrysvo* pendant la grossesse, ou anticorps chez le nourrisson.",
+      "requete": "pregnant woman belly side view",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 5.3,
+      "texte": "La HAS n’exprime *pas de préférence* entre les deux, selon l’ARS Auvergne-Rhône-Alpes.",
+      "requete": "vaccine vial close up",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 7.0,
+      "texte": "Beyfortus en ville : remboursé *à 65 %*, contre 30 %, selon l’ARS Pays de la Loire.",
+      "requete": "croix de pharmacie (image fournie par Romain)",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 6.1,
+      "texte": "Les ARS divergent sur les *dates de rattrapage* : vérifiez celles de la vôtre.",
+      "requete": "calendar marking dates pen",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 5.1,
+      "texte": "Beyfortus s’utilise *dans les 8 heures* après sa sortie du réfrigérateur.",
+      "requete": "medical refrigerator vaccines",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 5.7,
+      "texte": "Chaque injection se trace dans le *carnet de santé* : date, dose, lot.",
+      "requete": "writing notebook pen close up",
+      "fichier": "B8.mp4"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "slug": "arboviroses-autochtones",
+  "date": "2026-09-08",
+  "rubrique": "clinique",
+  "label": "Arboviroses",
+  "sous_titre": "Fièvre sans voyage ? Pensez-y.",
+  "musique": "relaxation-04",
+  "blocs": [
+    {
+      "duree": 3.8,
+      "texte": null,
+      "requete": "moustique tigre (photo fournie par Romain)",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 6.1,
+      "texte": "*57 cas* de chikungunya contractés en France hexagonale, sans voyage, au 6 septembre.",
+      "requete": "laboratory test tubes rack close up",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "S’y ajoutent *6 cas de dengue*, eux aussi autochtones.",
+      "requete": "mosquito bite arm",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 6.5,
+      "texte": "Le virus West Nile compte *56 cas autochtones*, dont 17 en une seule semaine.",
+      "requete": "wetland reeds sunset birds",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Les cas se répartissent dans *cinq régions*, dont l’Île-de-France.",
+      "requete": "carte de France (image fournie par Romain)",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Fièvre et douleurs articulaires, même sans voyage : *évoquez une arbovirose*.",
+      "requete": "thermometer on bedside table",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 6.9,
+      "texte": "Notez au dossier la *date de début des signes*, le lieu de résidence et les déplacements.",
+      "requete": "doctor typing notes computer desk",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Autour d’un cas, les autorités sanitaires recherchent d’autres malades, *jusqu’au porte-à-porte*.",
+      "requete": "hand knocking on door",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 5.1,
+      "texte": "Départements concernés : bulletin de Santé publique France du *9 septembre*.",
+      "requete": "reading report documents desk lamp",
+      "fichier": "B8.mp4"
+    }
+  ]
+}

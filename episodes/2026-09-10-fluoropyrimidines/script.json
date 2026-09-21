@@ -1,0 +1,64 @@
+{
+  "slug": "fluoropyrimidines",
+  "date": "2026-09-10",
+  "rubrique": "clinique",
+  "label": "Fluoropyrimidines",
+  "sous_titre": "Pas de traitement sans dépistage DPD",
+  "musique": "relaxation-04",
+  "blocs": [
+    {
+      "duree": 3.8,
+      "texte": null,
+      "requete": "hospital corridor empty",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 5.1,
+      "texte": "Capécitabine, 5-FU : le *dépistage DPD* est obligatoire avant toute initiation.",
+      "requete": "lab technician centrifuge",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Un déficit en *DPD* expose à des toxicités sévères, parfois mortelles.",
+      "requete": "perfusion (photo fournie par Romain, dpd.png)",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 6.7,
+      "texte": "En 2025, une patiente au déficit partiel connu a été traitée *sans adaptation de dose*.",
+      "requete": "elderly woman taking pills alone",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 5.1,
+      "texte": "Après ce cas évitable, l’ANSM a rappelé l’obligation le *9 septembre*.",
+      "requete": "pharmacy medicine blister packs",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "La pharmacovigilance suit ces cas graves évitables *depuis 2018*.",
+      "requete": "pills capsules table close up",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Un *avis national d’experts* ANSM-INCa guide l’adaptation de la dose initiale.",
+      "requete": "medical documents reading glasses",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 5.7,
+      "texte": "En ville, renouveler une capécitabine, c’est vérifier le *statut DPD* et la dose.",
+      "requete": "doctor prescription writing desk",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 5.3,
+      "texte": "Effet indésirable grave : déclarez-le sur le *portail de signalement* de l’ANSM.",
+      "requete": "computer form typing report",
+      "fichier": "B8.mp4"
+    }
+  ]
+}

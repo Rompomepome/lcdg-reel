@@ -1,0 +1,64 @@
+{
+  "slug": "eurneffy",
+  "date": "2026-09-10",
+  "rubrique": "clinique",
+  "label": "EURneffy",
+  "sous_titre": "L’adrénaline en spray nasal, sans progrès reconnu",
+  "musique": "relaxation-04",
+  "blocs": [
+    {
+      "duree": 3.8,
+      "texte": null,
+      "requete": "modern pharmacy shelves",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "L’adrénaline *en spray nasal* obtient un avis favorable au remboursement.",
+      "requete": "spray nasal (photo fournie par Romain)",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 5.7,
+      "texte": "EURneffy 2 mg : avis de la HAS rendu le *22 juillet*.",
+      "requete": "official document stamp desk",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 6.3,
+      "texte": "Pour l’adulte et l’enfant *de 30 kg ou plus*, en urgence face à l’anaphylaxie.",
+      "requete": "child sitting doctor office back view",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Mais *ASMR V* : aucun progrès reconnu face aux auto-injecteurs.",
+      "requete": "auto-injecteur (photo fournie par Romain)",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "En cause : l’absence de *données comparatives* en situation d’anaphylaxie.",
+      "requete": "scientific papers charts desk",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 5.3,
+      "texte": "Prix, taux et date de prise en charge : *pas encore publiés*.",
+      "requete": "pharmacy counter customer",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 5.1,
+      "texte": "La page ne mentionne pas l’enfant de *moins de 30 kg*.",
+      "requete": "pediatrician child checkup",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Avant de prescrire, vérifiez les conditions de *remboursement* définitives.",
+      "requete": "doctor writing prescription close up",
+      "fichier": "B8.mp4"
+    }
+  ]
+}

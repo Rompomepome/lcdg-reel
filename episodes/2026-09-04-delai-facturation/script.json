@@ -1,0 +1,64 @@
+{
+  "slug": "delai-facturation",
+  "date": "2026-09-04",
+  "rubrique": "pro",
+  "label": "Délais de facturation",
+  "sous_titre": "Le rapport IGF-IGAS veut ramener le délai à quatre mois",
+  "musique": "relaxation-04",
+  "blocs": [
+    {
+      "duree": 3.2,
+      "texte": null,
+      "requete": "young doctor taking notes at desk",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Un rapport de l’IGF et de l’IGAS, publié le *29 juillet*, vise la facturation.",
+      "requete": "young doctor reading medical report office",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 5.4,
+      "texte": "Le délai pour facturer un acte passerait de 2 ans et 1 trimestre à *4 mois*.",
+      "requete": "monthly calendar hanging on wall",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 4.8,
+      "texte": "Au-delà, la facturation serait *rejetée* : l’acte resterait impayé.",
+      "requete": "crumpled paper office trash bin",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 5.2,
+      "texte": "Le tiers payant serait conditionné à la présentation de la *carte Vitale*.",
+      "requete": "carte vitale (image fournie par Romain, panoramique)",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Aujourd’hui, *16 %* des feuilles de soins sont transmises sans carte Vitale.",
+      "requete": "feuille de soins (image fournie par Romain, panoramique)",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Le téléservice *SCOR* deviendrait obligatoire : l’organisation du cabinet change.",
+      "requete": "white coat hands medical form paperwork desk",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 5.2,
+      "texte": "En cas de suspicion, les *CPAM* pourraient suspendre votre paiement.",
+      "requete": "stethoscope on paperwork desk dark",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 6.2,
+      "texte": "Rien n’est encore voté. Mais une erreur de cotation peut déjà déclencher un *contrôle*.",
+      "requete": "french parliament building exterior",
+      "fichier": "B8.mp4"
+    }
+  ]
+}

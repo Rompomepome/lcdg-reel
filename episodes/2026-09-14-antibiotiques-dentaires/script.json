@@ -1,0 +1,64 @@
+{
+  "slug": "antibiotiques-dentaires",
+  "date": "2026-09-14",
+  "rubrique": "clinique",
+  "label": "Soins dentaires",
+  "sous_titre": "Les antibiotiques ne sont pas automatiques",
+  "musique": "relaxation-04",
+  "blocs": [
+    {
+      "duree": 3.8,
+      "texte": null,
+      "requete": "dentist office empty chair",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Douleur dentaire isolée ? *Pas d’antibiotique* à elle seule.",
+      "requete": "toothache",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Première réponse : un *geste local* et un antalgique adapté.",
+      "requete": "dental instruments tray",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 5.5,
+      "texte": "C’est le rappel de la HAS dans ses recommandations du *14 septembre*.",
+      "requete": "official report document reading",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 6.3,
+      "texte": "En 2022, les dentistes étaient les *deuxièmes prescripteurs* de ville, juste derrière les généralistes.",
+      "requete": "dentist writing prescription",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 5.3,
+      "texte": "L’antibioprophylaxie se limite à des *situations identifiées*, selon l’acte et le patient.",
+      "requete": "dentist looking dental x-ray",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 5.7,
+      "texte": "Si un antibiotique est indiqué, *l’amoxicilline* reste le plus souvent le premier choix.",
+      "requete": "gelules sous blister (video fournie par Romain, Pexels 7033927)",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Pas d’association systématique avec un *anti-inflammatoire*, stéroïdien ou non.",
+      "requete": "comprimes sortis du blister (video fournie par Romain, Pexels 3922881)",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Toute antibiothérapie impose une réévaluation *à 48-72 heures*.",
+      "requete": "clock ticking wall",
+      "fichier": "B8.mp4"
+    }
+  ]
+}

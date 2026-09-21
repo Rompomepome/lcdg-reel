@@ -1,0 +1,64 @@
+{
+  "slug": "facturation-electronique",
+  "date": "2026-09-14",
+  "rubrique": "pro",
+  "label": "Facture électronique",
+  "sous_titre": "Votre cabinet est peut-être déjà concerné",
+  "musique": "relaxation-04",
+  "blocs": [
+    {
+      "duree": 3.8,
+      "texte": null,
+      "requete": "office desk computer invoices",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 6.7,
+      "texte": "Cabinet assujetti à la TVA : la réception électronique est obligatoire *depuis le 1er septembre*.",
+      "requete": "doctor office computer desk",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Les factures transitent désormais par une *plateforme agréée*.",
+      "requete": "server room data center",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Pour la désigner : logiciel de gestion, banque ou *expert-comptable*.",
+      "requete": "accountant working laptop",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "La liste des plateformes agréées est publiée sur *impots.gouv.fr*.",
+      "requete": "government website laptop",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 5.7,
+      "texte": "L’émission deviendra obligatoire pour les TPE et PME *au 1er septembre 2027*.",
+      "requete": "calendar year planner",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 5.5,
+      "texte": "La tolérance jusqu’à fin 2026 vise les difficultés de démarrage, *pas l’obligation*.",
+      "requete": "paper documents stack office",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Règles de TVA et délais de paiement *ne changent pas*.",
+      "requete": "laptop screen typing invoice",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Une assistance nationale répond au *0 806 807 807*.",
+      "requete": "phone call office desk hand",
+      "fichier": "B8.mp4"
+    }
+  ]
+}
