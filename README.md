@@ -82,6 +82,16 @@ python scripts/render.py episodes/2026-08-12-restes-a-charge
 
 Le rendu prend cinq à sept minutes et se termine par un bilan de contrôle.
 
+Pour LinkedIn, la déclinaison carrée 1080x1080 (mise en page `CARRE` de la charte) :
+
+```bash
+python scripts/render_carre.py episodes/2026-08-12-restes-a-charge
+```
+
+Elle sort `reel_<slug>_carre.mp4`, contrôlée comme le reel. Un plan composé pour le 9:16
+(photo posée en bandeau au-dessus du texte) peut avoir sa version carrée dans
+`broll_carre/`, sous le même nom : elle est alors prise à la place.
+
 ---
 
 ## Le gabarit
@@ -91,14 +101,15 @@ Toutes les valeurs sont dans `config/charte.py`, et nulle part ailleurs.
 | | |
 |---|---|
 | Format | 1080x1920, 30 fps, 50 à 55 s |
+| Zone sûre | 4:5 centrée (y 285 à 1635) : logo, textes et carte finale y tiennent, le fil Instagram et Facebook recadre le reel sans rien couper |
 | Couleurs | `#047bbf`, `#036399`, `#1b1046` — reprises de `theme.css` du site |
 | Typographie | Montserrat, embarquée dans le dépôt (licence OFL) |
-| Logo | 124 px de haut, en haut à droite |
+| Logo | 124 px de haut, en haut à droite de la zone sûre |
 | Filet | rectangle blanc de 20 px, angles vifs, pleine hauteur du bloc |
 | Texte | Bold 58, contour bleu 3 px à 232 d'opacité, surlignage `#047bbf` |
 | Entrée des blocs | glissement de 150 px depuis la gauche, 0,42 s |
 | Fin | ouverture en croix médicale, puis logo, slogan et lien |
-| Son | lit à 33 %, bois sec sur 4 respirations, −14 LUFS et −2 dBTP |
+| Son | lit à 33 %, sans bruitage (coupés le 04/09/2026), −14 LUFS, true peak ≤ −1 dBTP |
 
 ## Test de fumée
 
@@ -117,8 +128,8 @@ bloc de quatre lignes.
 ## Contrôles automatiques
 
 `render` mesure le fichier de sortie et refuse de le déclarer conforme si un écart
-apparaît : hauteur du logo et largeur du filet en pixels, loudness intégrée, true peak,
-écrêtage. Le code retour vaut 2 si un contrôle échoue.
+apparaît : hauteur et position du logo, largeur du filet, rien hors de la zone sûre 4:5 sur la
+carte finale, loudness intégrée, true peak (plafond −1 dBTP), écrêtage (canal par canal). Le code retour vaut 2 si un contrôle échoue.
 
 Ces contrôles existent à cause d'un bug réel : une taille de logo codée en dur dans le
 script de rendu écrasait la charte. Les aperçus montraient la bonne taille, la vidéo

@@ -64,9 +64,22 @@ def habiller(episode: Path, ep: dict, bornes: list, total: float) -> Path:
     statique.alpha_composite(hb.watermark())
 
     hb.rubrique(ep.get("rubrique"))
-    hb.intro_layer(ep["label"], ep["sous_titre"])
-    for bl in blocs[1:]:
-        hb.bloc_layer(bl["texte"])
+    # un surlignage ne se coupe jamais : trop long, il deborde de la colonne de texte
+    # (marge du surlignage, +1 car getbbox donne un bord droit exclusif)
+    colonne = C.BLOC_X + C.BLOC_LARGEUR_MAX + C.SURLIGNE_MARGE + 1
+    couches = [("logo", hb.watermark(), C.LARGEUR),
+               ("intro", hb.intro_layer(ep["label"], ep["sous_titre"]), C.LARGEUR),
+               ("carte finale", hb.outro_card(), C.LARGEUR)]
+    couches += [(f"bloc {k}", hb.bloc_layer(bl["texte"]), colonne)
+                for k, bl in enumerate(blocs) if k]
+    # avant les minutes de rendu : un texte trop long sortirait du recadrage 4:5 du fil
+    zones = [(nom, hb.hors_zone(lay, droite)) for nom, lay, droite in couches]
+    debords = [f"    {nom} : y {z[0]}-{z[1]}, x jusqu'a {z[2]}" for nom, z in zones if z]
+    if debords:
+        raise SystemExit(
+            f"[!] Hors de la zone sure 4:5 (y {C.ZONE_SURE_HAUT}-{C.ZONE_SURE_BAS}) "
+            f"ou de la colonne de texte (x <= {colonne}) :\n"
+            + "\n".join(debords) + "\n    Raccourcis le texte ou le surlignage dans script.json.")
 
     sortie = episode / "reel_muet.mp4"
     proc = subprocess.Popen(
@@ -150,7 +163,8 @@ def mixer(episode: Path, ep: dict, bornes: list, total: float) -> Path:
          "[2:a]asplit=2[g1][g2]",
          f"[g1]volume={C.SFX_STRUCTURE_VOLUME},"
          f"adelay={int(t_bandeau*1000)}|{int(t_bandeau*1000)}[wA]",
-         f"[g2]volume={C.SFX_STRUCTURE_VOLUME-0.02:.2f},"
+         # borne a 0 : un volume negatif inverse la phase au lieu de couper
+         f"[g2]volume={max(0.0, C.SFX_STRUCTURE_VOLUME - 0.02):.2f},"
          f"adelay={int(croix*1000)}|{int(croix*1000)}[wB]",
          f"[3:a]asplit={n}" + "".join(f"[b{i}]" for i in range(n))]
     sorties = []

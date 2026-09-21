@@ -19,3 +19,5 @@ episodes/*/concat.txt
 !episodes/exemple/script.json
 smoke_test.mp4
 smoke.log
+episodes/*/carre/
+episodes/*/broll_carre/

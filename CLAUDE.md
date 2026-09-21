@@ -55,6 +55,7 @@ python scripts/doctor.py                      # après un clone, ou en cas de do
 python scripts/smoke_test.py                  # après toute modification de lcdg/ ou de la charte
 python scripts/prepare.py episodes/<dossier>  # récupère les B-rolls, ne monte rien
 python scripts/render.py  episodes/<dossier>  # monte, mixe, contrôle
+python scripts/render_carre.py episodes/<dossier>  # déclinaison carrée LinkedIn
 ```
 
 Après `prepare`, **arrête-toi**. Montre à Romain `planche_broll.jpg` et l'aperçu
@@ -75,6 +76,11 @@ Pexels par bloc. Remplace le fichier `B<n>.mp4` et relance `render` seul.
   `assets/audio/`, décrite par `config/audio_manifest.json`.
 
 ## Points de vigilance connus
+
+**Zone sûre 4:5.** Le reel reste en 9:16, mais le fil Instagram et Facebook le
+recadre en 4:5 au centre. Tout ce qui doit rester lisible tient entre y 285 et 1635
+(`ZONE_SURE_HAUT`, `ZONE_SURE_BAS`). `render` refuse de monter un bloc qui en déborde :
+au-delà de cinq lignes, raccourcis le texte plutôt que de toucher à la charte.
 
 **Mixkit n'a pas d'API.** Les fichiers audio sont téléchargés une fois à la main depuis
 le compte de Romain. C'est aussi ce qui enregistre la licence et débloque la clearance

@@ -198,9 +198,11 @@ Six à sept minutes. Il finit sur le bilan de contrôle :
 
 ```
   OK   logo (hauteur)     122 px    (attendu 124 ±8)
+  OK   logo (position)    331 px    (attendu 329 ±8)
   OK   filet (largeur)     21 px    (attendu 20 ±3)
+  OK   hors zone 4:5 (fin)  0 px    (attendu 0 ±0)
   OK   loudness          -13.9 LUFS
-  OK   true peak          -2.9 dBTP
+  OK   true peak          -2.9 dBTP (plafond -1.0)
   OK   ecretage           crete 0.93
   -> conforme
 ```
@@ -332,12 +334,13 @@ CLAUDE.md                   règles pour Claude Code
 | | |
 |---|---|
 | Format | 1080x1920, 30 fps, 50 à 55 s |
+| Zone sûre | 4:5 centrée (y 285 à 1635) : logo, textes et carte finale y tiennent, le fil Instagram et Facebook recadre le reel sans rien couper |
 | Couleurs | `#047bbf`, `#1b1046` — reprises du thème du site |
 | Typographie | Montserrat, embarquée dans le dépôt |
-| Logo | 124 px de haut, en haut à droite |
+| Logo | 124 px de haut, en haut à droite de la zone sûre |
 | Filet | rectangle blanc de 20 px, angles vifs |
 | Texte | Bold 58, contour bleu 3 px à 232 d'opacité |
 | Surlignage | fond `#047bbf`, mot en blanc sans contour |
 | Entrée des blocs | glissement de 150 px depuis la gauche, 0,42 s |
 | Fin | ouverture en croix médicale, logo, slogan, lien |
-| Son | lit à 33 %, bois sec sur 4 respirations, −14 LUFS, −2 dBTP |
+| Son | lit à 33 %, sans bruitage (coupés le 04/09/2026), −14 LUFS, true peak ≤ −1 dBTP |

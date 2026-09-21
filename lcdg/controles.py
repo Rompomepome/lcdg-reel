@@ -43,27 +43,44 @@ def _instants(video: Path, n: int = 4) -> list[float]:
     return [round(debut + i * pas, 2) for i in range(n)]
 
 
-def mesurer_logo(video: Path, instants=None) -> tuple[int, int]:
+def mesurer_logo(video: Path, instants=None) -> tuple[int, int, int]:
     """Intersection des zones claires sur plusieurs plans.
 
     Mesurer sur une seule image est piegeux : un ciel ou une blouse dans le coin
     superieur droit se fait compter comme du logo. Le logo, lui, est le seul element
     clair present au meme endroit sur TOUS les plans.
+
+    Retourne (hauteur, largeur, ordonnee du haut) en pixels de l'image.
     """
+    haut = max(0, C.LOGO_Y - 34)
     commun = None
     for t in (instants or _instants(video, 4)):
         im = _frame(video, t)
         if im is None:
             continue
         g = np.array(im.convert("L")).astype(float)
-        masque = g[10:C.LOGO_PX + 160, C.LARGEUR // 2:] > 200
+        masque = g[haut:C.LOGO_Y + C.LOGO_PX + 116, C.LARGEUR // 2:] > 200
         commun = masque if commun is None else (commun & masque)
     if commun is None:
-        return (0, 0)
+        return (0, 0, 0)
     ys, xs = np.where(commun)
     if not len(ys):
-        return (0, 0)
-    return int(ys.max() - ys.min() + 1), int(xs.max() - xs.min() + 1)
+        return (0, 0, 0)
+    return int(ys.max() - ys.min() + 1), int(xs.max() - xs.min() + 1), haut + int(ys.min())
+
+
+def mesurer_hors_zone(video: Path) -> int:
+    """Pixels clairs hors de la zone sure 4:5 sur la carte finale.
+
+    La carte est un aplat navy : au-dessus et en dessous de la zone sure, tout pixel
+    clair est un element (logo, slogan, mention) qui serait coupe dans le fil.
+    """
+    im = _frame(video, max(0.0, B.duree(video) - 0.2))
+    if im is None:
+        return -1
+    g = np.array(im.convert("L"))
+    dehors = np.concatenate([g[:C.ZONE_SURE_HAUT].ravel(), g[C.ZONE_SURE_BAS:].ravel()])
+    return int((dehors > 90).sum())
 
 
 def mesurer_filet(video: Path, instants=None) -> int:
@@ -99,15 +116,18 @@ def mesurer_audio(video: Path) -> dict:
             out["lufs"] = float(ligne.split(":")[1].replace("LUFS", "").strip())
         if "Input True Peak" in ligne:
             out["true_peak"] = float(ligne.split(":")[1].replace("dBTP", "").strip())
-    x = B.pcm(video, sr=48000)
+    # canal par canal : un downmix mono ajoute jusqu'a +3 dB sur une musique tres
+    # correlee (lofi-05) et signalait un ecretage absent du fichier
+    x = B.pcm(video, mono=False, sr=48000)
     out["crete"] = round(float(np.abs(x).max()), 3)
     return out
 
 
 def rapport(video: Path) -> bool:
     """Affiche le bilan et retourne True si tout est conforme."""
-    lh, _ = mesurer_logo(video)
+    lh, _, ly = mesurer_logo(video)
     fi = mesurer_filet(video)
+    hz = mesurer_hors_zone(video)
     au = mesurer_audio(video)
     lignes, ok = [], True
 
@@ -119,9 +139,15 @@ def rapport(video: Path) -> bool:
                       f"(attendu {attendu}{unite} ±{tol})")
 
     check("logo (hauteur)", lh, C.LOGO_PX, 8, " px")
+    check("logo (position)", ly, C.LOGO_Y, 8, " px")
     check("filet (largeur)", fi, C.FILET_PX, 3, " px")
+    check("hors zone 4:5 (fin)", hz, 0, 0, " px")
     check("loudness", au.get("lufs", 0), C.LUFS_CIBLE, 1.5, " LUFS")
-    check("true peak", au.get("true_peak", 0), -2.0, 1.5, " dBTP")
+    tp = au.get("true_peak", 0)
+    bon = tp <= C.TRUE_PEAK_PLAFOND
+    ok = ok and bon
+    lignes.append(f"  {'OK ' if bon else 'ECHEC'}  {'true peak':22} {tp} dBTP "
+                  f"(plafond {C.TRUE_PEAK_PLAFOND} dBTP)")
 
     ecr = au["crete"] >= 1.0
     ok = ok and not ecr

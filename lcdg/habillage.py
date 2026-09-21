@@ -51,6 +51,15 @@ def shadow(layer, blur=16, alpha=150, offset=(0, 5)):
     return out
 
 
+def hors_zone(layer, droite=W):
+    """(haut, bas, droite) des pixels opaques si la couche sort de la zone sure 4:5
+    ou depasse `droite`, sinon None."""
+    bbox = layer.split()[3].point(lambda p: 255 if p > 128 else 0).getbbox()
+    if bbox and (bbox[1] < C.ZONE_SURE_HAUT or bbox[3] > C.ZONE_SURE_BAS or bbox[2] > droite):
+        return bbox[1], bbox[3], bbox[2]
+    return None
+
+
 def cross_mask(size, cx=W // 2, cy=H // 2, canvas=(W, H)):
     """Masque en croix medicale, aux proportions du logo."""
     m = Image.new('L', canvas, 0)
@@ -68,18 +77,20 @@ def watermark(size=C.LOGO_PX, margin=C.LOGO_MARGE):
     if size not in _WM:
         logo = lockup(size)
         lay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
-        lay.paste(logo, (W - logo.width - margin, margin), logo)
+        lay.paste(logo, (W - logo.width - margin, C.LOGO_Y), logo)
         _WM[size] = shadow(lay, blur=12, alpha=140, offset=(0, 4))
     return _WM[size]
 
 
 def scrim():
     g = Image.new('L', (1, H))
+    bas = C.SCRIM_BAS_DEBUT
     for i in range(H):
         t = i / H
-        v = int(205 * ((t - 0.44) / 0.56) ** 1.25) if t > 0.44 else 0
-        if t < 0.17: v = max(v, int(115 * (1 - t / 0.17)))
-        g.putpixel((0, i), min(v, 210))
+        v = int(C.SCRIM_BAS_ALPHA * ((t - bas) / (1 - bas)) ** 1.25) if t > bas else 0
+        haut = 1 - (i - C.ZONE_SURE_HAUT) / C.SCRIM_HAUT_PX
+        if haut > 0: v = max(v, int(C.SCRIM_HAUT_ALPHA * min(1.0, haut)))
+        g.putpixel((0, i), min(v, C.SCRIM_MAX))
     lay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
     lay.putalpha(g.resize((W, H)))
     return lay
@@ -158,17 +169,24 @@ def atomes(texte):
 
 
 def lignes(d, texte, f, maxw):
-    """Retour a la ligne impose a chaque fin de phrase, puis habillage a la largeur."""
+    """Retour a la ligne impose a chaque fin de phrase (. ? !), puis habillage a la largeur.
+    On ne coupe que sur une espace ordinaire : des atomes sans espace entre eux (mot
+    surligne et sa ponctuation, apostrophe devant un surlignage) changent de ligne ensemble."""
     res = []
-    phrases = [p.strip() for p in texte.replace('. ', '.\n').split('\n') if p.strip()]
+    for fin in '.?!':
+        texte = texte.replace(fin + ' ', fin + '\n')
+    phrases = [p.strip() for p in texte.split('\n') if p.strip()]
     for ph in phrases:
         cur, larg = [], 0
         for at in atomes(ph):
             w = d.textbbox((0, 0), at[0], font=f)[2] if at[0] != ' ' else d.textbbox((0, 0), 'i i', font=f)[2] - 2 * d.textbbox((0, 0), 'i', font=f)[2]
             if larg + w > maxw and cur and at[0] != ' ':
                 report = []
+                # atome colle au precedent (pas d'espace entre eux) : ils partent ensemble
+                while cur and cur[-1][0] != ' ':
+                    report.insert(0, cur.pop())
                 # ne jamais couper au milieu d'un surlignage : on reporte le segment entier
-                if at[1]:
+                if (report or [at])[0][1]:
                     while cur and cur[-1][1]:
                         report.insert(0, cur.pop())
                     while report and report[0][0] == ' ': report.pop(0)
@@ -209,7 +227,7 @@ def bloc_layer(text, opacity=1.0, y=C.BLOC_Y, dx=0):
                     k = j
                     while k + 1 < len(pos) and pos[k+1][1]: k += 1
                     a, b = pos[j][2], pos[k][2] + pos[k][3]
-                    d.rounded_rectangle([a - 11, yy - 3, b + 11, yy + 69], radius=5,
+                    d.rounded_rectangle([a - C.SURLIGNE_MARGE, yy - 3, b + C.SURLIGNE_MARGE, yy + 69], radius=5,
                                         fill=SURLIGNE + (255,))
                     j = k + 1
                 else:
@@ -239,21 +257,22 @@ def outro_card(fade=1.0):
     """Carte finale navy : logo, slogan du site, lien, mention."""
     lay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
     logo = lockup(200)
-    lay.paste(logo, ((W - logo.width) // 2, 690), logo)
+    lay.paste(logo, ((W - logo.width) // 2, C.OUTRO_LOGO_Y), logo)
 
     d = ImageDraw.Draw(lay)
     fsl = font(46, 'Medium')
     for i, ln in enumerate(C.SLOGAN):
-        d.text((W // 2, 960 + i * 62), ln, font=fsl, fill=(214, 210, 232, 255), anchor='ma')
+        d.text((W // 2, C.OUTRO_SLOGAN_Y + i * 62), ln, font=fsl,
+               fill=(214, 210, 232, 255), anchor='ma')
 
     f = font(44, 'SemiBold')
     t = C.LIEN
     bw = d.textbbox((0, 0), t, font=f)[2] + 64
-    bx, by, bh = (W - bw) // 2, 1150, 84
+    bx, by, bh = (W - bw) // 2, C.OUTRO_LIEN_Y, 84
     d.rounded_rectangle([bx, by, bx + bw, by + bh], radius=RADIUS, fill=PRIMARY + (255,))
     d.text((W // 2, by + bh // 2), t, font=f, fill=WHITE + (255,), anchor='mm')
 
-    d.text((W // 2, 1790), C.MENTION, font=font(30, 'Medium'),
+    d.text((W // 2, C.OUTRO_MENTION_Y), C.MENTION, font=font(30, 'Medium'),
            fill=(150, 146, 175, 255), anchor='mm')
 
     if fade < 1:
