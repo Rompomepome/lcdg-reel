@@ -1,12 +1,14 @@
 """
-Test de fumee : monte un episode de 3 plans a partir de mires generees,
+Test de fumee : monte un episode de 5 plans a partir de mires generees,
 puis verifie que les controles passent.
 
     python scripts/smoke_test.py
 
-Ne demande ni cle Pexels, ni B-roll. Ne teste que les fichiers audio, qui doivent
-etre presents. A lancer apres un clone, apres une mise a jour de la charte, ou
-avant de pousser une modification de lcdg/.
+Ne demande ni cle Pexels, ni B-roll. Couvre tous les types de scene : accroche,
+texte en deux temps (separes par "|"), chiffre cle avec valeur barree, chiffre a
+pictogrammes (fond flou) et phrase forte. A lancer
+apres un clone, apres une mise a jour de la charte, ou avant de pousser une
+modification de lcdg/.
 """
 import json
 import shutil
@@ -19,20 +21,24 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 from config import charte as C
-from lcdg import audio as A
 from lcdg import binaires as B
 from lcdg import controles, montage
 
 EPISODE = {
     "slug": "smoke", "rubrique": "pro",
     "label": "Test de fumée",
-    "sous_titre": "Vérification de la chaîne de montage",
-    "musique": None,
+    "sous_titre": "Vérification de la chaîne de *montage*.",
+    "appel": "Le test, en détail :",
     "blocs": [
         {"duree": 3.8, "texte": None, "fichier": "B0.mp4"},
-        {"duree": 5.0, "texte": "Premier bloc avec un *segment surligné* et une virgule, "
-                                "puis une seconde phrase.", "fichier": "B1.mp4"},
-        {"duree": 5.0, "texte": "Second bloc, *plus court*.", "fichier": "B2.mp4"},
+        {"duree": 5.0, "texte": "Premier bloc avec un *segment surligné* et une virgule. "
+                                "| Puis un second temps.", "fichier": "B1.mp4"},
+        {"duree": 5.0, "type": "chiffre", "valeur": 140, "depuis": 100, "suffixe": " €",
+         "legende": "de reste à charge *par an*", "fichier": "B2.mp4"},
+        {"duree": 5.0, "type": "chiffre", "valeur": 70, "suffixe": " boîtes", "pictos": True,
+         "legende": "par an, *six par mois*", "fichier": "B3.mp4"},
+        {"duree": 5.0, "type": "phrase", "texte": "Une phrase forte, *centrée*.",
+         "fichier": "B4.mp4"},
     ],
 }
 
@@ -48,15 +54,7 @@ def mire(dest: Path, secondes: float, teinte: int):
 
 def main():
     B.exiger()
-    manquants = A.manquants()
-    musiques = [m["cle"] for m in A.manifeste()["musiques"]
-                if m["fichier"] not in manquants]
-    if not musiques or manquants:
-        raise SystemExit(
-            "[!] Bibliotheque audio incomplete, le test ne peut pas tourner.\n"
-            "    Lance d'abord : python scripts/doctor.py")
-    ep = {**EPISODE, "musique": musiques[0]}
-
+    ep = EPISODE
     with tempfile.TemporaryDirectory() as tmp:
         dossier = Path(tmp) / "smoke"
         (dossier / "broll").mkdir(parents=True)
@@ -65,15 +63,15 @@ def main():
         for i, bl in enumerate(ep["blocs"]):
             mire(dossier / "broll" / bl["fichier"], bl["duree"], 0x20 + i * 0x30)
 
-        print("\n1/4  normalisation")
+        print("\n1/3  normalisation")
+        montage.verifier(ep)              # avant d'encoder le moindre plan
         _, bornes, total = montage.base(dossier, ep["blocs"])
         print(f"     {len(bornes)} plans, {total:.2f} s")
-        print("2/4  habillage")
-        montage.habiller(dossier, ep, bornes, total)
-        print("3/4  mixage")
-        sortie = montage.mixer(dossier, ep, bornes, total)
-        print("4/4  controles")
-        conforme = controles.rapport(sortie)
+        print("2/3  habillage")
+        muet = montage.habiller(dossier, ep, bornes, total)
+        sortie = montage.finaliser(muet, dossier / f"reel_{ep['slug']}.mp4")
+        print("3/3  controles")
+        conforme = controles.rapport(sortie, ep, bornes)
 
         garde = Path(__file__).resolve().parent.parent / "smoke_test.mp4"
         shutil.copy(sortie, garde)

@@ -1,5 +1,6 @@
 """
-Moteur d'habillage du reel LCDG : intro, blocs de texte, transition en croix, carte finale.
+Moteur d'habillage du reel LCDG, style v2 : accroche, blocs de texte animes, phrases
+fortes, chiffres cles, transition en croix, carte finale.
 Toutes les constantes viennent de config/charte.py — ne rien coder en dur ici.
 """
 import sys
@@ -9,36 +10,25 @@ from PIL import Image, ImageDraw, ImageFilter
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from config import charte as C
-from lcdg.logo import lockup, police as font
+from lcdg import texte as T
+from lcdg.logo import lockup
 
 W, H = C.LARGEUR, C.HAUTEUR
-PRIMARY, NAVY, WHITE = C.PRIMARY, C.NAVY, C.BLANC
+NAVY, WHITE = C.NAVY, C.BLANC
 
 _RUBRIQUE = C.PRIMARY
 
 
 def rubrique(nom: str | None):
     """Fixe la couleur d'accent selon la categorie de l'article (cf. charte.RUBRIQUES)."""
-    global _RUBRIQUE, PRIMARY, SURLIGNE
+    global _RUBRIQUE
     _RUBRIQUE = C.RUBRIQUES.get(nom or "pro", C.PRIMARY)
-    PRIMARY = SURLIGNE = _RUBRIQUE
-    _INTRO.clear(); _BLOC.clear()
     return _RUBRIQUE
-RADIUS, STROKE = C.RADIUS, C.CONTOUR
-FILET, FILET_COL, SURLIGNE = C.FILET_PX, C.FILET_COULEUR, C.PRIMARY
 
 
-def wrap(d, text, f, maxw):
-    words, lines, cur = text.split(), [], ''
-    for w in words:
-        t = (cur + ' ' + w).strip()
-        if d.textbbox((0, 0), t, font=f)[2] <= maxw:
-            cur = t
-        else:
-            if cur: lines.append(cur)
-            cur = w
-    if cur: lines.append(cur)
-    return lines
+# droite autorisee pour les textes (marge du surlignage, +1 car getbbox donne un bord
+# droit exclusif) : un surlignage ne se coupe jamais, trop long il deborderait
+COLONNE = C.TEXTE_X + C.TEXTE_LARGEUR + C.SURLIGNE_MARGE + 1
 
 
 def shadow(layer, blur=16, alpha=150, offset=(0, 5)):
@@ -71,7 +61,7 @@ def cross_mask(size, cx=W // 2, cy=H // 2, canvas=(W, H)):
     return m
 
 
-# ---------- couches ----------
+# ---------- couches fixes ----------
 _WM = {}
 def watermark(size=C.LOGO_PX, margin=C.LOGO_MARGE):
     if size not in _WM:
@@ -96,188 +86,366 @@ def scrim():
     return lay
 
 
-_INTRO = {}
-def intro_layer(label, sub, reveal=1.0, y=C.INTRO_Y):
-    """Bandeau rubrique arrondi + sous-titre contoure. reveal 0->1 = ouverture laterale."""
-    key = (label, sub, y)
-    if key not in _INTRO:
-        d0 = ImageDraw.Draw(Image.new('RGBA', (8, 8)))
-        fl, fs = (font(C.TITRE_PX, C.TITRE_GRAISSE),
-                  font(C.SOUS_TITRE_PX, C.SOUS_TITRE_GRAISSE))
-        bw = d0.textbbox((0, 0), label, font=fl)[2] + 76
-        bh, bx = 104, (W - (d0.textbbox((0, 0), label, font=fl)[2] + 76)) // 2
-
-        band = Image.new('RGBA', (W, H), (0, 0, 0, 0))
-        bd = ImageDraw.Draw(band)
-        bd.rounded_rectangle([bx, y, bx + bw, y + bh], radius=RADIUS, fill=PRIMARY + (255,))
-        bd.text((W // 2, y + bh // 2), label, font=fl, fill=WHITE + (255,), anchor='mm')
-
-        sublay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
-        sd = ImageDraw.Draw(sublay)
-        yy = y + bh + 34
-        for ln in wrap(sd, sub, fs, 900):
-            sd.text((W // 2, yy), ln, font=fs, fill=WHITE + (255,), anchor='ma',
-                    stroke_width=C.CONTOUR_PX, stroke_fill=STROKE)
-            yy += 74
-        _INTRO[key] = (shadow(band, 20, 120, (0, 7)), shadow(sublay, 16, 195, (0, 5)), bx, bw)
-
-    band, sublay, bx, bw = _INTRO[key]
-    lay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
-    vis = max(0.0, min(1.0, reveal))
-    cw = int(bw * vis)
-    if cw > 6:
-        cx = bx + (bw - cw) // 2
-        strip = band.crop((cx - 26, 0, cx + cw + 26, H))
-        lay.paste(strip, (cx - 26, 0), strip)
-    if vis > 0.15:
-        s = sublay.copy()
-        s.putalpha(s.split()[3].point(lambda p: int(p * min(1.0, (vis - 0.15) / 0.5))))
-        lay.alpha_composite(s)
-    return lay
+# ---------- styles de texte ----------
+def style_bloc():
+    return dict(px=C.BLOC_PX, graisse=C.BLOC_GRAISSE, cle=C.CLE_GRAISSE,
+                approche=C.BLOC_APPROCHE, interligne=C.BLOC_INTERLIGNE,
+                x=C.TEXTE_X, y=C.BLOC_Y, largeur=C.TEXTE_LARGEUR)
 
 
-_BLOC = {}
-FILET = 20          # largeur du filet, affinee
-FILET_COL = WHITE   # bande rectangulaire blanche
-SURLIGNE = PRIMARY  # surlignage bleu clair, mot en blanc sans contour
+def style_accroche(y):
+    return dict(px=C.ACCROCHE_PX, graisse=C.ACCROCHE_GRAISSE, cle=C.ACCROCHE_GRAISSE,
+                approche=C.ACCROCHE_APPROCHE, interligne=C.ACCROCHE_INTERLIGNE,
+                x=C.TEXTE_X, y=y, largeur=C.TEXTE_LARGEUR)
 
 
-def atomes(texte):
-    """Transforme '*mot* suivant' en atomes (texte, surligne), espaces compris.
-    La ponctuation collee reste collee, et un surlignage multi-mots reste continu."""
-    runs, surl = [], False
-    for part in texte.split('*'):
-        if part: runs.append((part, surl))
-        surl = not surl
-    out = []
-    for txt, hl in runs:
-        buf = ''
-        for ch in txt:
-            if ch == ' ':
-                if buf: out.append((buf, hl)); buf = ''
-                out.append((' ', hl))
+def style_centre(texte):
+    """Corps de l'accroche, centre verticalement dans la zone sure."""
+    st = style_accroche(0)
+    n = len(T.equilibrer(texte, T.mesureur(st), st["largeur"]))
+    return style_accroche(C.ACCROCHE_CENTRE - n * C.ACCROCHE_INTERLIGNE // 2)
+
+
+def _vide():
+    return Image.new('RGBA', (W, H), (0, 0, 0, 0))
+
+
+def voile(lay, opacite):
+    """Assombrit tout le cadre (opacite 0 a 1). Pas de cache : une couche pleine par
+    valeur d'opacite, pendant les fondus, ferait des centaines de Mo."""
+    if opacite <= 0.003:
+        return
+    lay.alpha_composite(Image.new('RGBA', (W, H), (0, 0, 0, int(255 * opacite))))
+
+
+_PICTO = {}
+def picto(taille):
+    """Boite de medicament : carre arrondi blanc frappe d'une croix de la rubrique."""
+    cle = (taille, tuple(_RUBRIQUE))
+    if cle not in _PICTO:
+        m = max(6, taille // 5)                       # marge pour l'ombre
+        im = Image.new('RGBA', (taille + 2 * m, taille + 2 * m), (0, 0, 0, 0))
+        d = ImageDraw.Draw(im)
+        d.rounded_rectangle([m, m, m + taille - 1, m + taille - 1],
+                            radius=max(4, int(taille * C.PICTO_RAYON)),
+                            fill=WHITE + (C.PICTO_OPACITE,))
+        longueur, epaisseur = C.PICTO_CROIX
+        c, b, l = m + taille / 2, taille * longueur, max(2, taille * epaisseur)
+        d.rectangle([c - l / 2, c - b / 2, c + l / 2, c + b / 2], fill=tuple(_RUBRIQUE) + (255,))
+        d.rectangle([c - b / 2, c - l / 2, c + b / 2, c + l / 2], fill=tuple(_RUBRIQUE) + (255,))
+        _PICTO[cle] = (shadow(im, blur=max(3, taille // 10), alpha=C.PICTO_OMBRE,
+                              offset=(0, 2)), m)
+    return _PICTO[cle]
+
+
+# ---------- scenes ----------
+class Texte:
+    """Bloc de texte. Un '|' le decoupe en temps successifs sur le meme plan.
+    grand=True : phrase forte, au corps de l'accroche, centree, sur fond voile."""
+
+    def __init__(self, nom, texte, debut, fin, grand=False):
+        self.nom, self.debut, self.fin, self.grand = nom, debut, fin, grand
+        temps = [b.strip() for b in texte.split('|') if b.strip()]
+        poids = [max(1, len(b.replace('*', '').split())) for b in temps]
+        self.parts, t = [], debut
+        for k, (b, p) in enumerate(zip(temps, poids)):
+            f = fin if k == len(temps) - 1 else t + (fin - debut) * p / sum(poids)
+            st = style_centre(b) if grand else style_bloc()
+            self.parts.append(T.Cinetique(b, t, f, st, _RUBRIQUE))
+            t = f
+
+    def dessiner(self, lay, t):
+        for c in self.parts:
+            if c.debut <= t < c.fin:
+                c.dessiner(lay, t)
+
+    def voiler(self, lay, t):
+        if self.grand:
+            voile(lay, C.VOILE_PHRASE * T.lisse((t - self.debut) / C.VOILE_DUREE)
+                  * (1 - self.parts[-1]._sortie(t)))
+
+    def couches(self):
+        out = []
+        for k, c in enumerate(self.parts):
+            lay = _vide(); c.dessiner(lay, 0, final=True)
+            out.append((self.nom + (f" (temps {k + 1})" if len(self.parts) > 1 else ""),
+                        lay, COLONNE))
+        return out
+
+
+class Accroche:
+    """Ouverture : pastille du sujet (label) puis phrase d'accroche (sous_titre),
+    centrees ensemble dans la zone sure. Le premier mot arrive des 0,2 s."""
+
+    def __init__(self, label, accroche, debut, fin):
+        self.nom, self.debut, self.fin = "accroche", debut, fin
+        st = style_accroche(0)
+        n = len(T.equilibrer(accroche, T.mesureur(st), st["largeur"]))
+        haut = C.SURTITRE_H + C.SURTITRE_ECART + n * C.ACCROCHE_INTERLIGNE
+        self.y = C.ACCROCHE_CENTRE - haut // 2
+        self.texte = T.Cinetique(accroche, debut + C.PASTILLE_DUREE * 0.4, fin,
+                                 style_accroche(self.y + C.SURTITRE_H + C.SURTITRE_ECART),
+                                 _RUBRIQUE)
+        self.label = label.upper()
+        lw = T.largeur(self.label, C.SURTITRE_PX, C.SURTITRE_GRAISSE, C.SURTITRE_APPROCHE)
+        pw, ph = int(lw + 2 * C.SURTITRE_PAD), C.SURTITRE_H
+        self.pastille = Image.new('RGBA', (pw, ph), (0, 0, 0, 0))
+        ImageDraw.Draw(self.pastille).rounded_rectangle(
+            [0, 0, pw - 1, ph - 1], radius=C.RADIUS, fill=tuple(_RUBRIQUE) + (255,))
+        _, gl, m = T.sprite(self.label, C.SURTITRE_PX, C.SURTITRE_GRAISSE, C.SURTITRE_APPROCHE)
+        f = T._police(C.SURTITRE_PX, C.SURTITRE_GRAISSE)
+        haut_cap = f.getbbox("H")
+        dy = (ph - (haut_cap[3] - haut_cap[1])) // 2 - haut_cap[1]
+        self.pastille.alpha_composite(gl, (C.SURTITRE_PAD - m, dy - m))
+
+    def dessiner(self, lay, t, final=False):
+        so = 0.0 if final else self.texte._sortie(t)
+        if so >= 1:
+            return
+        p = 1.0 if final else T.lisse((t - self.debut) / C.PASTILLE_DUREE)
+        if p > 0:
+            w = max(1, int(self.pastille.width * p))
+            T.coller(lay, self.pastille.crop((0, 0, w, self.pastille.height)),
+                     (C.TEXTE_X, self.y - C.SORTIE_MONTEE * so), 1 - so)
+        self.texte.dessiner(lay, t, final)
+
+    def voiler(self, lay, t):
+        voile(lay, C.VOILE_ACCROCHE * T.lisse((t - self.debut) / C.VOILE_DUREE)
+              * (1 - self.texte._sortie(t)))
+
+    def couches(self):
+        lay = _vide(); self.dessiner(lay, 0, final=True)
+        return [(self.nom, lay, COLONNE)]
+
+
+class Chiffre:
+    """Chiffre cle : la valeur defile jusqu'a sa cible, l'ancienne valeur est barree,
+    la legende se pose dessous a la place habituelle du texte. Avec "pictos", une boite
+    par unite s'allume (ou s'eteint) au rythme du compteur, au-dessus du chiffre.
+
+    Champs du bloc : valeur, depuis (optionnel), prefixe, suffixe, decimales,
+    compte (defaut vrai), pictos (defaut faux), legende."""
+
+    def __init__(self, nom, bl, debut, fin):
+        self.nom, self.debut, self.fin = nom, debut, fin
+        self.valeur = bl["valeur"]
+        self.depuis = bl.get("depuis")
+        self.compte = bl.get("compte", True)
+        self.dec = bl.get("decimales", 0)
+        suf = bl.get("suffixe", "")
+        # une unite en toutes lettres ("boites") passe en petit, sur la ligne de base du
+        # chiffre ; un symbole (EUR, %) garde le corps du chiffre, avec une espace fine :
+        # une espace pleine ouvrirait un trou a ce corps
+        self.suf_mot = sum(ch.isalpha() for ch in suf) >= 3
+        suf, pre = T.normaliser(suf), T.normaliser(bl.get("prefixe", ""))
+        self.suf = suf if self.suf_mot else suf.replace(" ", "\u2009")
+        self.pre = pre.replace(" ", "\u2009")
+        self.legende = T.Cinetique(bl.get("legende", ""),
+                                   debut + C.COMPTE_DELAI + C.COMPTE_DUREE * 0.5,
+                                   fin, style_bloc(), _RUBRIQUE)
+        # le compteur affiche aussi la valeur de depart : le corps se regle sur la plus large
+        valeurs = [self.valeur] + ([self.depuis] if self.compte and self.depuis is not None else [])
+        px = C.CHIFFRE_PX
+        while px > C.ANCIEN_PX and max(self._largeur(v, px) for v in valeurs) > C.TEXTE_LARGEUR:
+            px -= 4
+        self.px = px
+        self.px_suf = int(px * C.UNITE_ECHELLE) if self.suf_mot else px
+        f = T._police(px, C.CHIFFRE_GRAISSE)
+        self.asc, _ = f.getmetrics()
+        self.y = C.BLOC_Y - C.CHIFFRE_ECART - self.asc       # origine du trace du chiffre
+        haut = self.y + f.getbbox("0")[1]                    # haut visible des chiffres
+        if self.depuis is not None:
+            fa = T._police(C.ANCIEN_PX, C.ANCIEN_GRAISSE)
+            asc_a, _ = fa.getmetrics()
+            self.y_ancien = haut - C.ANCIEN_ECART - asc_a
+            b = fa.getbbox("0")
+            self.y_barre = self.y_ancien + (b[1] + b[3]) // 2
+            self.w_ancien = T.largeur(self.texte(self.depuis), C.ANCIEN_PX, C.ANCIEN_GRAISSE, 0)
+            haut = self.y_ancien + b[1]
+        self.pictos = self._pictos(haut) if bl.get("pictos") else None
+
+    # -- texte du chiffre
+    def nombre(self, v):
+        return f"{v:,.{self.dec}f}".replace(",", "\u2009").replace(".", ",")
+
+    def texte(self, v):
+        return self.pre + self.nombre(v) + self.suf
+
+    def _largeur(self, v, px):
+        g, ap = C.CHIFFRE_GRAISSE, C.CHIFFRE_APPROCHE
+        w = T.largeur(self.pre + self.nombre(v), px, g, ap)
+        if self.suf_mot:
+            return w + T.largeur(self.suf, int(px * C.UNITE_ECHELLE), g, 0)
+        return w + T.largeur(self.suf, px, g, ap)
+
+    def _valeur(self, lay, v, y, alpha):
+        """Prefixe et unite dans la couleur de la rubrique, chiffre en blanc."""
+        g, ap = C.CHIFFRE_GRAISSE, C.CHIFFRE_APPROCHE
+        x = C.TEXTE_X
+        for morceau, couleur in ((self.pre, _RUBRIQUE), (self.nombre(v), WHITE)):
+            if not morceau:
+                continue
+            om, gl, m = T.sprite_chiffre(morceau, self.px, g, ap, tuple(couleur))
+            T.coller(lay, om, (x - m, y - m), alpha)
+            T.coller(lay, gl, (x - m, y - m), alpha)
+            x += T.largeur(morceau, self.px, g, ap) + ap * self.px
+        if self.suf:
+            asc_s, _ = T._police(self.px_suf, g).getmetrics()
+            ys = y + self.asc - asc_s                        # meme ligne de base
+            om, gl, m = T.sprite(self.suf, self.px_suf, g, 0 if self.suf_mot else ap,
+                                 tuple(_RUBRIQUE))
+            T.coller(lay, om, (x - m, ys - m), alpha)
+            T.coller(lay, gl, (x - m, ys - m), alpha)
+
+    # -- pictogrammes
+    def _pictos(self, bas):
+        n = int(round(max(self.valeur, self.depuis or 0)))
+        if n < 1 or n > C.PICTO_MAX:
+            return None
+        if n <= C.PICTO_GRAND_MAX:
+            s, g, cols = C.PICTO_GRAND, C.PICTO_GRAND_ECART, n
+        else:
+            s, g, cols = C.PICTO_PX, C.PICTO_ECART, C.PICTO_COLONNES
+        lignes = -(-n // cols)
+        haut = bas - C.PICTO_MARGE - lignes * (s + g) + g
+        return s, [(C.TEXTE_X + (i % cols) * (s + g), haut + (i // cols) * (s + g))
+                   for i in range(n)]
+
+    def _dessiner_pictos(self, lay, v, t, a_s, dy_s, final):
+        s, pos = self.pictos
+        sp, m = picto(s)
+        v0 = self.depuis if self.depuis is not None else 0
+        t0 = self.debut + C.ENTREE_DELAI
+        for i, (x, y) in enumerate(pos):
+            allume = min(1.0, max(0.0, v - i))
+            if i < v0:
+                # deja la au depart : apparait avec le chiffre, s'eteint si le compte descend
+                e = 1.0 if final else T.lisse((t - t0 - i * C.PICTO_DECALAGE) / C.MOT_DUREE)
+                a = e * (C.PICTO_ETEINT + (1 - C.PICTO_ETEINT) * allume)
             else:
-                buf += ch
-        if buf: out.append((buf, hl))
-    # un espace n'est surligne que s'il est encadre de deux atomes surlignes
-    for i, (t, hl) in enumerate(out):
-        if t == ' ' and hl:
-            g = out[i-1][1] if i > 0 else False
-            dr = out[i+1][1] if i+1 < len(out) else False
-            out[i] = (' ', g and dr)
+                a = allume
+            T.coller(lay, sp, (x - m, y - m + dy_s), a * a_s)
+
+    def dessiner(self, lay, t, final=False):
+        so = 0.0 if final else self.legende._sortie(t)
+        if so >= 1:
+            return
+        a_s, dy_s = 1 - so, -C.SORTIE_MONTEE * so
+        t0 = self.debut + C.ENTREE_DELAI
+        v0 = self.depuis if self.depuis is not None else 0
+        k = 1.0 if (final or not self.compte) else T.lisse(
+            (t - (self.debut + C.COMPTE_DELAI)) / C.COMPTE_DUREE)
+        v_continu = v0 + (self.valeur - v0) * k if self.compte else self.valeur
+        if self.pictos:
+            self._dessiner_pictos(lay, v_continu, t, a_s, dy_s, final)
+        if self.depuis is not None:
+            e = 1.0 if final else T.lisse((t - t0) / C.MOT_DUREE)
+            om, gl, m = T.sprite(self.texte(self.depuis), C.ANCIEN_PX, C.ANCIEN_GRAISSE, 0)
+            y = self.y_ancien + C.MOT_MONTEE * (1 - e) + dy_s
+            T.coller(lay, om, (C.TEXTE_X - m, y - m), e * a_s)
+            T.coller(lay, gl, (C.TEXTE_X - m, y - m), e * a_s * C.ANCIEN_ALPHA)
+            p = 1.0 if final else T.lisse((t - (t0 + C.BARRE_DELAI)) / C.BARRE_DUREE)
+            if p > 0:
+                largeur_barre = self.w_ancien + 2 * C.BARRE_DEBORD
+                barre = Image.new('RGBA', (max(1, int(largeur_barre * p)), C.BARRE_PX),
+                                  tuple(_RUBRIQUE) + (255,))
+                T.coller(lay, barre, (C.TEXTE_X - C.BARRE_DEBORD,
+                                      self.y_barre - C.BARRE_PX // 2 + dy_s), a_s)
+        e = 1.0 if final else T.lisse((t - (t0 + C.CHIFFRE_DELAI)) / C.MOT_DUREE)
+        if e > 0:
+            v = round(v_continu, self.dec) if self.dec else int(round(v_continu))
+            self._valeur(lay, v, self.y + C.MOT_MONTEE * (1 - e) + dy_s, e * a_s)
+        self.legende.dessiner(lay, t, final)
+
+    def voiler(self, lay, t):
+        voile(lay, C.VOILE_CHIFFRE * T.lisse((t - self.debut) / C.VOILE_DUREE)
+              * (1 - self.legende._sortie(t)))
+
+    def couches(self):
+        lay = _vide(); self.dessiner(lay, 0, final=True)
+        out = [(self.nom, lay, COLONNE)]
+        if self.compte and self.depuis is not None:
+            # le compteur part de l'ancienne valeur : elle doit tenir dans la colonne aussi
+            depart = _vide(); self._valeur(depart, self.depuis, self.y, 1.0)
+            out.append((self.nom + " (depart du compteur)", depart, COLONNE))
+        return out
+
+
+# types de bloc dont l'arriere-plan passe en flou de profondeur (cf. montage.base)
+TYPES_FLOUS = ("chiffre",)
+
+
+def scenes(ep, bornes, croix):
+    """Les scenes du reel, dans l'ordre : accroche sur le premier plan, puis un bloc par plan."""
+    out = [Accroche(ep["label"], ep["sous_titre"], 0.0, bornes[0][1])]
+    blocs = ep["blocs"]
+    for k in range(1, len(blocs)):
+        a, b = bornes[k]
+        if k == len(blocs) - 1:
+            b = croix + C.BLOC_RESIDU
+        bl = blocs[k]
+        if bl.get("type") == "chiffre":
+            out.append(Chiffre(f"bloc {k}", bl, a, b))
+        else:
+            out.append(Texte(f"bloc {k}", bl["texte"], a, b, grand=bl.get("type") == "phrase"))
     return out
 
 
-def lignes(d, texte, f, maxw):
-    """Retour a la ligne impose a chaque fin de phrase (. ? !), puis habillage a la largeur.
-    On ne coupe que sur une espace ordinaire : des atomes sans espace entre eux (mot
-    surligne et sa ponctuation, apostrophe devant un surlignage) changent de ligne ensemble."""
-    res = []
-    for fin in '.?!':
-        texte = texte.replace(fin + ' ', fin + '\n')
-    phrases = [p.strip() for p in texte.split('\n') if p.strip()]
-    for ph in phrases:
-        cur, larg = [], 0
-        for at in atomes(ph):
-            w = d.textbbox((0, 0), at[0], font=f)[2] if at[0] != ' ' else d.textbbox((0, 0), 'i i', font=f)[2] - 2 * d.textbbox((0, 0), 'i', font=f)[2]
-            if larg + w > maxw and cur and at[0] != ' ':
-                report = []
-                # atome colle au precedent (pas d'espace entre eux) : ils partent ensemble
-                while cur and cur[-1][0] != ' ':
-                    report.insert(0, cur.pop())
-                # ne jamais couper au milieu d'un surlignage : on reporte le segment entier
-                if (report or [at])[0][1]:
-                    while cur and cur[-1][1]:
-                        report.insert(0, cur.pop())
-                    while report and report[0][0] == ' ': report.pop(0)
-                while cur and cur[-1][0] == ' ': cur.pop()
-                if cur: res.append(cur)
-                cur = report
-                larg = sum((d.textbbox((0, 0), a[0], font=f)[2] if a[0] != ' ' else 12) for a in cur)
-            if not (not cur and at[0] == ' '):
-                cur.append(at); larg += w
-        while cur and cur[-1][0] == ' ': cur.pop()
-        if cur: res.append(cur)
-    return res
+class CarteFinale:
+    """Carte navy apres la croix : logo, appel a l'action (celui du script, sinon celui
+    de la charte), lien, rappel de l'endroit ou cliquer, mention."""
 
+    def __init__(self, debut, appel=None):
+        self.debut = debut
+        self.logo = lockup(200)
+        self.texte_appel = appel or C.APPEL
+        st = dict(px=C.APPEL_PX, graisse=C.APPEL_GRAISSE, cle=C.APPEL_GRAISSE,
+                  approche=0, interligne=int(C.APPEL_PX * 1.25),
+                  x=0, y=C.OUTRO_APPEL_Y, largeur=W, centre=True)
+        # l'appel tient sur une ligne : une deuxieme passerait sous le lien
+        self.lignes_appel = len(T.equilibrer(self.texte_appel, T.mesureur(st), C.TEXTE_LARGEUR))
+        self.appel = T.Cinetique(self.texte_appel, debut + C.OUTRO_FONDU * 0.6, float("inf"),
+                                 st, _RUBRIQUE)
+        self.t_lien = self.appel.mots[-1][4] + C.MOT_DUREE * 0.6
+        st_rappel = dict(px=C.RAPPEL_PX, graisse=C.RAPPEL_GRAISSE, cle=C.RAPPEL_GRAISSE,
+                         approche=0, interligne=int(C.RAPPEL_PX * 1.25),
+                         x=0, y=C.OUTRO_RAPPEL_Y, largeur=W, centre=True)
+        self.rappel = T.Cinetique(C.APPEL_RAPPEL, self.t_lien + C.SURLIGNE_DUREE,
+                                  float("inf"), st_rappel, _RUBRIQUE)
+        lw = T.largeur(C.LIEN, C.LIEN_PX, C.LIEN_GRAISSE, 0)
+        bw, bh = int(lw + 64), C.LIEN_H
+        self.pilule = Image.new('RGBA', (bw, bh), (0, 0, 0, 0))
+        ImageDraw.Draw(self.pilule).rounded_rectangle(
+            [0, 0, bw - 1, bh - 1], radius=C.RADIUS, fill=tuple(_RUBRIQUE) + (255,))
+        _, gl, m = T.sprite(C.LIEN, C.LIEN_PX, C.LIEN_GRAISSE, 0)
+        f = T._police(C.LIEN_PX, C.LIEN_GRAISSE)
+        b = f.getbbox("Hd")
+        self.pilule.alpha_composite(gl, (32 - m, (bh - (b[3] - b[1])) // 2 - b[1] - m))
+        self.mention = Image.new('RGBA', (W, 60), (0, 0, 0, 0))
+        ImageDraw.Draw(self.mention).text((W // 2, 30), C.MENTION,
+                                          font=T._police(30, "Medium"),
+                                          fill=(150, 146, 175, 255), anchor='mm')
 
-def bloc_layer(text, opacity=1.0, y=C.BLOC_Y, dx=0):
-    """Bloc de texte sous la ligne mediane. Filet rectangulaire bleu fonce,
-    surlignage bleu clair continu sur les segments importants."""
-    if (text, y) not in _BLOC:
-        lay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
-        d = ImageDraw.Draw(lay)
-        f = font(C.BLOC_PX, C.BLOC_GRAISSE)
-        x0, lh = C.BLOC_X, C.BLOC_INTERLIGNE
-        ls = lignes(d, text, f, C.BLOC_LARGEUR_MAX)
-        d.rectangle([x0 - 52, y - 12, x0 - 52 + FILET, y + lh * len(ls) - 8],
-                    fill=FILET_COL + (255,))
+    def dessiner(self, lay, t, final=False):
+        e = 1.0 if final else T.lisse((t - self.debut) / C.OUTRO_FONDU)
+        if e <= 0:
+            return
+        T.coller(lay, self.logo, ((W - self.logo.width) // 2,
+                                  C.OUTRO_LOGO_Y + C.MOT_MONTEE * (1 - e)), e)
+        self.appel.dessiner(lay, t, final)
+        p = 1.0 if final else T.lisse((t - self.t_lien) / C.SURLIGNE_DUREE)
+        if p > 0:
+            bw = self.pilule.width
+            w = max(2, int(bw * p))
+            x0 = (bw - w) // 2
+            T.coller(lay, self.pilule.crop((x0, 0, x0 + w, self.pilule.height)),
+                     ((W - bw) // 2 + x0, C.OUTRO_LIEN_Y))
+        self.rappel.dessiner(lay, t, final)
+        T.coller(lay, self.mention, (0, C.OUTRO_MENTION_Y - 30), e)
 
-        for i, ligne in enumerate(ls):
-            yy, x = y + i * lh, x0
-            pos = []
-            for txt, hl in ligne:
-                w = d.textbbox((0, 0), txt, font=f)[2] if txt != ' ' else \
-                    d.textbbox((0, 0), 'i i', font=f)[2] - 2 * d.textbbox((0, 0), 'i', font=f)[2]
-                pos.append((txt, hl, x, w)); x += w
-            # 1) rectangles de surlignage, fusionnes sur les atomes contigus
-            j = 0
-            while j < len(pos):
-                if pos[j][1]:
-                    k = j
-                    while k + 1 < len(pos) and pos[k+1][1]: k += 1
-                    a, b = pos[j][2], pos[k][2] + pos[k][3]
-                    d.rounded_rectangle([a - C.SURLIGNE_MARGE, yy - 3, b + C.SURLIGNE_MARGE, yy + 69], radius=5,
-                                        fill=SURLIGNE + (255,))
-                    j = k + 1
-                else:
-                    j += 1
-            # 2) texte par-dessus
-            for txt, hl, xx, _ in pos:
-                if txt == ' ': continue
-                if hl:
-                    d.text((xx, yy), txt, font=f, fill=WHITE + (255,))
-                else:
-                    d.text((xx, yy), txt, font=f, fill=WHITE + (255,),
-                           stroke_width=C.CONTOUR_PX, stroke_fill=STROKE)
-        _BLOC[(text, y)] = shadow(lay, 20, 205, (0, 6))
-
-    lay = _BLOC[(text, y)]
-    if opacity >= 1 and dx == 0: return lay
-    if dx:
-        c = Image.new('RGBA', (W, H), (0, 0, 0, 0)); c.paste(lay, (int(dx), 0), lay)
-    else:
-        c = lay.copy()
-    if opacity < 1:
-        c.putalpha(c.split()[3].point(lambda p: int(p * max(0.0, opacity))))
-    return c
-
-
-def outro_card(fade=1.0):
-    """Carte finale navy : logo, slogan du site, lien, mention."""
-    lay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
-    logo = lockup(200)
-    lay.paste(logo, ((W - logo.width) // 2, C.OUTRO_LOGO_Y), logo)
-
-    d = ImageDraw.Draw(lay)
-    fsl = font(46, 'Medium')
-    for i, ln in enumerate(C.SLOGAN):
-        d.text((W // 2, C.OUTRO_SLOGAN_Y + i * 62), ln, font=fsl,
-               fill=(214, 210, 232, 255), anchor='ma')
-
-    f = font(44, 'SemiBold')
-    t = C.LIEN
-    bw = d.textbbox((0, 0), t, font=f)[2] + 64
-    bx, by, bh = (W - bw) // 2, C.OUTRO_LIEN_Y, 84
-    d.rounded_rectangle([bx, by, bx + bw, by + bh], radius=RADIUS, fill=PRIMARY + (255,))
-    d.text((W // 2, by + bh // 2), t, font=f, fill=WHITE + (255,), anchor='mm')
-
-    d.text((W // 2, C.OUTRO_MENTION_Y), C.MENTION, font=font(30, 'Medium'),
-           fill=(150, 146, 175, 255), anchor='mm')
-
-    if fade < 1:
-        lay.putalpha(lay.split()[3].point(lambda p: int(p * max(0.0, fade))))
-    return lay
+    def couche(self):
+        lay = _vide(); self.dessiner(lay, 0, final=True)
+        return lay
 
 
 def cross_wipe(p):

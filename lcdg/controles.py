@@ -6,7 +6,6 @@ ecrasait la taille du logo definie dans la charte. L'apercu montrait la bonne ta
 la video non, et l'erreur a survecu a quatre corrections. On ne verifie donc plus
 sur un apercu, mais par mesure de pixels sur le fichier livre.
 """
-import subprocess
 import sys
 from pathlib import Path
 
@@ -31,11 +30,11 @@ def _frame(video: Path, t: float) -> Image.Image | None:
 def _instants(video: Path, n: int = 4) -> list[float]:
     """Points de mesure repartis dans la zone qui porte du texte.
 
-    On evite l'intro (bandeau centre) et l'outro (fond navy), et surtout on cale
-    sur la duree reelle : des instants codes en dur cassent sur une video courte.
+    On evite l'accroche et l'outro (fond navy), et surtout on cale sur la duree
+    reelle : des instants codes en dur cassent sur une video courte.
     """
     d = B.duree(video)
-    debut = min(4.6, d * 0.30)   # apres l'intro, qui n'a pas de filet
+    debut = min(4.6, d * 0.30)   # apres l'accroche
     fin = max(debut + 0.5, d - (C.CROIX_DUREE + C.OUTRO_DUREE + 1.0))
     if fin <= debut:
         debut, fin = d * 0.25, d * 0.75
@@ -83,52 +82,53 @@ def mesurer_hors_zone(video: Path) -> int:
     return int((dehors > 90).sum())
 
 
-def mesurer_filet(video: Path, instants=None) -> int:
-    """Mediane sur plusieurs plans : un fond clair fausserait une mesure isolee."""
-    largeurs = []
-    for t in (instants or _instants(video, 3)):
-        im = _frame(video, t)
+def pistes_audio(video: Path) -> int:
+    """Nombre de pistes audio du fichier livre : il doit sortir muet."""
+    sortie = B.probe(video, "stream=codec_type")
+    return sum(1 for ligne in sortie.splitlines() if ligne.strip() == "audio")
+
+
+def mesurer_surlignages(video: Path, ep: dict, bornes: list) -> tuple[int, list]:
+    """(blocs controles, blocs ou le surlignage manque).
+
+    Remplace la mesure du filet du style v1 : c'est le controle du texte sur le fichier
+    livre. Pour chaque bloc dont le dernier temps porte un surlignage, on cherche la
+    couleur de la rubrique dans la bande ou ce texte doit etre pose, juste avant sa
+    sortie. Un texte decale, mal colore ou absent fait echouer le bloc."""
+    couleur = np.array(C.RUBRIQUES.get(ep.get("rubrique") or "pro", C.PRIMARY))
+    blocs = ep["blocs"]
+    croix = bornes[-1][0] + blocs[-1]["duree"]
+    colonne = slice(max(0, C.TEXTE_X - C.SURLIGNE_MARGE),
+                    C.TEXTE_X + C.TEXTE_LARGEUR + C.SURLIGNE_MARGE)
+    n, manques = 0, []
+    for k in range(1, len(blocs)):
+        bl = blocs[k]
+        texte = (bl.get("legende") if bl.get("type") == "chiffre" else bl.get("texte")) or ""
+        if "*" not in texte.split("|")[-1]:
+            continue
+        fin = croix + C.BLOC_RESIDU if k == len(blocs) - 1 else bornes[k][1]
+        im = _frame(video, max(bornes[k][0], fin - C.SORTIE_DUREE - 0.1))
         if im is None:
             continue
-        a = np.array(im.convert("RGB")).astype(int)
-        # fenetre calee sur les deux premieres lignes : un bloc court a un filet court
-        bande = a[C.BLOC_Y + 10:C.BLOC_Y + 70, 60:200]
-        plein = [(bande[:, i].min(axis=1) > 215).mean() > 0.9
-                 for i in range(bande.shape[1])]
-        # plus longue suite de colonnes pleines
-        run = best = 0
-        for p in plein:
-            run = run + 1 if p else 0
-            best = max(best, run)
-        # un fond blanc donnerait une suite bien plus large que le filet attendu
-        if best <= C.FILET_PX * 3:
-            largeurs.append(best)
-    return max(largeurs) if largeurs else 0
+        if bl.get("type") == "phrase":
+            demi = 2 * C.ACCROCHE_INTERLIGNE
+            bande = slice(C.ACCROCHE_CENTRE - demi, C.ACCROCHE_CENTRE + demi)
+        else:
+            bande = slice(C.BLOC_Y, C.BLOC_Y + 4 * C.BLOC_INTERLIGNE)
+        a = np.array(im.convert("RGB")).astype(int)[bande, colonne]
+        proches = int((np.abs(a - couleur).sum(axis=2) < C.SURLIGNE_CONTROLE_ECART).sum())
+        n += 1
+        if proches < C.SURLIGNE_CONTROLE_MIN:
+            manques.append(f"bloc {k} ({proches} px)")
+    return n, manques
 
 
-def mesurer_audio(video: Path) -> dict:
-    r = subprocess.run([B.FFMPEG, "-hide_banner", "-i", str(video), "-af",
-                        f"loudnorm=I={C.LUFS_CIBLE}:TP=-1.5:print_format=summary",
-                        "-f", "null", "-"], capture_output=True, text=True)
-    out = {}
-    for ligne in r.stderr.splitlines():
-        if "Input Integrated" in ligne:
-            out["lufs"] = float(ligne.split(":")[1].replace("LUFS", "").strip())
-        if "Input True Peak" in ligne:
-            out["true_peak"] = float(ligne.split(":")[1].replace("dBTP", "").strip())
-    # canal par canal : un downmix mono ajoute jusqu'a +3 dB sur une musique tres
-    # correlee (lofi-05) et signalait un ecretage absent du fichier
-    x = B.pcm(video, mono=False, sr=48000)
-    out["crete"] = round(float(np.abs(x).max()), 3)
-    return out
-
-
-def rapport(video: Path) -> bool:
-    """Affiche le bilan et retourne True si tout est conforme."""
+def rapport(video: Path, ep: dict | None = None, bornes: list | None = None) -> bool:
+    """Affiche le bilan et retourne True si tout est conforme. Avec le script et les
+    bornes des plans, controle aussi le texte (surlignages) sur le fichier livre."""
     lh, _, ly = mesurer_logo(video)
-    fi = mesurer_filet(video)
     hz = mesurer_hors_zone(video)
-    au = mesurer_audio(video)
+    pa = pistes_audio(video)
     lignes, ok = [], True
 
     def check(nom, valeur, attendu, tol, unite=""):
@@ -140,19 +140,14 @@ def rapport(video: Path) -> bool:
 
     check("logo (hauteur)", lh, C.LOGO_PX, 8, " px")
     check("logo (position)", ly, C.LOGO_Y, 8, " px")
-    check("filet (largeur)", fi, C.FILET_PX, 3, " px")
     check("hors zone 4:5 (fin)", hz, 0, 0, " px")
-    check("loudness", au.get("lufs", 0), C.LUFS_CIBLE, 1.5, " LUFS")
-    tp = au.get("true_peak", 0)
-    bon = tp <= C.TRUE_PEAK_PLAFOND
-    ok = ok and bon
-    lignes.append(f"  {'OK ' if bon else 'ECHEC'}  {'true peak':22} {tp} dBTP "
-                  f"(plafond {C.TRUE_PEAK_PLAFOND} dBTP)")
-
-    ecr = au["crete"] >= 1.0
-    ok = ok and not ecr
-    lignes.append(f"  {'ECHEC' if ecr else 'OK '}  {'ecretage':22} "
-                  f"crete {au['crete']}")
+    check("pistes audio", pa, 0, 0)
+    if ep is not None and bornes:
+        n, manques = mesurer_surlignages(video, ep, bornes)
+        bon = not manques
+        ok = ok and bon
+        lignes.append(f"  {'OK ' if bon else 'ECHEC'}  {'surlignages':22} {n - len(manques)}/{n}"
+                      + (f" — absents : {', '.join(manques)}" if manques else ""))
 
     print("\nControles sur le fichier livre :")
     print("\n".join(lignes))

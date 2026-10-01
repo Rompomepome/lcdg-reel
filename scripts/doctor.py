@@ -32,16 +32,5 @@ try:
 except ImportError: pass
 ligne("PEXELS_API_KEY", bool(os.environ.get("PEXELS_API_KEY")), "cf .env.example")
 
-from lcdg import audio as A
-mq = A.manquants()
-ligne("bibliotheque audio", not mq, "complete" if not mq else f"{len(mq)} fichier(s) a deposer")
-if mq:
-    print("\n  A telecharger depuis ton compte Mixkit, puis a deposer dans assets/audio/ :")
-    man = A.manifeste()
-    for fam in ("musiques", "effets"):
-        for p in man[fam]:
-            if p["fichier"] in mq:
-                print(f"    - {p['fichier']:22} « {p['titre']} »  {p.get('url_page','')}")
-
 print("\n->", "pret" if ok else "il manque des elements, voir ci-dessus")
 sys.exit(0 if ok else 1)

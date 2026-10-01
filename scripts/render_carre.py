@@ -57,19 +57,17 @@ def main(dossier: str):
     t0 = time.time()
 
     print(f"\n{ep['label']} — carre {C.LARGEUR}x{C.HAUTEUR}")
-    print("1/4  normalisation des B-rolls")
+    print("1/3  normalisation des B-rolls")
+    montage.verifier(ep)              # avant d'encoder le moindre plan
     _, bornes, total = montage.base(travail, ep["blocs"])
     print(f"     {len(bornes)} plans, {total:.2f} s")
-    print("2/4  rendu de l'habillage")
-    montage.habiller(travail, ep, bornes, total)
-    print("3/4  mixage et mastering")
-    sortie = montage.mixer(travail, ep, bornes, total)
-    print("4/4  controles")
-    conforme = controles.rapport(sortie)
-
-    final = episode / f"reel_{ep['slug']}_carre.mp4"
-    shutil.move(str(sortie), final)
-    print(f"\n{final}   ({time.time()-t0:.0f} s)")
+    print("2/3  rendu de l'habillage")
+    muet = montage.habiller(travail, ep, bornes, total)
+    final = montage.finaliser(muet, episode / f"reel_{ep['slug']}_carre.mp4")
+    print("3/3  controles")
+    conforme = controles.rapport(final, ep, bornes)
+    couv = montage.couverture(final)
+    print(f"\n{final}\n{couv}   ({time.time()-t0:.0f} s)")
     sys.exit(0 if conforme else 2)
 
 

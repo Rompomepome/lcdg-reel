@@ -3,12 +3,12 @@ Etape 2 : montage.
 
     python scripts/render.py episodes/2026-08-05-violences-cabinet
 
-Normalise les B-rolls, rend l'habillage, mixe, masterise, puis controle
-le fichier de sortie par mesure de pixels et de niveaux.
+Normalise les B-rolls, rend l'habillage, puis controle le fichier de sortie par
+mesure de pixels. Le reel sort sans piste audio : la musique est posee ensuite, a part.
 """
 import sys
-# la console Windows est en cp1252 par defaut : les accents et les sparklines
-# des mesures acoustiques y provoqueraient une UnicodeEncodeError.
+# la console Windows est en cp1252 par defaut : les accents y provoqueraient une
+# UnicodeEncodeError.
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -29,20 +29,20 @@ def main(dossier: str):
     ep = json.loads((episode / "script.json").read_text(encoding="utf-8"))
     t0 = time.time()
 
-    print("\n1/4  normalisation des B-rolls")
+    print("\n1/3  normalisation des B-rolls")
+    montage.verifier(ep)              # avant d'encoder le moindre plan
     _, bornes, total = montage.base(episode, ep["blocs"])
     print(f"     {len(bornes)} plans, {total:.2f} s")
 
-    print("2/4  rendu de l'habillage")
-    montage.habiller(episode, ep, bornes, total)
+    print("2/3  rendu de l'habillage")
+    muet = montage.habiller(episode, ep, bornes, total)
+    sortie = montage.finaliser(muet, episode / f"reel_{ep['slug']}.mp4")
 
-    print("3/4  mixage et mastering")
-    sortie = montage.mixer(episode, ep, bornes, total)
+    print("3/3  controles")
+    conforme = controles.rapport(sortie, ep, bornes)
+    couv = montage.couverture(sortie)
 
-    print("4/4  controles")
-    conforme = controles.rapport(sortie)
-
-    print(f"\n{sortie}   ({time.time()-t0:.0f} s)")
+    print(f"\n{sortie}\n{couv}   ({time.time()-t0:.0f} s)")
     sys.exit(0 if conforme else 2)
 
 

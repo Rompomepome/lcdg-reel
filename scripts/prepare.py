@@ -3,12 +3,12 @@ Etape 1 : recuperation des candidats et preparation de la validation.
 
     python scripts/prepare.py episodes/2026-08-05-violences-cabinet
 
-Lit script.json, interroge Pexels pour chaque bloc, telecharge les candidats,
-construit une planche contact et un extrait sonore. Ne monte rien.
+Lit script.json, interroge Pexels pour chaque bloc, telecharge les candidats et
+construit une planche contact. Ne monte rien.
 """
 import sys
-# la console Windows est en cp1252 par defaut : les accents et les sparklines
-# des mesures acoustiques y provoqueraient une UnicodeEncodeError.
+# la console Windows est en cp1252 par defaut : les accents y provoqueraient une
+# UnicodeEncodeError.
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -25,9 +25,8 @@ try:
 except ImportError:
     pass
 
-from lcdg import audio as A
 from lcdg import binaires as B
-from lcdg import pexels
+from lcdg import pexels, registre
 from lcdg.logo import police
 
 
@@ -54,21 +53,11 @@ def planche(episode: Path, blocs: list[dict]):
             v.thumbnail((300, 170))
             sheet.paste(v, (x, y))
         d.text((x, y + 176), f"[{i}] {bl['requete'][:38]}", font=lg, fill=(10, 10, 10))
-        txt = (bl.get("texte") or "(intro)").replace("*", "")
+        txt = (bl.get("texte") or bl.get("legende") or "(accroche)").replace("*", "").replace("|", "")
         d.text((x, y + 200), txt[:44], font=lg, fill=(90, 90, 100))
         d.text((x, y + 222), txt[44:88], font=lg, fill=(90, 90, 100))
     out = episode / "planche_broll.jpg"
     sheet.save(out, quality=92)
-    return out
-
-
-def extrait_son(episode: Path, ep: dict):
-    """25 s du lit musical choisi, normalise, pour valider a l'oreille."""
-    src = A.chemin(ep["musique"])
-    out = episode / f"apercu_musique_{ep['musique']}.mp3"
-    B.run(["-i", str(src), "-t", "25", "-af",
-           "loudnorm=I=-16:TP=-1.5,afade=t=in:st=0:d=0.8,afade=t=out:st=23.5:d=1.5",
-           "-c:a", "libmp3lame", "-b:a", "192k", str(out), "-y"])
     return out
 
 
@@ -89,13 +78,17 @@ def main(dossier: str):
         if cible.exists():
             print(f"  [{i}] deja present : {bl['fichier']}")
             continue
-        cands = pexels.chercher(bl["requete"], n=4,
-                                duree_min=max(6, int(bl["duree"]) + 2))
+        # un plan deja monte dans un autre reel est ecarte : le public le reconnaitrait
+        pris = registre.ids_utilises(sauf=f"{episode.name}/{i}")
+        cands = [c for c in pexels.chercher(bl["requete"], n=8,
+                                            duree_min=max(6, int(bl["duree"]) + 2))
+                 if c["id"] not in pris][:4]
         if not cands:
             print(f"  [{i}] AUCUN resultat pour « {bl['requete']} » — reformule la requete")
             continue
         c = cands[0]
         pexels.telecharger(c, cible)
+        registre.inscrire(episode.name, i, c)
         note = pexels.qualite(c)
         rapport.append((i, bl["requete"], c, note))
         print(f"  [{i}] {bl['requete'][:34]:34} -> {c['largeur']}x{c['hauteur']}  {note}")
@@ -106,7 +99,6 @@ def main(dossier: str):
 
     fiche.write_text(json.dumps(ep, ensure_ascii=False, indent=2), encoding="utf-8")
     p = planche(episode, ep["blocs"])
-    s = extrait_son(episode, ep)
 
     faibles = [r for r in rapport if "molle" in r[3]]
     if faibles:
@@ -114,9 +106,12 @@ def main(dossier: str):
         for i, req, c, _ in faibles:
             print(f"    [{i}] {req} — {c['url_page']}")
 
-    print(f"\nA valider :\n  {p}\n  {s}")
-    print("\nPour changer un plan : prends une autre entree dans broll/alternatives.json,")
-    print("ou remplace le fichier B<n>.mp4 a la main. Puis :")
+    print(f"\nA valider :\n  {p}")
+    print("\nPour changer un plan :")
+    print(f'  python scripts/broll.py chercher {dossier} <bloc> "<requete>" ["<requete>" ...]')
+    print(f"  python scripts/broll.py choisir  {dossier} <bloc> C<n>")
+    print("Puis controle chaque plan sur toute sa duree :")
+    print(f"  python scripts/broll.py revue {dossier}")
     print(f"  python scripts/render.py {dossier}\n")
 
 

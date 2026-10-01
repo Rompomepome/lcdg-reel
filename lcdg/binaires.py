@@ -69,18 +69,3 @@ def probe(chemin, entrees="format=duration"):
 def duree(chemin) -> float:
     v = probe(chemin, "format=duration").split(",")[0]
     return float(v) if v else 0.0
-
-
-def pcm(chemin, mono=True, sr=44100, debut=None, duree_s=None):
-    """Decode l'audio en float32 pour analyse. Retourne un numpy array."""
-    import numpy as np
-    exiger()
-    args = [FFMPEG, "-v", "error"]
-    if debut is not None:
-        args += ["-ss", str(debut)]
-    args += ["-i", str(chemin)]
-    if duree_s is not None:
-        args += ["-t", str(duree_s)]
-    args += ["-ac", "1" if mono else "2", "-ar", str(sr), "-f", "f32le", "-"]
-    out = subprocess.run(args, capture_output=True).stdout
-    return np.frombuffer(out, dtype=np.float32).astype(np.float64)
