@@ -1,0 +1,81 @@
+{
+  "slug": "franchises-medicales",
+  "date": "2026-09-21",
+  "rubrique": "pro",
+  "label": "Franchises · 1er octobre",
+  "sous_titre": "Vos patients *les plus malades* vont payer plus.",
+  "appel": "La parade, en détail :",
+  "blocs": [
+    {
+      "duree": 3.4,
+      "texte": null,
+      "requete": "senior man taking pills at home",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 4.8,
+      "type": "chiffre",
+      "valeur": 140,
+      "depuis": 100,
+      "suffixe": " €",
+      "legende": "de reste à charge *par an*, au maximum",
+      "requete": "paying at pharmacy counter",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 5.6,
+      "texte": "Les patients en ALD ne sont *pas exonérés*. | Ce sont eux qui atteignent les plafonds en premier.",
+      "requete": "nurse home visit elderly",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 5.6,
+      "type": "chiffre",
+      "valeur": 70,
+      "suffixe": " boîtes",
+      "pictos": true,
+      "legende": "par an suffisent, à 1 € la boîte. Environ *6 par mois*.",
+      "requete": "pharmacy shelves medicine boxes",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 3.4,
+      "type": "phrase",
+      "texte": "Et une question reste *sans réponse*.",
+      "requete": "pharmacy receipt",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 6.0,
+      "texte": "Votre patient avait atteint le plafond de 50 € avant octobre. | Repaiera-t-il *jusqu’à 70 €* d’ici décembre ?",
+      "requete": "paying at pharmacy counter",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 6.0,
+      "texte": "Ni le décret ni Service Public ne le disent. | Pour les plus malades, c’est *la seule question* qui compte.",
+      "requete": "crossing out list pen",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 6.0,
+      "type": "phrase",
+      "texte": "Le vrai risque n’est pas la facture. | C’est le patient qui *espace* ses boîtes.",
+      "requete": "pill organizer elderly hand",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 5.6,
+      "type": "phrase",
+      "texte": "Dès 2028, les plafonds suivront l’inflation. | 140 €, ce n’est *qu’un début*.",
+      "requete": "rising staircase steps",
+      "fichier": "B8.mp4"
+    },
+    {
+      "duree": 4.4,
+      "texte": "Il existe une parade. | Elle est dans *votre ordonnance*.",
+      "requete": "doctor writing prescription",
+      "fichier": "B9.mp4"
+    }
+  ]
+}
