@@ -1,0 +1,101 @@
+{
+  "slug": "protections-periodiques",
+  "date": "2026-09-30",
+  "rubrique": "patient",
+  "label": "Protections périodiques",
+  "sous_titre": "Vos patientes de moins de 26 ans : coupes et culottes menstruelles *remboursées*.",
+  "appel": "Nos 2 recommandations :",
+  "bandeau": "Pour recevoir l’analyse, | commentez *60*",
+  "voix_off": "femme_jeune",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "requete": "menstrual cup",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 7.0,
+      "texte": "Coupes et culottes menstruelles : *remboursées*. | Aux moins de 26 ans, et aux bénéficiaires de la C2S.",
+      "requete": "student girl campus",
+      "fichier": "B1.mp4",
+      "voix": "[cheerful] Depuis le premier octobre, les coupes et les culottes menstruelles sont remboursées. | Pour toutes les femmes de moins de vingt-six ans, et pour les bénéficiaires de la complémentaire santé solidaire, quel que soit leur âge."
+    },
+    {
+      "duree": 6.0,
+      "type": "chiffre",
+      "valeur": 60,
+      "suffixe": " %",
+      "legende": "du prix remboursés par l’*Assurance maladie* aux moins de 26 ans.",
+      "requete": "reusable period products",
+      "fichier": "B2.mp4",
+      "voix": "[matter-of-fact] Pour les moins de vingt-six ans, l’Assurance maladie rembourse soixante pour cent du prix. C’est la décision publiée au Journal officiel."
+    },
+    {
+      "duree": 6.0,
+      "texte": "100 % pour les bénéficiaires de la C2S. | Dans la limite de *2 produits par an*, en pharmacie.",
+      "requete": "woman holding menstrual cup",
+      "fichier": "B3.mp4",
+      "voix": "Cent pour cent pour les bénéficiaires de la complémentaire santé solidaire. | Dans la limite de deux produits par an, délivrés en pharmacie."
+    },
+    {
+      "duree": 3.4,
+      "type": "phrase",
+      "texte": "Mais attention : *pas n’importe où*.",
+      "requete": "shopping bags",
+      "fichier": "B4.mp4",
+      "voix": "[intrigued] Mais attention : pas n’importe où."
+    },
+    {
+      "duree": 7.0,
+      "texte": "Seuls les produits d’une *liste du ministère* sont remboursés. | En pharmacie uniquement.",
+      "requete": "page : https://www.service-public.gouv.fr/particuliers/actualites/A18883",
+      "fichier": "B5.mp4",
+      "voix": "Seuls les produits inscrits sur une liste du ministère de la Santé sont remboursés. | Et uniquement s’ils sont délivrés en pharmacie."
+    },
+    {
+      "duree": 6.0,
+      "texte": "Acheté en grande surface ou en ligne : *pas remboursé*. | Et votre patiente ne le saura pas forcément.",
+      "requete": "supermarket hygiene aisle",
+      "fichier": "B6.mp4",
+      "voix": "Un produit acheté en grande surface ou en ligne ne sera pas remboursé. | Et votre patiente ne le saura pas forcément.",
+      "insert": {
+        "type": "choix",
+        "lignes": [
+          {
+            "label": "En pharmacie",
+            "ok": true
+          },
+          {
+            "label": "En grande surface",
+            "ok": false
+          },
+          {
+            "label": "En ligne",
+            "ok": false
+          }
+        ]
+      }
+    },
+    {
+      "duree": 5.0,
+      "type": "phrase",
+      "texte": "Ces patientes sont celles pour qui le prix *pèse le plus*.",
+      "requete": "counting coins",
+      "fichier": "B7.mp4",
+      "voix": "[thoughtful] Or ces patientes, jeunes ou bénéficiaires de la complémentaire santé solidaire, sont celles pour qui le prix pèse le plus."
+    },
+    {
+      "duree": 4.5,
+      "texte": "Que dire en consultation ? | Le Cercle fait *2 recommandations*.",
+      "requete": "medical consultation conversation",
+      "fichier": "B8.mp4",
+      "voix": "[warm] Alors, que dire à vos patientes en consultation ? | Le Cercle vous donne deux recommandations concrètes, sur son site.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ],
+  "badge": "Nouveau remboursement"
+}

@@ -1,0 +1,104 @@
+{
+  "slug": "fluoxetine",
+  "date": "2026-09-30",
+  "rubrique": "clinique",
+  "label": "Fluoxétine 20 mg",
+  "sous_titre": "Votre patient adulte doit-il attendre *mi-octobre* ?",
+  "appel": "Nos 3 recommandations :",
+  "bandeau": "Pour recevoir l’analyse, | commentez *FLUOX*",
+  "voix_off": "femme_agee",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "requete": "green capsules close up",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 6.0,
+      "texte": "Depuis septembre, livraisons de fluoxétine 20 mg *limitées*. | Et l’export est interdit.",
+      "requete": "medicine boxes conveyor",
+      "fichier": "B1.mp4",
+      "voix": "[serious] Depuis début septembre, les livraisons de fluoxétine vingt milligrammes, le Prozac et ses génériques, sont limitées. | Et l’export est interdit.",
+      "insert": {
+        "type": "tampon",
+        "texte": "Export interdit",
+        "temps": 1
+      }
+    },
+    {
+      "duree": 7.0,
+      "texte": "Le 25 septembre, l’ANSM a fait le point. | Nouveaux traitements : *priorité* aux enfants et aux adolescents.",
+      "requete": "page : https://ansm.sante.fr/actualites/point-de-situation-sur-les-tensions-en-fluoxetine-20-mg",
+      "fichier": "B2.mp4",
+      "voix": "Le vingt-cinq septembre, l’A.N.S.M. a fait le point. | Pour démarrer un traitement, la priorité va aux enfants, dès huit ans, et aux adolescents qui font un épisode dépressif."
+    },
+    {
+      "duree": 6.0,
+      "type": "chiffre",
+      "valeur": 8,
+      "suffixe": " ans",
+      "legende": "Dès cet âge, c’est *le seul antidépresseur* indiqué dans certains épisodes dépressifs de l’enfant.",
+      "requete": "mother and daughter at home",
+      "fichier": "B3.mp4",
+      "voix": "Parce que chez l’enfant, dès huit ans, c’est le seul antidépresseur indiqué dans certains épisodes dépressifs."
+    },
+    {
+      "duree": 5.5,
+      "texte": "Retour à la normale en pharmacie : *mi-octobre*. | C’est ce que prévoient les laboratoires.",
+      "requete": "calendar october",
+      "fichier": "B4.mp4",
+      "voix": "Le retour à la normale en pharmacie est prévu pour la mi-octobre. | C’est en tout cas ce que prévoient les laboratoires.",
+      "insert": {
+        "type": "calendrier",
+        "annee": 2026,
+        "mois": 10,
+        "du": 12,
+        "au": 18,
+        "legende": "mi-octobre"
+      }
+    },
+    {
+      "duree": 3.4,
+      "type": "phrase",
+      "texte": "Mais une question reste *sans réponse*.",
+      "requete": "question mark",
+      "fichier": "B5.mp4",
+      "voix": "[intrigued] Mais une question reste sans réponse."
+    },
+    {
+      "duree": 6.0,
+      "texte": "Votre patient adulte fait un épisode dépressif. | Faut-il attendre *mi-octobre* pour la fluoxétine ?",
+      "requete": "man sitting thinking daylight",
+      "fichier": "B6.mp4",
+      "voix": "[thoughtful] Votre patient adulte fait un épisode dépressif. | [curious] Faut-il attendre la mi-octobre pour lui prescrire de la fluoxétine ?"
+    },
+    {
+      "duree": 6.0,
+      "texte": "Pour l’adulte, l’ANSM ne propose *aucune autre solution*. | Et si c’est plus long que prévu ? | Le communiqué n’en dit rien.",
+      "requete": "reading official letter",
+      "fichier": "B7.mp4",
+      "voix": "Pour l’adulte, l’A.N.S.M. ne propose aucune autre solution. | Et si c’est plus long que prévu ? | Le communiqué n’en dit rien."
+    },
+    {
+      "duree": 5.0,
+      "type": "phrase",
+      "texte": "Attendre, c’est laisser un épisode dépressif *sans traitement*.",
+      "requete": "hourglass",
+      "fichier": "B8.mp4",
+      "voix": "[serious] Et attendre, c’est laisser un épisode dépressif sans traitement pendant des semaines."
+    },
+    {
+      "duree": 4.5,
+      "texte": "Que faire au cabinet ? | Le Cercle fait *3 recommandations*.",
+      "requete": "general practitioner desk computer",
+      "fichier": "B9.mp4",
+      "voix": "[warm] Alors, que faire au cabinet ? | Le Cercle vous donne trois recommandations concrètes, sur son site.",
+      "insert": {
+        "type": "verrou",
+        "n": 3
+      }
+    }
+  ],
+  "badge": "Tension d’approvisionnement"
+}

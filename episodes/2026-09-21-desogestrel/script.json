@@ -1,0 +1,113 @@
+{
+  "slug": "desogestrel",
+  "date": "2026-09-21",
+  "rubrique": "clinique",
+  "label": "Désogestrel",
+  "sous_titre": "Vos patientes sous désogestrel reçoivent un courrier sur le *méningiome*.",
+  "appel": "Nos 3 recommandations :",
+  "bandeau": "Pour recevoir l’analyse, | commentez *DESO*",
+  "voix_off": "homme_age",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "requete": "white envelope letter",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 7.0,
+      "texte": "Vos patientes sous désogestrel reçoivent un courrier de l’ANSM. | Objet : un risque *très faible* de méningiome.",
+      "requete": "page : https://ansm.sante.fr/actualites/lansm-diffuse-une-lettre-personnalisee-pour-informer-les-femmes-du-tres-faible-risque-de-meningiome-associe-a-la-contraception-a-base-de-desogestrel",
+      "fichier": "B1.mp4",
+      "voix": "[matter-of-fact] Vos patientes sous contraception au désogestrel reçoivent un courrier personnalisé de l’A.N.S.M. | Pour les informer d’un risque très faible de méningiome."
+    },
+    {
+      "duree": 6.0,
+      "type": "chiffre",
+      "valeur": 67000,
+      "legende": "femmes exposées pour *1 cas supplémentaire* de méningiome.",
+      "requete": "crowd of women walking",
+      "fichier": "B2.mp4",
+      "voix": "Le risque estimé : un cas supplémentaire de méningiome, pour soixante-sept mille femmes exposées."
+    },
+    {
+      "duree": 6.0,
+      "texte": "Au-delà de 5 ans d’utilisation, risque *multiplié par 1,7*. | Au-delà de 7 ans, par 2.",
+      "requete": "contraceptive pill pack",
+      "fichier": "B3.mp4",
+      "voix": "Au-delà de cinq ans d’utilisation, le risque est multiplié par un virgule sept. | Au-delà de sept ans, par deux.",
+      "insert": {
+        "type": "barres",
+        "unite": "×",
+        "lignes": [
+          {
+            "label": "Sans désogestrel",
+            "valeur": 1
+          },
+          {
+            "label": "Au-delà de 5 ans",
+            "valeur": 1.7
+          },
+          {
+            "label": "Au-delà de 7 ans",
+            "valeur": 2,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 3.6,
+      "type": "phrase",
+      "texte": "Le chiffre *qui compte* est le moins mis en avant.",
+      "requete": "highlighter marking document",
+      "fichier": "B4.mp4",
+      "voix": "[intrigued] Mais le chiffre qui compte est le moins mis en avant."
+    },
+    {
+      "duree": 7.0,
+      "type": "chiffre",
+      "valeur": 3.3,
+      "decimales": 1,
+      "prefixe": "×",
+      "legende": "dès la 1re année de désogestrel seul 75 µg, après une exposition à un *progestatif à risque*.",
+      "requete": "pill blister",
+      "fichier": "B5.mp4",
+      "voix": "Chez une patiente déjà exposée à un progestatif à risque, le risque est multiplié par trois virgule trois, dès la première année de désogestrel seul, soixante-quinze microgrammes."
+    },
+    {
+      "duree": 4.5,
+      "texte": "Ce repérage repose *entièrement* sur votre interrogatoire.",
+      "requete": "medical form clipboard",
+      "fichier": "B6.mp4",
+      "voix": "Et ce repérage repose entièrement sur votre interrogatoire."
+    },
+    {
+      "duree": 7.0,
+      "texte": "Votre patiente a-t-elle reçu le courrier ? | *Impossible à savoir*.",
+      "requete": "mailbox letters",
+      "fichier": "B7.mp4",
+      "voix": "Votre patiente a-t-elle déjà reçu ce courrier ? L’A.N.S.M. annonçait un envoi dans les jours à venir, sans date précise. | Impossible de le savoir."
+    },
+    {
+      "duree": 4.0,
+      "type": "phrase",
+      "texte": "Le vrai danger : une contraception *arrêtée* sans relais.",
+      "requete": "woman throwing away pills",
+      "fichier": "B8.mp4",
+      "voix": "[serious] Le vrai danger de ce courrier ? Une contraception arrêtée sans relais."
+    },
+    {
+      "duree": 4.5,
+      "texte": "Que faire au cabinet ? | Le Cercle fait *3 recommandations*.",
+      "requete": "gynecologist consultation",
+      "fichier": "B9.mp4",
+      "voix": "[warm] Alors, que faire au cabinet ? | Le Cercle vous donne trois recommandations concrètes, sur son site.",
+      "insert": {
+        "type": "verrou",
+        "n": 3
+      }
+    }
+  ],
+  "badge": "Pharmacovigilance · ANSM"
+}
