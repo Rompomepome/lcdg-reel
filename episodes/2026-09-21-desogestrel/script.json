@@ -3,7 +3,7 @@
   "date": "2026-09-21",
   "rubrique": "clinique",
   "label": "Désogestrel",
-  "sous_titre": "Vos patientes sous désogestrel reçoivent un courrier sur le *méningiome*.",
+  "sous_titre": "Vos patientes sous désogestrel seul reçoivent un courrier sur le *méningiome*.",
   "appel": "Nos 3 recommandations :",
   "bandeau": "Pour recevoir l’analyse, | commentez *DESO*",
   "voix_off": "homme_age",
@@ -16,10 +16,10 @@
     },
     {
       "duree": 7.0,
-      "texte": "Vos patientes sous désogestrel reçoivent un courrier de l’ANSM. | Objet : un risque *très faible* de méningiome.",
+      "texte": "Vos patientes sous désogestrel seul reçoivent un courrier de l’ANSM. | Objet : un risque *très faible* de méningiome.",
       "requete": "page : https://ansm.sante.fr/actualites/lansm-diffuse-une-lettre-personnalisee-pour-informer-les-femmes-du-tres-faible-risque-de-meningiome-associe-a-la-contraception-a-base-de-desogestrel",
       "fichier": "B1.mp4",
-      "voix": "[matter-of-fact] Vos patientes sous contraception au désogestrel reçoivent un courrier personnalisé de l’A.N.S.M. | Pour les informer d’un risque très faible de méningiome."
+      "voix": "[matter-of-fact] Vos patientes sous pilule au désogestrel seul reçoivent un courrier personnalisé de l’A.N.S.M. | Pour les informer d’un risque très faible de méningiome."
     },
     {
       "duree": 6.0,
@@ -84,10 +84,34 @@
     },
     {
       "duree": 7.0,
-      "texte": "Votre patiente a-t-elle reçu le courrier ? | *Impossible à savoir*.",
+      "texte": "Ce courrier ne touche pas toutes vos patientes. | Implant, anneau, pilule combinée : *aucun courrier*. | L’alerte d’août les concerne *aussi*.",
       "requete": "mailbox letters",
       "fichier": "B7.mp4",
-      "voix": "Votre patiente a-t-elle déjà reçu ce courrier ? L’A.N.S.M. annonçait un envoi dans les jours à venir, sans date précise. | Impossible de le savoir."
+      "voix": "Ce courrier ne touche pas toutes vos patientes. |Implant, anneau, pilule combinée au désogestrel : aucun courrier. | Pourtant, l’alerte d’août les concerne aussi.",
+      "insert": {
+        "type": "choix",
+        "lignes": [
+          {
+            "label": "Pilule au désogestrel seul",
+            "ok": true
+          },
+          {
+            "label": "Implant",
+            "ok": false,
+            "temps": 1
+          },
+          {
+            "label": "Anneau",
+            "ok": false,
+            "temps": 1
+          },
+          {
+            "label": "Pilule combinée au désogestrel",
+            "ok": false,
+            "temps": 1
+          }
+        ]
+      }
     },
     {
       "duree": 4.0,

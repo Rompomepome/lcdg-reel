@@ -247,6 +247,24 @@ oubli.
 Une vingtaine de minutes au total, dont l'essentiel pour relire le script et choisir les
 plans. Les rendus tournent pendant que tu fais autre chose.
 
+## 2.7 Corriger une phrase d'un reel déjà validé
+
+La narration est lue d'un seul tenant : changer une phrase dans `script.json` ferait
+relire tout le texte par ElevenLabs, avec une autre intonation, et consommerait le quota
+pour l'ensemble. Pour ne relire que les phrases modifiées :
+
+```bash
+python scripts/revoix.py episodes/AAAA-MM-JJ-slug --essai
+python scripts/revoix.py episodes/AAAA-MM-JJ-slug
+```
+
+À lancer après avoir modifié le champ `voix` des blocs, avant de les commiter : l'ancienne
+version est celle du dernier commit (`--avant <revision>` pour une autre). `--essai`
+affiche ce qui sera relu et le nombre de caractères consommés, sans rien générer. Chaque
+phrase modifiée est relue entre ses deux voisines, pour que l'intonation s'enchaîne, puis
+collée dans l'ancienne narration, au silence entre deux phrases et au même niveau sonore.
+Relance ensuite `render.py` et `render_carre.py`, et réécoute les raccords.
+
 ---
 
 # 3. Dépannage
@@ -266,6 +284,8 @@ plans. Les rendus tournent pendant que tu fais autre chose.
 | `ECHEC surlignages` | Un texte n'est pas à sa place, ou pas dessiné, sur la vidéo livrée | Ne pas publier. Vérifier que `lcdg/` n'a pas été modifié, relancer `smoke_test.py` |
 | `ECHEC pistes audio` ou `son` | Piste absente, en double ou à un mauvais niveau | Ne pas publier. Vérifier `ELEVENLABS_API_KEY`, le champ `voix` des blocs et `assets/audio`, relancer `smoke_test.py` |
 | `[!] pas la place pour l'insert` | Le texte du bloc est trop haut pour l'insert | Raccourcir le texte du bloc, ou retirer l'insert |
+| `[!] plan … lu a 0.7x : le ralenti se verra` | Le plan vidéo est trop court pour sa phrase : il est ralenti pour la couvrir | Regarder le passage ; si le ralenti se voit, choisir un plan plus long (`broll.py chercher`) |
+| `[!] Plan … au lieu de … s` | Un plan est sorti plus court que sa phrase : l'image prendrait de l'avance sur la voix | Ne pas publier. Choisir un plan plus long, ou signaler le cas : `montage.base` aurait dû le compléter |
 | `[!] voix_off inconnue` ou `pas encore enregistree` | Clé de voix absente du catalogue, ou voix pas dans l'espace ElevenLabs | Choisir une des quatre voix de `charte.VOIX_CATALOGUE` |
 | `ElevenLabs a refuse la generation` | Clé invalide ou quota mensuel épuisé | Vérifier la clé dans `.env` et le quota sur elevenlabs.io |
 
@@ -338,6 +358,7 @@ scripts/broll.py               chercher, choisir et contrôler les plans
 scripts/page.py                capturer une page officielle et la monter en plan
 scripts/render.py              monte, contrôle, sort les couvertures, coupe l'accroche
 scripts/render_carre.py        déclinaison carrée LinkedIn
+scripts/revoix.py              relit seulement les phrases modifiées d'un reel déjà validé
 scripts/smoke_test.py          test de bout en bout sans Pexels ni B-roll
 
 episodes/exemple/              modèle de script.json (le reel Franchises)

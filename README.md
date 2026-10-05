@@ -188,7 +188,7 @@ lcdg/pexels.py             client API Pexels
 lcdg/registre.py           registre des plans utilisés (et des tournages)
 lcdg/montage.py            base vidéo, rendu, sortie, couvertures, coupe de l'accroche
 lcdg/controles.py          mesures sur le fichier de sortie
-scripts/                   doctor, prepare, broll, page, render, render_carre, smoke_test
+scripts/                   doctor, prepare, broll, page, render, render_carre, revoix, smoke_test
 episodes/                  un dossier par épisode
 ```
 

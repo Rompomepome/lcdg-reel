@@ -45,13 +45,20 @@ def corps(texte: str, modele: str | None = None, reglages: dict | None = None) -
     return {"text": texte, "model_id": modele, "voice_settings": reglages}
 
 
+def chemins(texte: str, voice_id: str, dossier: Path, modele: str | None = None,
+            reglages: dict | None = None) -> tuple[Path, Path]:
+    """(mp3, alignement json) de ce texte lu par cette voix, dans le cache."""
+    requete = corps(texte, modele, reglages)
+    cle = hashlib.sha256(json.dumps([voice_id, requete], sort_keys=True,
+                                    ensure_ascii=False).encode("utf-8")).hexdigest()[:16]
+    return dossier / f"{cle}.mp3", dossier / f"{cle}.json"
+
+
 def synthese(texte: str, voice_id: str, dossier: Path, modele: str | None = None,
              reglages: dict | None = None) -> tuple[Path, dict]:
     """(mp3, alignement par caractere) de la narration, depuis le cache si elle existe."""
     requete = corps(texte, modele, reglages)
-    cle = hashlib.sha256(json.dumps([voice_id, requete], sort_keys=True,
-                                    ensure_ascii=False).encode("utf-8")).hexdigest()[:16]
-    mp3, js = dossier / f"{cle}.mp3", dossier / f"{cle}.json"
+    mp3, js = chemins(texte, voice_id, dossier, modele, reglages)
     if mp3.exists() and js.exists():
         return mp3, json.loads(js.read_text(encoding="utf-8"))
     dossier.mkdir(parents=True, exist_ok=True)
@@ -102,6 +109,17 @@ def _decouper(texte: str) -> tuple[str, list[int]]:
     return propre, debuts
 
 
+def textes(ep: dict) -> tuple[bool, list[tuple[str, list[int]]]]:
+    """(bloc 0 muet, [(texte lu, debut de chaque temps)] des blocs parlants).
+
+    Accroche en couverture : le bloc 0 n'a pas de voix, la narration commence au bloc 1.
+    La narration envoyee a ElevenLabs est ces textes joints par une espace."""
+    blocs = ep["blocs"]
+    muet = C.ACCROCHE_COUVERTURE and not (blocs[0].get("voix") or "").strip()
+    parlants = blocs[1:] if muet else blocs
+    return muet, [_decouper((bl.get("voix") or "").strip()) for bl in parlants]
+
+
 def preparer(episode: Path, ep: dict) -> Path:
     """Genere (ou reprend) la narration et cale le reel dessus.
 
@@ -109,14 +127,11 @@ def preparer(episode: Path, ep: dict) -> Path:
     les instants de ses temps ("temps", relatifs au debut du bloc). Retourne la piste
     voix (wav 48 kHz) calee sur la video et mise au niveau de la charte."""
     blocs = ep["blocs"]
-    # accroche en couverture : le bloc 0 n'a pas de voix, la narration commence au bloc 1
-    muet = C.ACCROCHE_COUVERTURE and not (blocs[0].get("voix") or "").strip()
+    muet, morceaux = textes(ep)
     if C.ACCROCHE_COUVERTURE and not muet:
         print("[i] bloc 0 : sa voix est coupee avec l'accroche, qui ne sert qu'a la couverture. "
               "Dans un nouveau script, ne mets pas de voix au bloc 0 : elle consomme le quota "
               "pour rien.")
-    parlants = blocs[1:] if muet else blocs
-    morceaux = [_decouper((bl.get("voix") or "").strip()) for bl in parlants]
     vides = [k + muet for k, (t, _) in enumerate(morceaux) if not t]
     if vides:
         raise SystemExit(f"[!] Bloc(s) sans texte lu (champ voix) : {vides}")

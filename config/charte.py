@@ -377,6 +377,13 @@ VOIX_LUFS = -16                # voix seule : laisse de la place a la musique po
 VOIX_LUFS_TOLERANCE = 1.5
 VOIX_TP_CIBLE = -1.5           # vise au mixage
 VOIX_TP_PLAFOND = -1.0         # controle sur le fichier livre
+# Correction d'une phrase d'un reel deja valide (scripts/revoix.py, 05/10/2026) : seuls les
+# blocs modifies sont relus, puis colles dans l'ancienne narration, au silence entre deux
+# phrases et au niveau de l'ancienne lecture
+VOIX_RACCORD_PAS = 0.01        # s : finesse de la recherche du silence
+VOIX_RACCORD_GARDE = 0.02      # s : le raccord ne mord jamais sur une phrase
+VOIX_RACCORD_FONDU = 0.01      # s : de part et d'autre du raccord, contre les clics
+VOIX_RACCORD_ECART_MAX = 6.0   # dB : au-dela, les deux lectures sont trop differentes
 
 # Musique de fond et bruitages (01/10/2026 : Romain revient sur sa decision du 21/09 et
 # veut un fond sonore « attrayant », avec des sons sur le motion). lcdg/son.py.
@@ -428,6 +435,13 @@ PLAN_LARGEUR_Y = 470            # juste sous le logo
 PLAN_LARGEUR_FLOU = 40
 PLAN_LARGEUR_LUMIERE = -0.03
 BROLL_MARGE_S = 0.4            # on entre dans le plan apres ce delai
+# Le zoom lent emet une image par image de la source, a FPS : un plan tourne a 24 ou 25 i/s
+# defile un peu plus vite et dure moins longtemps que sa source. S'il ne couvre plus son
+# bloc, ses images sont dupliquees pour qu'il le couvre (05/10/2026 : deux plans trop courts
+# decalaient l'image de 1,7 s et 2,6 s sur la voix, sans erreur)
+BROLL_IMAGES_MARGE = 2         # images en plus de la duree du bloc
+BROLL_VITESSE_MIN = 0.8        # en dessous, le ralenti se voit : render previent
+BROLL_TOLERANCE_IMAGES = 1.5   # un plan plus court que son bloc de plus que ca : render s'arrete
 # v2 : a chaque coupe, l'image se pose (leger recul en 8 images) en meme temps que
 # le texte arrive ; un etalonnage commun unifie des plans venus de sources differentes.
 IMPULSION = 1.05

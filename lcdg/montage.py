@@ -1,4 +1,5 @@
 """Montage : normalisation des B-rolls, rendu de l'habillage, sortie sans piste audio."""
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -13,6 +14,32 @@ from lcdg import inserts as ins
 
 
 # ------------------------------------------------------------------ 1. base
+def _source(src: Path) -> tuple[float, float]:
+    """(images par seconde, duree en s) de la piste video d'un plan."""
+    B.exiger()
+    r = subprocess.run([B.FFPROBE, "-v", "error", "-select_streams", "v:0",
+                        "-show_entries", "stream=avg_frame_rate,r_frame_rate,duration",
+                        "-show_entries", "format=duration", "-of", "json", str(src)],
+                       capture_output=True, text=True)
+    if r.returncode:
+        raise SystemExit(f"[!] ffprobe ne lit pas {src} :\n{r.stderr[-400:]}")
+    infos = json.loads(r.stdout)
+    pistes = infos.get("streams") or []
+    if not pistes:
+        raise SystemExit(f"[!] {src} n'a pas de piste video.")
+    piste = pistes[0]
+    cadence = 0.0
+    for champ in ("avg_frame_rate", "r_frame_rate"):
+        n, _, d = (piste.get(champ) or "0/0").partition("/")
+        if float(n or 0) > 0 and float(d or 1) > 0:
+            cadence = float(n) / float(d or 1)
+            break
+    duree = float(piste.get("duration") or infos.get("format", {}).get("duration") or 0)
+    if cadence <= 0 or duree <= 0:
+        raise SystemExit(f"[!] {src} : cadence ou duree illisible.")
+    return cadence, duree
+
+
 def base(episode: Path, blocs: list[dict]) -> tuple[Path, list, float]:
     """Concatene les B-rolls recadres en 1080x1920, avec un zoom lent."""
     seg_dir = episode / "segments"
@@ -37,6 +64,24 @@ def base(episode: Path, blocs: list[dict]) -> tuple[Path, list, float]:
             n0, p0 = C.IMPULSION_IMAGES, C.IMPULSION
         z = (f"if(lt(in,{n0}),{p0}-{p0 - 1:.4f}*(1-pow(1-in/{n0},3)),"
              f"min(1+{(C.BROLL_ZOOM-1)/170:.6f}*(in-{n0}),{C.BROLL_ZOOM}))")
+        # zoompan emet une image par image source : si le plan n'en a pas assez pour
+        # couvrir le bloc, on les duplique avant (sinon le plan sort court, et l'image
+        # prend de l'avance sur la voix pour tout le reste du reel)
+        cadence_src, duree_src = _source(src)
+        dispo = duree_src - C.BROLL_MARGE_S
+        besoin = duree * C.FPS + C.BROLL_IMAGES_MARGE
+        if dispo <= 0:
+            raise SystemExit(f"[!] Plan {i} ({bl['fichier']}) : {duree_src:.2f} s, plus court "
+                             f"que la marge d'entree ({C.BROLL_MARGE_S} s).")
+        reechantillonnage = ""
+        if dispo * cadence_src < besoin:
+            taux = besoin / dispo
+            reechantillonnage = f"fps=fps={taux:.4f},"
+            vitesse = C.FPS / taux
+            if vitesse < C.BROLL_VITESSE_MIN:
+                print(f"[!] plan {i} ({bl['fichier']}) : {dispo:.1f} s utiles pour un bloc de "
+                      f"{duree:.1f} s, lu a {vitesse:.2f}x : le ralenti se verra, un plan plus "
+                      "long serait mieux.")
         cadre = (f"scale={C.LARGEUR}:{C.HAUTEUR}:force_original_aspect_ratio=increase,"
                  f"crop={C.LARGEUR}:{C.HAUTEUR},")
         if bl.get("cadrage") == "largeur":
@@ -49,7 +94,7 @@ def base(episode: Path, blocs: list[dict]) -> tuple[Path, list, float]:
                       f"[fond][plan]overlay=0:{C.PLAN_LARGEUR_Y}[cadre];[cadre]")
         else:
             source = f"[0:v]{cadre}"
-        vf = (f"zoompan=z='{z}':d=1:"
+        vf = (f"{reechantillonnage}zoompan=z='{z}':d=1:"
               f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':"
               f"s={C.LARGEUR}x{C.HAUTEUR}:fps={C.FPS},"
               f"{C.ETALONNAGE},"
@@ -83,6 +128,10 @@ def base(episode: Path, blocs: list[dict]) -> tuple[Path, list, float]:
                "-an", *filtre, "-r", str(C.FPS), "-c:v", "libx264",
                "-preset", "veryfast", "-crf", "18", str(out), "-y"])
         d = B.duree(out)
+        if d < duree - C.BROLL_TOLERANCE_IMAGES / C.FPS:
+            # les bornes suivent le plan, la voix suit son horodatage : ils se decaleraient
+            raise SystemExit(f"[!] Plan {i} ({bl['fichier']}) : {d:.2f} s au lieu de "
+                             f"{duree:.2f} s. L'image prendrait de l'avance sur la voix.")
         bornes.append((round(t, 3), round(t + d, 3)))
         t += d
         parts.append(out)

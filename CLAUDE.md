@@ -171,6 +171,11 @@ crochets (v3) donnent le ton : `[curious]`, `[thoughtful]`, `[matter-of-fact]`, 
 `[serious]` et `[concerned]` se gardent pour les vrais sujets de gravité.
 Une narration est générée une fois puis gardée en cache (`episodes/<dossier>/voix/`) :
 changer une virgule du texte lu la régénère et consomme le quota ElevenLabs.
+Pour corriger une phrase d'un reel déjà validé, lance `python scripts/revoix.py
+episodes/<dossier>` après avoir modifié le champ `voix`, avant de commiter (`--essai`
+d'abord : ce qui sera relu, et le quota consommé). Seuls les blocs modifiés sont relus,
+entre leurs voisins, puis collés dans l'ancienne narration : le reste de la lecture déjà
+validée ne change pas (Romain, 05/10/2026).
 
 **Ponctuation.** Espace insécable (U+00A0) avant « : ? ! » et entre un nombre et son
 unité (« 70 € »). Le moteur impose un retour à la ligne à chaque fin de phrase et
@@ -204,6 +209,14 @@ reel, et `choisir` le refuse. Le fonds médical vertical de Pexels est épuisé 
 pharmacies) : `--paysage` cherche des plans paysage 4K, recadrés au centre sans perte.
 Préfère aussi les mains, les objets, les patients à domicile, moins reconnaissables
 qu'un visage. La « pharmacie » de Pexels est un décor d'époque : Romain la refuse.
+
+**Durée des plans.** Le zoom lent émet une image par image source : un plan tourné à 24
+ou 25 i/s défile un peu plus vite et dure 20 à 25 % de moins que sa source. Préfère un plan
+qui dure au moins 1,3 fois sa phrase. Sinon, `render` duplique ses images pour qu'il couvre
+le bloc, et il prévient si le ralenti se voit. Il s'arrête si un plan reste plus court que
+sa phrase, car l'image prendrait de l'avance sur la voix pour tout le reste du reel. C'est
+arrivé sans erreur jusqu'au 05/10/2026 : 1,7 s de décalage sur le désogestrel, 2,6 s sur
+les protections périodiques.
 
 **Textes officiels et institutions sans lieu.** Quand le texte cite un décret, un arrêté,
 une fiche ou une institution qu'on ne peut pas filmer (Service Public, Légifrance, ameli,
