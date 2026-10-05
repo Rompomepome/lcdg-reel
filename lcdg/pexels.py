@@ -18,10 +18,12 @@ def _cle() -> str:
     return cle
 
 
-def chercher(requete: str, n: int = 6, duree_min: int = 6):
-    """Retourne les meilleurs candidats verticaux pour une requete."""
+def chercher(requete: str, n: int = 6, duree_min: int = 6, paysage: bool = False):
+    """Retourne les meilleurs candidats verticaux pour une requete. Avec paysage, des plans
+    paysage en 4K seulement : recadres en 9:16, ils gardent toute leur definition (le fonds
+    vertical de Pexels est etroit, les memes tournages y reviennent)."""
     r = requests.get(API, headers={"Authorization": _cle()},
-                     params={"query": requete, "orientation": "portrait",
+                     params={"query": requete, "orientation": "landscape" if paysage else "portrait",
                              "size": "large", "per_page": 20, "locale": "en-US"},
                      timeout=30)
     r.raise_for_status()
@@ -36,9 +38,12 @@ def chercher(requete: str, n: int = 6, duree_min: int = 6):
         if not fichiers:
             continue
         f = fichiers[0]
+        if paysage and min(f.get("width", 0), f.get("height", 0)) < 2160:
+            continue
         out.append({
             "id": v["id"], "duree": v["duration"], "url_page": v["url"],
             "auteur": v.get("user", {}).get("name", ""),
+            "auteur_id": v.get("user", {}).get("id"),
             "largeur": f.get("width"), "hauteur": f.get("height"),
             "vertical": f.get("height", 0) >= f.get("width", 0),
             "lien": f["link"], "apercu": v.get("image"),
@@ -46,6 +51,14 @@ def chercher(requete: str, n: int = 6, duree_min: int = 6):
     # vertical d'abord, puis la plus grande definition
     out.sort(key=lambda c: (c["vertical"], c["hauteur"] or 0), reverse=True)
     return out[:n]
+
+
+def video(vid: int) -> dict:
+    """Fiche d'une video (auteur compris)."""
+    r = requests.get(f"https://api.pexels.com/videos/videos/{vid}",
+                     headers={"Authorization": _cle()}, timeout=30)
+    r.raise_for_status()
+    return r.json()
 
 
 def telecharger(candidat: dict, destination: Path) -> Path:

@@ -1,15 +1,19 @@
 """
 Revue des B-rolls d'un episode : chercher des candidats, choisir un plan, controler.
 
-    python scripts/broll.py chercher episodes/<dossier> <bloc> "<requete>" ["<requete>" ...]
+    python scripts/broll.py chercher episodes/<dossier> <bloc> [--paysage] "<requete>" [...]
     python scripts/broll.py choisir  episodes/<dossier> <bloc> C<n>
     python scripts/broll.py revue    episodes/<dossier>
     python scripts/broll.py doublons
 
 chercher : planche des candidats Pexels de toutes les requetes (broll/candidats/<bloc>.jpg),
-           recadres comme au montage ; un plan deja utilise ailleurs est marque en rouge.
+           recadres comme au montage ; un plan deja utilise ailleurs est marque en rouge,
+           un plan du meme tournage qu'un plan d'un autre reel en orange. --paysage :
+           plans paysage 4K, recadres au centre (fonds bien plus large que le vertical) ;
+           --mixte : verticaux et paysage 4K ensemble.
 choisir  : telecharge le candidat n en broll/B<bloc>.mp4 et l'inscrit au registre
-           (episodes/plans_utilises.json). Refuse un plan deja pris dans un autre bloc.
+           (episodes/plans_utilises.json). Refuse un plan deja pris dans un autre bloc,
+           ou tourne avec un plan d'un autre reel (memes acteurs, meme decor).
 revue    : planche de controle revue_plans.jpg : debut, milieu et fin de la portion
            utilisee de chaque plan, recadres comme au montage, avec le texte du bloc.
            C'est elle qu'on regarde avant de lancer render : une vignette Pexels ment
@@ -80,11 +84,17 @@ def image_video(src: Path, t: float) -> Image.Image | None:
 def chercher(dossier, bloc, requetes):
     episode, ep = _ep(dossier)
     bl = ep["blocs"][bloc]
+    mixte = "--mixte" in requetes
+    paysage = "--paysage" in requetes
+    requetes = [q for q in requetes if q not in ("--paysage", "--mixte")]
+    sens = (False, True) if mixte else (paysage,)
     vus, cands = set(), []
     for q in requetes:
-        for c in pexels.chercher(q, n=8, duree_min=max(6, int(bl["duree"]) + 2)):
-            if c["id"] not in vus:
-                vus.add(c["id"]); c["requete"] = q; cands.append(c)
+        for pay in sens:
+            for c in pexels.chercher(q, n=6 if mixte else 8,
+                                     duree_min=max(6, int(bl["duree"]) + 2), paysage=pay):
+                if c["id"] not in vus:
+                    vus.add(c["id"]); c["requete"] = q; cands.append(c)
     dest = episode / "broll" / "candidats"
     dest.mkdir(parents=True, exist_ok=True)
     (dest / f"{bloc}.json").write_text(json.dumps(cands, ensure_ascii=False, indent=1),
@@ -101,9 +111,10 @@ def chercher(dossier, bloc, requetes):
         if im:
             feuille.paste(im, (x, y))
         deja = " DEJA PRIS" if c["id"] in pris else ""
+        serie = "" if deja or not registre.meme_tournage(c, episode.name) else " TOURNAGE VU"
         paysage = "" if c["vertical"] else " paysage"
-        d.text((x, y + TH + 2), f"C{k + 1} {c['duree']}s{paysage}{deja}", font=f,
-               fill=(200, 30, 30) if deja else (0, 0, 0))
+        d.text((x, y + TH + 2), f"C{k + 1} {c['duree']}s{paysage}{deja}{serie}", font=f,
+               fill=(200, 30, 30) if deja else (215, 110, 0) if serie else (0, 0, 0))
         d.text((x, y + TH + 22), c["requete"][:22], font=fs, fill=(90, 90, 90))
     sortie = dest / f"{bloc}.jpg"
     feuille.save(sortie, quality=88)
@@ -120,6 +131,10 @@ def choisir(dossier, bloc, code):
     autres = registre.ids_utilises(sauf=cle).get(c["id"])
     if autres:
         raise SystemExit(f"[!] plan {c['id']} deja utilise : {autres}")
+    serie = registre.meme_tournage(c, episode.name)
+    if serie:
+        raise SystemExit(f"[!] plan {c['id']} ({c.get('auteur')}) : meme tournage que {serie}. "
+                         "Le public reconnait les acteurs et le decor : choisis un autre plan.")
     bl = ep["blocs"][bloc]
     cible = episode / "broll" / bl["fichier"]
     cible.unlink(missing_ok=True)
@@ -163,6 +178,22 @@ def revue(dossier):
     print(sortie)
 
 
+def tournages():
+    """Complete le registre (auteurs) et liste les tournages vus dans plusieurs reels."""
+    n = registre.completer()
+    if n:
+        print(f"{n} plan(s) complete(s) avec leur auteur")
+    reg = registre.charger()
+    vus = 0
+    for cle, plan in sorted(reg.items()):
+        ep = cle.split("/")[0]
+        autres = registre.meme_tournage(plan, ep)
+        if autres:
+            print(f"{cle} ({plan['id']}, {plan.get('auteur')}) ~ {autres}")
+            vus += 1
+    print(f"{vus} plan(s) d'un tournage deja vu dans un autre reel")
+
+
 def doublons():
     n = 0
     for vid, cles in registre.ids_utilises().items():
@@ -182,6 +213,8 @@ if __name__ == "__main__":
         choisir(sys.argv[2], int(sys.argv[3]), sys.argv[4])
     elif cmd == "revue" and len(sys.argv) == 3:
         revue(sys.argv[2])
+    elif cmd == "tournages":
+        tournages()
     elif cmd == "doublons":
         doublons()
     else:

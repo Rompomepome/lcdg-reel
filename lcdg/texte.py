@@ -31,6 +31,13 @@ def lisse(x: float) -> float:
     return 1 - (1 - x) ** 3
 
 
+def rebond(x: float) -> float:
+    """Comme lisse(), mais depasse legerement la cible avant de s'y poser (rebond)."""
+    x = max(0.0, min(1.0, x))
+    c = C.REBOND
+    return 1 + (c + 1) * (x - 1) ** 3 + c * (x - 1) ** 2
+
+
 @lru_cache(maxsize=64)
 def _police(px: int, graisse: str):
     return police(px, graisse)

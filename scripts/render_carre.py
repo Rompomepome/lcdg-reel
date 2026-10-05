@@ -28,7 +28,7 @@ from config import charte as C
 for cle, valeur in C.CARRE.items():
     setattr(C, cle, valeur)
 
-from lcdg import binaires as B, montage, controles
+from lcdg import binaires as B, montage, controles, son, voix
 
 
 def preparer(episode: Path, ep: dict) -> Path:
@@ -59,15 +59,23 @@ def main(dossier: str):
     print(f"\n{ep['label']} — carre {C.LARGEUR}x{C.HAUTEUR}")
     print("1/3  normalisation des B-rolls")
     montage.verifier(ep)              # avant d'encoder le moindre plan
+    # la voix off fixe la duree de chaque plan : elle passe avant la base
+    piste = voix.preparer(episode, ep) if voix.active(ep) else None
     _, bornes, total = montage.base(travail, ep["blocs"])
     print(f"     {len(bornes)} plans, {total:.2f} s")
     print("2/3  rendu de l'habillage")
     muet = montage.habiller(travail, ep, bornes, total)
-    final = montage.finaliser(muet, episode / f"reel_{ep['slug']}_carre.mp4")
+    audio = son.bande(episode, ep, bornes, total, piste)   # voix, musique, bruitages
+    final = montage.finaliser(muet, episode / f"reel_{ep['slug']}_carre.mp4", audio)
+    couv = montage.couverture(final)             # avant la coupe : l'accroche est en place
+    decalage = 0.0
+    if C.ACCROCHE_COUVERTURE:
+        decalage = bornes[1][0]
+        montage.couper_accroche(final, decalage)
     print("3/3  controles")
-    conforme = controles.rapport(final, ep, bornes)
-    couv = montage.couverture(final)
-    print(f"\n{final}\n{couv}   ({time.time()-t0:.0f} s)")
+    # sur le fichier livre, apres la coupe ; l'accroche coupee se controle sur la couverture
+    conforme = controles.rapport(final, ep, bornes, decalage, couv[0])
+    print(f"\n{final}\n" + "\n".join(map(str, couv)) + f"   ({time.time()-t0:.0f} s)")
     sys.exit(0 if conforme else 2)
 
 

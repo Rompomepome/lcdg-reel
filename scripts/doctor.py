@@ -31,6 +31,8 @@ try:
     from dotenv import load_dotenv; load_dotenv(C.RACINE / ".env")
 except ImportError: pass
 ligne("PEXELS_API_KEY", bool(os.environ.get("PEXELS_API_KEY")), "cf .env.example")
+ligne("ELEVENLABS_API_KEY", bool(os.environ.get("ELEVENLABS_API_KEY")),
+      "cf .env.example (voix off, indispensable aux reels)")
 
 print("\n->", "pret" if ok else "il manque des elements, voir ci-dessus")
 sys.exit(0 if ok else 1)

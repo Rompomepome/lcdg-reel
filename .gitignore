@@ -20,3 +20,9 @@ smoke_test.mp4
 smoke.log
 episodes/*/carre/
 episodes/*/broll_carre/
+episodes/*/voix/
+assets/sfx/
+# livrables (videos et couvertures, plusieurs dizaines de Mo) et captures des pages
+# officielles (regenerables par scripts/page.py) : hors depot
+episodes/*/final/
+episodes/*/pages/

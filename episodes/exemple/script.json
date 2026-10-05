@@ -2,14 +2,14 @@
   "slug": "franchises-medicales",
   "date": "2026-09-21",
   "rubrique": "pro",
-  "label": "Franchises · 1er octobre",
-  "sous_titre": "Vos patients *les plus malades* vont payer plus.",
-  "appel": "La parade, en détail :",
+  "label": "Franchises médicales",
+  "sous_titre": "Vos patients chroniques paieront jusqu’à *40 € de plus* par an.",
+  "appel": "Nos 2 recommandations :",
   "blocs": [
     {
       "duree": 3.4,
       "texte": null,
-      "requete": "senior man taking pills at home",
+      "requete": "pharmacy exterior green cross",
       "fichier": "B0.mp4"
     },
     {
@@ -18,15 +18,34 @@
       "valeur": 140,
       "depuis": 100,
       "suffixe": " €",
-      "legende": "de reste à charge *par an*, au maximum",
-      "requete": "paying at pharmacy counter",
-      "fichier": "B1.mp4"
+      "legende": "de franchises et participations forfaitaires *par an*, au maximum",
+      "requete": "euro coins",
+      "fichier": "B1.mp4",
+      "voix": "[matter-of-fact] Depuis le premier octobre, les plafonds des franchises et des participations forfaitaires passent chacun de cinquante à soixante-dix euros. Soit cent quarante euros par an, au maximum."
     },
     {
       "duree": 5.6,
       "texte": "Les patients en ALD ne sont *pas exonérés*. | Ce sont eux qui atteignent les plafonds en premier.",
-      "requete": "nurse home visit elderly",
-      "fichier": "B2.mp4"
+      "requete": "physiotherapist elderly patient session",
+      "fichier": "B2.mp4",
+      "voix": "Les patients en A.L.D. ne sont pas exonérés. | Ce sont même eux qui atteignent les plafonds en premier.",
+      "insert": {
+        "type": "choix",
+        "lignes": [
+          {
+            "label": "Moins de 18 ans",
+            "ok": true
+          },
+          {
+            "label": "Bénéficiaires de la C2S",
+            "ok": true
+          },
+          {
+            "label": "Patients en ALD",
+            "ok": false
+          }
+        ]
+      }
     },
     {
       "duree": 5.6,
@@ -34,48 +53,77 @@
       "valeur": 70,
       "suffixe": " boîtes",
       "pictos": true,
-      "legende": "par an suffisent, à 1 € la boîte. Environ *6 par mois*.",
+      "legende": "par an suffisent à atteindre le plafond des franchises. Environ *6 par mois*.",
       "requete": "pharmacy shelves medicine boxes",
-      "fichier": "B3.mp4"
+      "fichier": "B3.mp4",
+      "voix": "[curious] Faites le calcul : à un euro la boîte, soixante-dix boîtes par an suffisent pour atteindre le plafond des franchises. Soit environ six par mois."
     },
     {
       "duree": 3.4,
       "type": "phrase",
       "texte": "Et une question reste *sans réponse*.",
       "requete": "pharmacy receipt",
-      "fichier": "B4.mp4"
+      "fichier": "B4.mp4",
+      "voix": "[intrigued] Et une question reste sans réponse."
     },
     {
       "duree": 6.0,
-      "texte": "Votre patient avait atteint le plafond de 50 € avant octobre. | Repaiera-t-il *jusqu’à 70 €* d’ici décembre ?",
-      "requete": "paying at pharmacy counter",
-      "fichier": "B5.mp4"
+      "texte": "Votre patient avait atteint 50 € de franchises avant octobre. | Recommencera-t-il à payer *jusqu’à 70 €* d’ici décembre ?",
+      "requete": "senior man reading bill",
+      "fichier": "B5.mp4",
+      "voix": "[thoughtful] Votre patient avait atteint le plafond de cinquante euros de franchises avant octobre. | [curious] Recommencera-t-il à payer jusqu’à soixante-dix euros d’ici décembre ?",
+      "insert": {
+        "type": "barres",
+        "suffixe": " €",
+        "lignes": [
+          {
+            "label": "Plafond avant le 1er octobre",
+            "valeur": 50,
+            "reference": true
+          },
+          {
+            "label": "Plafond depuis le 1er octobre",
+            "valeur": 70,
+            "temps": 1
+          }
+        ]
+      }
     },
     {
       "duree": 6.0,
-      "texte": "Ni le décret ni Service Public ne le disent. | Pour les plus malades, c’est *la seule question* qui compte.",
-      "requete": "crossing out list pen",
-      "fichier": "B6.mp4"
+      "texte": "Ni le décret ni la page de Service Public ne le disent. | Pour vos patients chroniques, c’est *la seule question* qui compte.",
+      "requete": "Capture : service-public.gouv.fr, page sur les plafonds (02/10/2026)",
+      "fichier": "B6.mp4",
+      "voix": "Ni le décret, ni la page de Service Public ne le disent. | Et pour vos patients chroniques, c’est pourtant la seule question qui compte."
     },
     {
       "duree": 6.0,
-      "type": "phrase",
-      "texte": "Le vrai risque n’est pas la facture. | C’est le patient qui *espace* ses boîtes.",
-      "requete": "pill organizer elderly hand",
-      "fichier": "B7.mp4"
+      "texte": "Pour vous, le vrai risque n’est pas tarifaire. | C’est le patient qui *reporte* son renouvellement pour économiser.",
+      "requete": "elderly patient medication at home",
+      "fichier": "B7.mp4",
+      "voix": "[thoughtful] Pour vous, le vrai risque n’est pas tarifaire. | C’est le patient qui reporte son renouvellement pour économiser quelques euros."
     },
     {
       "duree": 5.6,
       "type": "phrase",
-      "texte": "Dès 2028, les plafonds suivront l’inflation. | 140 €, ce n’est *qu’un début*.",
-      "requete": "rising staircase steps",
-      "fichier": "B8.mp4"
+      "texte": "Dès 2028, les plafonds suivront l’inflation. | 140 €, ce n’est qu’un *point de départ*.",
+      "requete": "rising graph chart",
+      "fichier": "B8.mp4",
+      "voix": "[matter-of-fact] Dès deux mille vingt-huit, les plafonds suivront l’inflation. | Cent quarante euros, c’est un point de départ, pas un maximum."
     },
     {
       "duree": 4.4,
-      "texte": "Il existe une parade. | Elle est dans *votre ordonnance*.",
-      "requete": "doctor writing prescription",
-      "fichier": "B9.mp4"
+      "texte": "Que faire au cabinet ? | Le Cercle fait *2 recommandations*.",
+      "requete": "writing checklist notebook",
+      "fichier": "B9.mp4",
+      "voix": "[warm] Alors, que faire au cabinet ? | Le Cercle vous donne deux recommandations concrètes, à retrouver sur son site.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
     }
-  ]
+  ],
+  "voix_off": "homme_age",
+  "bandeau": "Pour recevoir l’analyse, | commentez *140*",
+  "badge": "Reste à charge"
 }

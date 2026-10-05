@@ -6,6 +6,7 @@ ecrasait la taille du logo definie dans la charte. L'apercu montrait la bonne ta
 la video non, et l'erreur a survecu a quatre corrections. On ne verifie donc plus
 sur un apercu, mais par mesure de pixels sur le fichier livre.
 """
+import subprocess
 import sys
 from pathlib import Path
 
@@ -15,6 +16,8 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from config import charte as C
 from lcdg import binaires as B
+from lcdg import habillage as hb
+from lcdg import son
 
 
 def _frame(video: Path, t: float) -> Image.Image | None:
@@ -83,49 +86,93 @@ def mesurer_hors_zone(video: Path) -> int:
 
 
 def pistes_audio(video: Path) -> int:
-    """Nombre de pistes audio du fichier livre : il doit sortir muet."""
+    """Nombre de pistes audio du fichier livre : une avec la voix off, aucune sinon."""
     sortie = B.probe(video, "stream=codec_type")
     return sum(1 for ligne in sortie.splitlines() if ligne.strip() == "audio")
 
 
-def mesurer_surlignages(video: Path, ep: dict, bornes: list) -> tuple[int, list]:
-    """(blocs controles, blocs ou le surlignage manque).
+def mesurer_voix(video: Path) -> dict:
+    """Loudness integree et true peak de la piste audio (la voix seule)."""
+    r = subprocess.run([B.FFMPEG, "-hide_banner", "-i", str(video), "-af",
+                        f"loudnorm=I={C.VOIX_LUFS}:TP={C.VOIX_TP_CIBLE}:print_format=summary",
+                        "-f", "null", "-"], capture_output=True, text=True)
+    out = {}
+    for ligne in r.stderr.splitlines():
+        if "Input Integrated" in ligne:
+            out["lufs"] = float(ligne.split(":")[1].replace("LUFS", "").strip())
+        if "Input True Peak" in ligne:
+            out["tp"] = float(ligne.split(":")[1].replace("dBTP", "").strip())
+    return out
 
-    Remplace la mesure du filet du style v1 : c'est le controle du texte sur le fichier
-    livre. Pour chaque bloc dont le dernier temps porte un surlignage, on cherche la
-    couleur de la rubrique dans la bande ou ce texte doit etre pose, juste avant sa
-    sortie. Un texte decale, mal colore ou absent fait echouer le bloc."""
-    couleur = np.array(C.RUBRIQUES.get(ep.get("rubrique") or "pro", C.PRIMARY))
+
+def _temps_surlignes(ep: dict, bornes: list) -> list:
+    """[(nom, texte anime, bande de l'image)] des temps de texte qui portent un surlignage :
+    l'accroche, chaque temps d'un bloc, la legende d'un chiffre. Instants et positions
+    viennent des scenes de l'habillage : le controle suit ce qui a ete dessine."""
+    hb.rubrique(ep.get("rubrique"))
     blocs = ep["blocs"]
     croix = bornes[-1][0] + blocs[-1]["duree"]
+    bande_bloc = slice(C.BLOC_Y, C.BLOC_Y + 4 * C.BLOC_INTERLIGNE)
+    demi = 2 * C.ACCROCHE_INTERLIGNE
+    bande_phrase = slice(C.ACCROCHE_CENTRE - demi, C.ACCROCHE_CENTRE + demi)
+    out = []
+    for k, sc in enumerate(hb.scenes(ep, bornes, croix)):
+        if isinstance(sc, hb.Accroche):
+            st, n = hb.style_ajuste(ep["sous_titre"])
+            haut = sc.y + C.SURTITRE_H + C.SURTITRE_ECART
+            out.append(("accroche", sc.texte,
+                        slice(haut, haut + n * st["interligne"] + C.SURLIGNE_MARGE)))
+        elif isinstance(sc, hb.Chiffre):
+            out.append((f"bloc {k}", sc.legende, bande_bloc))
+        else:
+            for i, part in enumerate(sc.parts):
+                nom = f"bloc {k}" + (f" (temps {i + 1})" if len(sc.parts) > 1 else "")
+                out.append((nom, part, bande_phrase if sc.grand else bande_bloc))
+    return [(nom, cine, bande) for nom, cine, bande in out if cine.marques]
+
+
+def _proches(im: Image.Image, bande: slice, couleur) -> int:
+    """Pixels de la couleur du surlignage dans la bande, colonne de texte comprise."""
     colonne = slice(max(0, C.TEXTE_X - C.SURLIGNE_MARGE),
                     C.TEXTE_X + C.TEXTE_LARGEUR + C.SURLIGNE_MARGE)
+    a = np.array(im.convert("RGB")).astype(int)[bande, colonne]
+    return int((np.abs(a - couleur).sum(axis=2) < C.SURLIGNE_CONTROLE_ECART).sum())
+
+
+def mesurer_surlignages(video: Path, ep: dict, bornes: list, decalage: float = 0.0,
+                        couverture: Path | None = None) -> tuple[int, list]:
+    """(temps controles, temps ou le surlignage manque).
+
+    Le controle du texte sur le fichier livre : pour chaque temps qui porte un surlignage,
+    on cherche la couleur de la rubrique dans la bande ou ce texte est pose, juste avant sa
+    sortie. Un texte decale, mal colore ou absent fait echouer le temps. decalage : debut
+    du fichier livre dans le montage (l'accroche coupee) ; ce qui le precede se controle
+    sur l'image de couverture."""
+    couleur = np.array(C.RUBRIQUES.get(ep.get("rubrique") or "pro", C.PRIMARY))
     n, manques = 0, []
-    for k in range(1, len(blocs)):
-        bl = blocs[k]
-        texte = (bl.get("legende") if bl.get("type") == "chiffre" else bl.get("texte")) or ""
-        if "*" not in texte.split("|")[-1]:
-            continue
-        fin = croix + C.BLOC_RESIDU if k == len(blocs) - 1 else bornes[k][1]
-        im = _frame(video, max(bornes[k][0], fin - C.SORTIE_DUREE - 0.1))
+    for nom, cine, bande in _temps_surlignes(ep, bornes):
+        t = max(cine.debut, cine.fin - C.SORTIE_DUREE - 0.1)
+        if t < decalage:
+            if not (couverture and Path(couverture).exists()):
+                continue
+            im = Image.open(couverture)
+        else:
+            im = _frame(video, t - decalage)
         if im is None:
             continue
-        if bl.get("type") == "phrase":
-            demi = 2 * C.ACCROCHE_INTERLIGNE
-            bande = slice(C.ACCROCHE_CENTRE - demi, C.ACCROCHE_CENTRE + demi)
-        else:
-            bande = slice(C.BLOC_Y, C.BLOC_Y + 4 * C.BLOC_INTERLIGNE)
-        a = np.array(im.convert("RGB")).astype(int)[bande, colonne]
-        proches = int((np.abs(a - couleur).sum(axis=2) < C.SURLIGNE_CONTROLE_ECART).sum())
         n += 1
+        proches = _proches(im, bande, couleur)
         if proches < C.SURLIGNE_CONTROLE_MIN:
-            manques.append(f"bloc {k} ({proches} px)")
+            manques.append(f"{nom} ({proches} px)")
     return n, manques
 
 
-def rapport(video: Path, ep: dict | None = None, bornes: list | None = None) -> bool:
+def rapport(video: Path, ep: dict | None = None, bornes: list | None = None,
+            decalage: float = 0.0, couverture: Path | None = None) -> bool:
     """Affiche le bilan et retourne True si tout est conforme. Avec le script et les
-    bornes des plans, controle aussi le texte (surlignages) sur le fichier livre."""
+    bornes des plans, controle aussi la duree et le texte (surlignages) du fichier livre.
+    decalage : debut du fichier livre dans le montage, quand l'accroche a ete coupee ; elle
+    se controle alors sur la couverture."""
     lh, _, ly = mesurer_logo(video)
     hz = mesurer_hors_zone(video)
     pa = pistes_audio(video)
@@ -141,9 +188,22 @@ def rapport(video: Path, ep: dict | None = None, bornes: list | None = None) -> 
     check("logo (hauteur)", lh, C.LOGO_PX, 8, " px")
     check("logo (position)", ly, C.LOGO_Y, 8, " px")
     check("hors zone 4:5 (fin)", hz, 0, 0, " px")
-    check("pistes audio", pa, 0, 0)
+    avec_voix = ep is not None and any((bl.get("voix") or "").strip() for bl in ep["blocs"])
+    avec_fond = ep is not None and son.musique(ep) is not None
+    check("pistes audio", pa, 1 if (avec_voix or avec_fond) else 0, 0)
+    if avec_voix or avec_fond:
+        # voix seule : -16 LUFS ; avec la musique et les bruitages, le mixage vise -14
+        cible, plafond = (C.SON_LUFS, C.SON_TP_PLAFOND) if avec_fond else (C.VOIX_LUFS, C.VOIX_TP_PLAFOND)
+        mv = mesurer_voix(video)
+        check("son (loudness)", mv.get("lufs", 0), cible, C.VOIX_LUFS_TOLERANCE, " LUFS")
+        tp = mv.get("tp", 0)
+        bon = tp <= plafond
+        ok = ok and bon
+        lignes.append(f"  {'OK ' if bon else 'ECHEC'}  {'son (true peak)':22} {tp} dBTP "
+                      f"(plafond {plafond} dBTP)")
     if ep is not None and bornes:
-        n, manques = mesurer_surlignages(video, ep, bornes)
+        check("duree", round(B.duree(video), 2), round(bornes[-1][1] - decalage, 2), 0.1, " s")
+        n, manques = mesurer_surlignages(video, ep, bornes, decalage, couverture)
         bon = not manques
         ok = ok and bon
         lignes.append(f"  {'OK ' if bon else 'ECHEC'}  {'surlignages':22} {n - len(manques)}/{n}"

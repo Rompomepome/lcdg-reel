@@ -139,17 +139,22 @@ le reel « Franchises médicales » du 01/10/2026.
 **C'est ton moment le plus important.** Le style est dans l'outil ; le rythme et
 l'accroche, eux, sont dans le script. Vérifie :
 
-- **L'accroche** (`sous_titre`). Elle parle au médecin (« vos patients », « votre
-  ordonnance ») et pose un enjeu : une perte, une injustice, une erreur à éviter. Si elle
-  ressemble au titre de l'article, elle est à refaire.
+- **L'accroche** (`sous_titre`). C'est l'image de couverture : elle n'apparaît pas dans la
+  vidéo, qui commence au premier fait (bloc 1). Elle parle au médecin (« vos patients »,
+  « votre ordonnance ») et pose un enjeu : une perte, une injustice, une erreur à éviter. Si
+  elle ressemble au titre de l'article, elle est à refaire.
+- **Les mots.** Des mots qu'on dit, compris en une seconde : « et si c'est plus long que
+  prévu ? », pas « si la date glisse ».
 - **La porte d'entrée.** Le reel donne les faits et ouvre les questions de « Ce qui pose
   question », mais **ne donne pas la solution** : tes lecteurs viennent la chercher sur
   le site. Si le reel livre la recommandation du Cercle, il supprime la raison de cliquer.
 - **La chute et la promesse.** L'avant-dernier plan fait réagir ; le dernier promet ce que
-  l'article donne (« Il existe une parade. Elle est dans votre ordonnance. »).
-- **L'appel** (champ `appel`) : il nomme ce que l'article donne (« La parade, en
-  détail : »). Une ligne. La carte finale ajoute « Inscription gratuite · lien en bio »
-  (« … lien dans le post » sur la version carrée).
+  l'article donne (« Que faire au cabinet ? Le Cercle fait 2 recommandations. »).
+- **L'appel** (champ `appel`) : il nomme ce que l'article donne (« Nos 2
+  recommandations : »). Une ligne. La carte finale ajoute « Inscription gratuite · lien en
+  bio » (« … lien dans le post » sur la version carrée).
+- **La voix** (champ `voix_off`) : l'une des quatre voix, selon le thème et la gravité
+  (voir `CLAUDE.md`).
 - **L'exactitude.** Chaque phrase se retrouve dans l'article. Un « jusqu'à » ou un
   « environ » ne disparaît pas.
 - **La densité.** Trois lignes au plus par écran. Un `|` coupe un texte en deux temps.
@@ -179,7 +184,13 @@ python scripts/broll.py choisir  episodes/AAAA-MM-JJ-slug 3 C8
 ```
 
 La planche est dans `broll/candidats/3.jpg`. Un plan marqué **DEJA PRIS** a servi dans
-un autre reel : le public le reconnaîtrait. `choisir` le refuse de toute façon.
+un autre reel ; **TOURNAGE VU**, il vient du même tournage qu'un plan déjà monté (mêmes
+acteurs, même décor) : le public le reconnaîtrait. `choisir` les refuse de toute façon.
+Ajoute `--paysage` (plans paysage 4K) ou `--mixte` (les deux) quand les plans verticaux
+manquent.
+
+Quand le texte cite un décret ou une institution qu'on ne peut pas filmer, montre sa vraie
+page : `python scripts/page.py capturer ...` puis `monter ...` (voir le README).
 
 Quand tous les plans sont choisis :
 
@@ -202,24 +213,34 @@ python scripts/render.py episodes/AAAA-MM-JJ-slug
 python scripts/render_carre.py episodes/AAAA-MM-JJ-slug
 ```
 
-Deux à trois minutes chacun. Avant de rendre la moindre image, `render` vérifie que
-chaque texte tient dans la zone sûre ; sinon il s'arrête et dit lequel raccourcir. Il
-finit sur le bilan de contrôle :
+Trois à cinq minutes chacun. Avant de rendre la moindre image, `render` vérifie que
+chaque texte et chaque insert tiennent dans la zone sûre ; sinon il s'arrête et dit lequel
+raccourcir. Il finit sur le bilan de contrôle :
 
 ```
   OK   logo (hauteur)         122 px (attendu 124 px ±8)
   OK   logo (position)        331 px (attendu 329 px ±8)
   OK   hors zone 4:5 (fin)    0 px (attendu 0 px ±0)
-  OK   pistes audio           0 (attendu 0 ±0)
-  OK   surlignages            9/9
+  OK   pistes audio           1 (attendu 1 ±0)
+  OK   son (loudness)         -14.1 LUFS (attendu -14 LUFS ±1.5)
+  OK   son (true peak)        -1.4 dBTP (plafond -1.0 dBTP)
+  OK   surlignages            8/8
   -> conforme
 ```
 
 Dans le dossier de l'épisode :
 
-- `reel_<slug>.mp4` : le reel 9:16, sans son. Pose ta musique au montage final.
-- `couverture_<slug>.jpg` : l'image à choisir comme couverture, accroche en place.
+- `reel_<slug>.mp4` : le reel 9:16, voix, musique et bruitages mixés. Il commence au
+  premier fait : l'accroche est coupée, elle sert de couverture.
+- `couverture_<slug>.jpg` (9:16) et `couverture_<slug>_4x5.jpg` : l'image à choisir comme
+  couverture, accroche en place.
+- `voix_<slug>.wav` : la voix seule, si tu veux remonter le son toi-même.
 - `reel_<slug>_carre.mp4` et `couverture_<slug>_carre.jpg` : la version LinkedIn.
+- `legendes.md` (écrit par Claude Code) : les textes Instagram, Facebook et LinkedIn.
+
+**À la publication sur Instagram et Facebook**, active l'étiquette « Info IA » (paramètres
+avancés) : Meta impose de déclarer une voix de synthèse réaliste, et peut pénaliser un
+oubli.
 
 ## 2.6 Temps réel
 
@@ -243,7 +264,10 @@ plans. Les rendus tournent pendant que tu fais autre chose.
 | `ffmpeg s'est arrete pendant le rendu` | Disque plein, ou `base.mp4` corrompu | Libérer de l'espace (compte 2 Go par épisode), supprimer `base.mp4` et `segments/`, relancer |
 | `ECHEC logo (hauteur)` | Une valeur codée en dur écrase la charte | Ne pas publier. Vérifier que `lcdg/` n'a pas été modifié, relancer `smoke_test.py` |
 | `ECHEC surlignages` | Un texte n'est pas à sa place, ou pas dessiné, sur la vidéo livrée | Ne pas publier. Vérifier que `lcdg/` n'a pas été modifié, relancer `smoke_test.py` |
-| `ECHEC pistes audio` | Une piste son s'est glissée dans la sortie | Ne pas publier. Relancer `smoke_test.py` et signaler le problème |
+| `ECHEC pistes audio` ou `son` | Piste absente, en double ou à un mauvais niveau | Ne pas publier. Vérifier `ELEVENLABS_API_KEY`, le champ `voix` des blocs et `assets/audio`, relancer `smoke_test.py` |
+| `[!] pas la place pour l'insert` | Le texte du bloc est trop haut pour l'insert | Raccourcir le texte du bloc, ou retirer l'insert |
+| `[!] voix_off inconnue` ou `pas encore enregistree` | Clé de voix absente du catalogue, ou voix pas dans l'espace ElevenLabs | Choisir une des quatre voix de `charte.VOIX_CATALOGUE` |
+| `ElevenLabs a refuse la generation` | Clé invalide ou quota mensuel épuisé | Vérifier la clé dans `.env` et le quota sur elevenlabs.io |
 
 **Règle générale** : si un contrôle échoue, `render` sort en code 2 et affiche
 `NON CONFORME`. Ne publie pas. C'est fait pour t'avertir avant, pas après.
@@ -298,16 +322,21 @@ episodes/plans_utilises.json   registre des plans Pexels déjà montés
 lcdg/binaires.py               localise ffmpeg sur Windows, macOS et Linux
 lcdg/logo.py                   détoure le logo et compose le lockup Montserrat
 lcdg/texte.py                  mise en page et animation du texte
-lcdg/habillage.py              accroche, blocs, chiffres, transition en croix, carte finale
+lcdg/habillage.py              accroche, entrée animée, blocs, chiffres, bandeau, croix, carte finale
+lcdg/inserts.py                inserts animés (cadenas, calendrier, barres, oui/non, tampon)
+lcdg/voix.py                   voix off ElevenLabs, calage du reel sur la narration
+lcdg/resonance.py              correction de la résonance d'une voix
+lcdg/son.py                    mixage voix, musique et bruitages
 lcdg/pexels.py                 client de l'API Pexels
-lcdg/registre.py               registre des plans utilisés
-lcdg/montage.py                base vidéo, rendu image par image, sortie, couverture
+lcdg/registre.py               registre des plans utilisés et de leurs tournages
+lcdg/montage.py                base vidéo, rendu image par image, sortie, couvertures
 lcdg/controles.py              mesures sur le fichier de sortie
 
 scripts/doctor.py              vérifie que la machine est prête
 scripts/prepare.py             premiers plans, planche contact
 scripts/broll.py               chercher, choisir et contrôler les plans
-scripts/render.py              monte, contrôle, sort la couverture
+scripts/page.py                capturer une page officielle et la monter en plan
+scripts/render.py              monte, contrôle, sort les couvertures, coupe l'accroche
 scripts/render_carre.py        déclinaison carrée LinkedIn
 scripts/smoke_test.py          test de bout en bout sans Pexels ni B-roll
 
@@ -321,14 +350,15 @@ CLAUDE.md                      méthode d'écriture et règles pour Claude Code
 
 | | |
 |---|---|
-| Format | 1080x1920, 30 fps, 50 à 55 s ; carré 1080x1080 pour LinkedIn |
+| Format | 1080x1920, 30 fps, une minute environ (la voix fixe la durée) ; carré 1080x1080 pour LinkedIn |
 | Zone sûre | 4:5 centrée (y 285 à 1635) : logo, textes et carte finale y tiennent, le fil Instagram et Facebook recadre le reel sans rien couper |
 | Couleurs | `#047bbf`, `#1b1046` et les couleurs de rubrique, reprises du thème du site |
 | Typographie | Montserrat, embarquée dans le dépôt, travaillée comme les titres du site |
 | Logo | 124 px de haut, en haut à droite de la zone sûre |
-| Accroche | pastille du sujet, phrase ExtraBold 92, voile sur l'image |
+| Accroche | couverture seulement : pastille du sujet, phrase ExtraBold 92, voile sur l'image |
+| Entrée | image qui arrive floue et se pose, éclair bref, pastille `badge` avec un reflet |
 | Texte | Bold 66, ombre douce, 3 lignes au plus ; segment clé en ExtraBold, surligné au feutre |
 | Chiffres | ExtraBold 230, valeur barrée, compteur, pictogrammes, fond flouté |
-| Animation | mots posés un par un, sortie vers le haut ; l'image se pose à chaque coupe |
+| Animation | mots posés un par un, inserts animés, sortie vers le haut ; l'image se pose à chaque coupe |
 | Fin | ouverture en croix médicale, logo, appel à l'action, lien |
-| Son | aucun : la musique est posée au montage final |
+| Son | voix off ElevenLabs (quatre voix), musique atténuée sous la voix, bruitages sur le motion, −14 LUFS |

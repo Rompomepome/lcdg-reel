@@ -12,7 +12,7 @@ import sys
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-import json, sys, time
+import json, shutil, sys, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 try:
@@ -20,7 +20,8 @@ try:
     load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 except ImportError:
     pass
-from lcdg import binaires as B, montage, controles
+from config import charte as C
+from lcdg import binaires as B, montage, controles, son, voix
 
 
 def main(dossier: str):
@@ -31,18 +32,29 @@ def main(dossier: str):
 
     print("\n1/3  normalisation des B-rolls")
     montage.verifier(ep)              # avant d'encoder le moindre plan
+    # la voix off fixe la duree de chaque plan : elle passe avant la base
+    piste = voix.preparer(episode, ep) if voix.active(ep) else None
     _, bornes, total = montage.base(episode, ep["blocs"])
     print(f"     {len(bornes)} plans, {total:.2f} s")
 
     print("2/3  rendu de l'habillage")
     muet = montage.habiller(episode, ep, bornes, total)
-    sortie = montage.finaliser(muet, episode / f"reel_{ep['slug']}.mp4")
+    audio = son.bande(episode, ep, bornes, total, piste)   # voix, musique, bruitages
+    sortie = montage.finaliser(muet, episode / f"reel_{ep['slug']}.mp4", audio)
+    if piste:                         # voix seule, pour le montage final en musique
+        shutil.copy(piste, episode / piste.name)
+
+    couv = montage.couverture(sortie)            # avant la coupe : l'accroche est en place
+    decalage = 0.0
+    if C.ACCROCHE_COUVERTURE:
+        decalage = bornes[1][0]
+        montage.couper_accroche(sortie, decalage)
 
     print("3/3  controles")
-    conforme = controles.rapport(sortie, ep, bornes)
-    couv = montage.couverture(sortie)
+    # sur le fichier livre, apres la coupe ; l'accroche coupee se controle sur la couverture
+    conforme = controles.rapport(sortie, ep, bornes, decalage, couv[0])
 
-    print(f"\n{sortie}\n{couv}   ({time.time()-t0:.0f} s)")
+    print(f"\n{sortie}\n" + "\n".join(map(str, couv)) + f"   ({time.time()-t0:.0f} s)")
     sys.exit(0 if conforme else 2)
 
 
