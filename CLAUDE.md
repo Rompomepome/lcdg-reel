@@ -41,6 +41,19 @@ plus par an » et le dispositif (les franchises). Une formule vague ou approxima
 erreur de fond, pas un effet de style : c'est un média pour médecins (Romain, 01/10/2026). Lis l'article en entier : il est réservé aux membres pendant
 14 jours, passe par le compte de Romain ou par le PDF de la revue.
 
+L'article lui-même peut se tromper : vérifie chaque fait du reel à la source officielle,
+y compris la FAQ et les courriers de l'autorité. Le 05/10/2026, « impossible de savoir si
+la patiente a reçu le courrier » était faux : la FAQ de l'ANSM disait que le prescripteur
+reçoit la liste nominative. Deux règles, après deux erreurs relevées par Romain dans les
+PDF le 06/10/2026 :
+- **Une condition ne se coupe jamais.** Une exonération, un droit ou une indication garde
+  sa condition entière, même dans une pastille ou une liste coche / croix. Les femmes
+  enceintes ne sont exonérées des franchises qu'à partir du 1er jour du 6e mois de
+  grossesse, et jusqu'au 12e jour après l'accouchement.
+- **Une liste officielle se reprend mot pour mot,** avec la source exacte de cette
+  formulation. Pour les signes du méningiome, l'actualité de l'ANSM dit « troubles de la
+  mémoire », sa FAQ et ses recommandations aux médecins disent « perte de mémoire ».
+
 **Des mots qu'on dit.** Le reel s'écoute et se lit en une seconde : on doit être compris
 presque instantanément (Romain, 05/10/2026). Pas de tournure d'écrit ou de communiqué :
 « si la date glisse » devient « et si c'est plus long que prévu ? », « contingentée »
