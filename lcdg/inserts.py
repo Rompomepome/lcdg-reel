@@ -19,7 +19,8 @@ Champ "insert" d'un bloc de texte (pas d'une phrase forte ni d'un chiffre cle) :
       un tampon qui claque
 
 Un element (ligne, barre, tampon) peut porter "temps" : il arrive avec le temps du texte
-de ce numero (0 = debut du bloc, 1 = apres le premier "|"...). L'insert se cale en bas sur
+de ce numero (0 = debut du bloc, 1 = apres le premier "|"...). "carre": false dans l'insert
+le retire de la version carree, quand il n'y tient pas (bloc 1, sous la pastille d'ouverture). L'insert se cale en bas sur
 le haut du texte (et de la pastille d'ouverture), en haut sur INSERT_HAUT_MIN, a gauche sur
 la colonne de texte ; il retrecit s'il le faut. Il sort avec le texte du bloc.
 Toutes les valeurs viennent de config/charte.py — ne rien coder en dur ici.
@@ -71,7 +72,9 @@ def _poser(fond, im, cx, cy, k=1.0, alpha=1.0, angle=0.0):
 
 
 def _nombre(v, dec):
-    return f"{v:.{dec}f}".replace(".", ",")
+    # meme ecriture que les chiffres cles (habillage.Chiffre.nombre) : milliers separes par
+    # une espace fine, virgule decimale (« 3 400 », « 49,6 »)
+    return f"{v:,.{dec}f}".replace(",", " ").replace(".", ",")
 
 
 class _Insert:
@@ -546,6 +549,10 @@ def inserts(ep, scenes, ouverture=None):
     for k, bl in enumerate(ep["blocs"]):
         spec = bl.get("insert")
         if not spec:
+            continue
+        # "carre": false le retire de la version carree, plus basse : au bloc 1, la pastille
+        # d'ouverture ne laisse pas toujours la place d'un insert (charte.CARRE)
+        if spec.get("carre") is False and C.LARGEUR == C.HAUTEUR:
             continue
         if bl.get("type") in ("phrase", "chiffre") or k == 0:
             raise SystemExit(f"[!] bloc {k} : un insert se pose sur un bloc de texte (pas sur "

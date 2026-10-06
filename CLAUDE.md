@@ -141,7 +141,11 @@ Deux ou trois par reel, là où ils éclairent le propos, jamais en décor :
 
 `"temps"` fait arriver un élément avec le temps du texte de ce numéro (0 = début du
 bloc). Un insert n'invente rien : il dit ce que dit le texte, avec les mots de l'article.
-`render` refuse un insert sans place au-dessus du texte.
+`render` refuse un insert sans place au-dessus du texte. La version carrée est plus basse :
+au bloc 1, sous la pastille d'ouverture, un calendrier ou une liste ne tient pas. Ajoute
+alors `"carre": false` dans l'insert : il reste dans le 9:16 et sort du carré. Contrôle les
+deux formats avant de rendre : `render_carre` ne s'arrête qu'après le rendu du 9:16
+(06/10/2026).
 
 **Surlignage.** Un segment par temps, entre astérisques : le fait, pas l'adjectif. Il ne
 se coupe jamais, donc il reste court : une vingtaine de caractères dans un texte, une

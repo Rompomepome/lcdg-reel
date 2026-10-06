@@ -1,0 +1,116 @@
+{
+  "slug": "plfss-2027",
+  "date": "2026-10-06",
+  "rubrique": "politique",
+  "label": "PLFSS 2027",
+  "sous_titre": "Soins de ville : *+900 millions*, établissements : +3,4 milliards.",
+  "appel": "Nos 2 recommandations :",
+  "bandeau": "Pour recevoir l’analyse, | commentez *PLFSS*",
+  "voix_off": "homme_age",
+  "badge": "Budget de la Sécu 2027",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "requete": "stethoscope euro banknotes",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 7.0,
+      "texte": "Projet de budget de la Sécu 2027 : Ondam limité à *+2 %*.",
+      "requete": "page : https://www.assemblee-nationale.fr/dyn/17/textes/l17b3211_projet-loi",
+      "fichier": "B1.mp4",
+      "voix": "[matter-of-fact] Présenté le premier octobre, le projet de budget de la Sécu limite à deux pour cent la hausse des dépenses d’assurance maladie en deux mille vingt-sept."
+    },
+    {
+      "duree": 9.0,
+      "texte": "Soins de ville : *+900 millions*. | Établissements de santé : +3,4 milliards.",
+      "requete": "hospital building Europe",
+      "fichier": "B2.mp4",
+      "voix": "Par rapport à deux mille vingt-six, l’enveloppe des soins de ville augmente de neuf cents millions d’euros. | Celle des établissements de santé, de trois milliards quatre cents millions.",
+      "insert": {
+        "type": "barres",
+        "unite": "+",
+        "suffixe": " M€",
+        "lignes": [
+          {
+            "label": "Soins de ville",
+            "valeur": 900
+          },
+          {
+            "label": "Établissements de santé",
+            "valeur": 3400,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 6.5,
+      "type": "chiffre",
+      "valeur": 5.1,
+      "decimales": 1,
+      "suffixe": " Md€",
+      "legende": "d’économies nouvelles, dont *1 milliard* sur les indemnités journalières.",
+      "requete": "euro money stethoscope",
+      "fichier": "B3.mp4",
+      "voix": "Pour y arriver, cinq milliards cent millions d’euros d’économies nouvelles. Dont un milliard sur les indemnités journalières."
+    },
+    {
+      "duree": 3.4,
+      "type": "phrase",
+      "texte": "Et une question reste *sans réponse*.",
+      "requete": "pensive man reading document at home",
+      "fichier": "B4.mp4",
+      "voix": "[intrigued] Et une question reste sans réponse."
+    },
+    {
+      "duree": 7.5,
+      "texte": "D’où viendra *le milliard* sur les indemnités journalières ? | Aucun article du projet de loi ne le dit.",
+      "requete": "sick leave home rest blanket daylight",
+      "fichier": "B5.mp4",
+      "voix": "[curious] D’où viendra ce milliard d’économies sur les indemnités journalières ? | Aucun article du projet de loi ne le dit."
+    },
+    {
+      "duree": 6.5,
+      "texte": "Le seul article sur les arrêts de travail : *juillet 2027*. | Et son effet n’est pas chiffré.",
+      "requete": "calendar planner desk",
+      "fichier": "B6.mp4",
+      "voix": "Le seul article consacré aux arrêts de travail n’entre en vigueur qu’en juillet deux mille vingt-sept. | Et son effet n’est pas chiffré.",
+      "insert": {
+        "type": "calendrier",
+        "annee": 2027,
+        "mois": 7,
+        "du": 1,
+        "au": 1,
+        "legende": "1er juillet 2027"
+      }
+    },
+    {
+      "duree": 5.0,
+      "type": "phrase",
+      "texte": "Pour revaloriser vos tarifs en 2027, la marge sera *très étroite*.",
+      "requete": "stethoscope calculator",
+      "fichier": "B7.mp4",
+      "voix": "[thoughtful] Et pour revaloriser vos tarifs en deux mille vingt-sept, la marge sera très étroite."
+    },
+    {
+      "duree": 5.5,
+      "texte": "Rien n’est encore voté : le texte arrive *au Parlement*.",
+      "requete": "page : https://www.assemblee-nationale.fr/dyn/17/dossiers/PLFSS_2027",
+      "fichier": "B8.mp4",
+      "voix": "Rien n’est encore voté : le texte arrive au Parlement, qui peut le modifier."
+    },
+    {
+      "duree": 4.5,
+      "texte": "Que faire au cabinet d’ici là ? | Le Cercle fait *2 recommandations*.",
+      "requete": "doctor typing laptop close up",
+      "fichier": "B9.mp4",
+      "voix": "[warm] Alors, que faire au cabinet d’ici là ? | Le Cercle vous donne deux recommandations concrètes, sur son site.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ]
+}

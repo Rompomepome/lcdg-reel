@@ -1,0 +1,105 @@
+{
+  "slug": "grippe-covid",
+  "date": "2026-10-06",
+  "rubrique": "clinique",
+  "label": "Grippe et Covid",
+  "sous_titre": "Vaccin antigrippal : bientôt *obligatoire* pour vous ?",
+  "appel": "Nos 2 recommandations :",
+  "bandeau": "Pour recevoir l’analyse, | commentez *GRIPPE*",
+  "voix_off": "femme_agee",
+  "badge": "Campagne 2026-2027",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "requete": "doctor getting vaccinated arm",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 7.0,
+      "texte": "Le *13 octobre*, la vaccination contre la grippe et le Covid démarre. | Sauf à Mayotte et à La Réunion.",
+      "requete": "vaccine syringe vial close up hands",
+      "fichier": "B1.mp4",
+      "voix": "[matter-of-fact] Le treize octobre, la vaccination contre la grippe et le Covid démarre. | Sauf à Mayotte et à La Réunion.",
+      "insert": {
+        "type": "calendrier",
+        "annee": 2026,
+        "mois": 10,
+        "du": 13,
+        "au": 13,
+        "legende": "13 octobre",
+        "carre": false
+      }
+    },
+    {
+      "duree": 8.0,
+      "texte": "Depuis juillet, le vaccin grippal est soumis à *prescription*. | Pharmacien formé et infirmier peuvent le prescrire dès 11 ans.",
+      "requete": "page : https://ansm.sante.fr/actualites/les-vaccins-contre-la-grippe-desormais-soumis-a-prescription-obligatoire-par-les-medecins-sage-femmes-pharmaciens-et-infirmiers",
+      "fichier": "B2.mp4",
+      "voix": "Depuis juillet, le vaccin contre la grippe est soumis à prescription. | Le pharmacien formé à la vaccination et l’infirmier peuvent aussi le prescrire, dès onze ans."
+    },
+    {
+      "duree": 8.5,
+      "texte": "Dès 11 ans, avec le bon : *direct en pharmacie*. | Avant 11 ans : prescription du médecin ou de la sage-femme.",
+      "requete": "doctor signing medical form close up",
+      "fichier": "B3.mp4",
+      "voix": "Avec leur bon et leur carte Vitale, vos patients de onze ans et plus le retirent directement en pharmacie. | Avant onze ans, il faut d’abord la prescription du médecin ou de la sage-femme."
+    },
+    {
+      "duree": 7.5,
+      "texte": "Personnes à risque : *moins d’1 sur 2* vaccinée l’hiver dernier. | L’OMS recommande au moins 75 %.",
+      "requete": "senior couple walking autumn park",
+      "fichier": "B4.mp4",
+      "voix": "L’hiver dernier, moins d’une personne à risque sur deux s’est fait vacciner. | L’O.M.S. recommande au moins soixante-quinze pour cent.",
+      "insert": {
+        "type": "barres",
+        "suffixe": " %",
+        "lignes": [
+          {
+            "label": "Personnes à risque",
+            "valeur": 49.6
+          },
+          {
+            "label": "Seuil de l’OMS",
+            "valeur": 75,
+            "reference": true,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 7.5,
+      "texte": "La HAS recommande de rendre ce vaccin *obligatoire*. | Pour tous les professionnels de santé, libéraux compris.",
+      "requete": "page : https://www.has-sante.fr/jcms/p_4214093/fr/la-has-se-prononce-sur-l-obligation-vaccinale-contre-la-grippe",
+      "fichier": "B5.mp4",
+      "voix": "La H.A.S. recommande de rendre ce vaccin obligatoire, chaque année. | Pour tous les professionnels de santé, libéraux compris."
+    },
+    {
+      "duree": 3.4,
+      "type": "phrase",
+      "texte": "Mais une question reste *sans réponse*.",
+      "requete": "doctor looking out window thinking",
+      "fichier": "B6.mp4",
+      "voix": "[intrigued] Mais une question reste sans réponse."
+    },
+    {
+      "duree": 7.5,
+      "texte": "Médecin libéral : comment serez-vous contrôlé ? | Et que risquez-vous si vous *refusez* ? | Les textes sont attendus *d’ici fin mars 2027*.",
+      "requete": "doctor holding clipboard reading",
+      "fichier": "B7.mp4",
+      "voix": "[curious] Vous, médecin libéral : comment serez-vous contrôlé ? | Et que risquez-vous si vous refusez ? | Les textes sont attendus d’ici fin mars deux mille vingt-sept."
+    },
+    {
+      "duree": 4.5,
+      "texte": "Que faire dès le 13 octobre ? | Le Cercle fait *2 recommandations*.",
+      "requete": "adhesive bandage after vaccination arm",
+      "fichier": "B8.mp4",
+      "voix": "[warm] Alors, que faire au cabinet dès le treize octobre ? | Le Cercle vous donne deux recommandations concrètes, sur son site.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ]
+}
