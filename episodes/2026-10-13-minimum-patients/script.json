@@ -20,7 +20,7 @@
       "texte": "La Cour des comptes veut un minimum de patients *obligatoire*. | Pour chaque généraliste libéral installé.",
       "requete": "page : https://www.ccomptes.fr/fr/publications/le-dispositif-du-medecin-traitant",
       "fichier": "B1.mp4",
-      "voix": "[incredulous] La Cour des comptes veut rendre obligatoire un minimum de patients suivis comme médecin traitant ? | [emphatic] Pour chaque généraliste libéral installé !"
+      "voix": "[incredulous] La Cour des comptes veut imposer un minimum de patients ? | [emphatic] À chaque généraliste libéral installé !"
     },
     {
       "duree": 5.5,
@@ -37,17 +37,17 @@
       "duree": 6.5,
       "type": "chiffre",
       "valeur": 8553,
-      "legende": "généralistes libéraux suivaient moins de *200 patients* médecin traitant en 2024.",
+      "legende": "généralistes libéraux étaient médecin traitant de moins de *200 patients* vus en 2024.",
       "requete": "doctor hands desk pen",
       "fichier": "B3.mp4",
-      "voix": "En deux mille vingt-quatre, huit mille cinq cent cinquante-trois généralistes libéraux en suivaient moins de deux cents, vus dans l’année. [surprised] Voire aucun !"
+      "voix": "En deux mille vingt-quatre, huit mille cinq cent cinquante-trois généralistes libéraux étaient le médecin traitant de moins de deux cents patients vus dans l’année. [surprised] Voire d’aucun !"
     },
     {
       "duree": 6.0,
       "texte": "Qui sont-ils ? | 3 sur 4 exercent dans un *grand centre urbain*.",
       "requete": "aerial view Paris city",
       "fichier": "B4.mp4",
-      "voix": "[curious] Qui sont-ils ? | Trois sur quatre exercent dans un grand centre urbain. Contre un médecin traitant sur deux.",
+      "voix": "[curious] Qui sont-ils ? | Trois sur quatre exercent dans un grand centre urbain. Chez l’ensemble des médecins traitants, c’est un sur deux.",
       "insert": {
         "type": "barres",
         "suffixe": " %",
@@ -68,10 +68,10 @@
     },
     {
       "duree": 8.0,
-      "texte": "Une proposition de loi prévoit *au moins 30 %* de patients médecin traitant. | Sans accord en 12 mois, le ministre fixerait le seuil.",
+      "texte": "Une proposition de loi prévoit qu’au moins *30 %* de vos patients vous aient déclaré médecin traitant. | Si la convention ne fixe pas ce seuil en 12 mois, le ministre le fixerait.",
       "requete": "page : https://www.assemblee-nationale.fr/dyn/17/textes/l17b3264_proposition-loi",
       "fichier": "B5.mp4",
-      "voix": "[excited] Et ce n’est pas tout ! Le six octobre, des députés ont déposé une proposition de loi. Elle prévoit qu’au moins trente pour cent de vos patients vous aient déclaré médecin traitant. | [shocked] Et sans accord en douze mois ? C’est le ministre qui fixerait ce seuil !"
+      "voix": "[excited] Et ce n’est pas tout ! Le six octobre, des députés ont déposé une proposition de loi. Elle prévoit qu’au moins trente pour cent de vos patients vous aient déclaré médecin traitant. | [shocked] Et si la convention médicale ne fixe pas ce seuil dans l’année qui suit la loi ? C’est le ministre qui le fixerait !"
     },
     {
       "duree": 4.5,

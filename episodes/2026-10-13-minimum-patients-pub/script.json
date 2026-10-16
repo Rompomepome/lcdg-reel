@@ -20,7 +20,7 @@
       "texte": "La Cour des comptes veut un minimum de patients *obligatoire*. | Pour chaque généraliste libéral installé.",
       "requete": "page : https://www.ccomptes.fr/fr/publications/le-dispositif-du-medecin-traitant",
       "fichier": "B1.mp4",
-      "voix": "[incredulous] La Cour des comptes veut rendre obligatoire un minimum de patients suivis comme médecin traitant ? | [emphatic] Pour chaque généraliste libéral installé !"
+      "voix": "[incredulous] La Cour des comptes veut imposer un minimum de patients ? | [emphatic] À chaque généraliste libéral installé !"
     },
     {
       "duree": 5.5,
@@ -37,10 +37,10 @@
       "duree": 6.5,
       "type": "chiffre",
       "valeur": 8553,
-      "legende": "généralistes libéraux suivaient moins de *200 patients* médecin traitant en 2024.",
+      "legende": "généralistes libéraux étaient médecin traitant de moins de *200 patients* vus en 2024.",
       "requete": "doctor hands desk pen",
       "fichier": "B3.mp4",
-      "voix": "En deux mille vingt-quatre, huit mille cinq cent cinquante-trois généralistes libéraux en suivaient moins de deux cents, vus dans l’année. [surprised] Voire aucun !"
+      "voix": "En deux mille vingt-quatre, huit mille cinq cent cinquante-trois généralistes libéraux étaient le médecin traitant de moins de deux cents patients vus dans l’année. [surprised] Voire d’aucun !"
     },
     {
       "duree": 4.5,
