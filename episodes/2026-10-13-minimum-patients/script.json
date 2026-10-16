@@ -27,10 +27,10 @@
       "type": "chiffre",
       "valeur": 500,
       "suffixe": " patients",
-      "legende": "le seuil que la Cour *envisage*.",
+      "legende": "par médecin traitant, le seuil que la Cour *envisage*.",
       "requete": "medical clinic reception desk",
       "fichier": "B2.mp4",
-      "voix": "[curious] Et le seuil qu’elle envisage ? Cinq cents patients médecin traitant.",
+      "voix": "[curious] Et le seuil qu’elle envisage ? Cinq cents patients par médecin traitant.",
       "cadrage": "largeur"
     },
     {

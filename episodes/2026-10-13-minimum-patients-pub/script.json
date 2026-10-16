@@ -1,0 +1,64 @@
+{
+  "slug": "minimum-patients-pub",
+  "date": "2026-10-13",
+  "rubrique": "pro",
+  "label": "Médecin traitant",
+  "sous_titre": "Un minimum de patients *obligatoire* pour vous ?",
+  "appel": "Nos 3 recommandations :",
+  "bandeau": "Pour recevoir l’analyse, | commentez *500*",
+  "voix_off": "femme_agee",
+  "badge": "Cour des comptes",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "requete": "hospital waiting area seats",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 7.0,
+      "texte": "La Cour des comptes veut un minimum de patients *obligatoire*. | Pour chaque généraliste libéral installé.",
+      "requete": "page : https://www.ccomptes.fr/fr/publications/le-dispositif-du-medecin-traitant",
+      "fichier": "B1.mp4",
+      "voix": "[incredulous] La Cour des comptes veut rendre obligatoire un minimum de patients suivis comme médecin traitant ? | [emphatic] Pour chaque généraliste libéral installé !"
+    },
+    {
+      "duree": 5.5,
+      "type": "chiffre",
+      "valeur": 500,
+      "suffixe": " patients",
+      "legende": "par médecin traitant, le seuil que la Cour *envisage*.",
+      "requete": "medical clinic reception desk",
+      "fichier": "B2.mp4",
+      "voix": "[curious] Et le seuil qu’elle envisage ? Cinq cents patients par médecin traitant.",
+      "cadrage": "largeur"
+    },
+    {
+      "duree": 6.5,
+      "type": "chiffre",
+      "valeur": 8553,
+      "legende": "généralistes libéraux suivaient moins de *200 patients* médecin traitant en 2024.",
+      "requete": "doctor hands desk pen",
+      "fichier": "B3.mp4",
+      "voix": "En deux mille vingt-quatre, huit mille cinq cent cinquante-trois généralistes libéraux en suivaient moins de deux cents, vus dans l’année. [surprised] Voire aucun !"
+    },
+    {
+      "duree": 4.5,
+      "texte": "Rien ne s’applique aujourd’hui. | Et sous le seuil, *que risqueriez-vous* ?",
+      "requete": "man thinking window daylight",
+      "fichier": "B4.mp4",
+      "voix": "[reassuring] Rassurez-vous : rien de tout cela ne s’applique aujourd’hui. | [concerned] Et sous le seuil, que risqueriez-vous ?"
+    },
+    {
+      "duree": 4.5,
+      "texte": "Êtes-vous concerné ? | Le Cercle fait *3 recommandations*.",
+      "requete": "hands typing keyboard office",
+      "fichier": "B5.mp4",
+      "voix": "[warm] Alors, êtes-vous concerné ? | [cheerful] Le Cercle vous donne trois recommandations concrètes, sur son site.",
+      "insert": {
+        "type": "verrou",
+        "n": 3
+      }
+    }
+  ]
+}

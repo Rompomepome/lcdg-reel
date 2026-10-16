@@ -11,7 +11,7 @@ https://www.lecercledesgeneralistes.fr/article/la-cour-des-comptes-envisage-500-
 
 Un minimum de patients médecin traitant, obligatoire pour chaque généraliste libéral installé ? C'est ce que recommande la Cour des comptes, dans son rapport rendu public le 30 septembre.
 
-Le seuil qu'elle envisage : 500 patients médecin traitant. En 2024, 8 553 généralistes libéraux en suivaient moins de 200, vus dans l'année. 3 sur 4 exercent dans un grand centre urbain.
+Le seuil qu'elle envisage : 500 patients par médecin traitant. En 2024, 8 553 généralistes libéraux en suivaient moins de 200, vus dans l'année. 3 sur 4 exercent dans un grand centre urbain.
 
 Le 6 octobre, une proposition de loi a été déposée avec une autre règle : au moins 30 % de votre patientèle devrait vous avoir déclaré médecin traitant. Sans accord conventionnel dans les 12 mois, le ministre fixerait ce seuil.
 
@@ -25,9 +25,11 @@ Peu de patients médecin traitant, patients déclarés perdus de vue, ou plus le
 
 ## Publicité Meta (si la campagne passe par le gestionnaire de publicités)
 
+Vidéo : la version publicité, 36 s (publicite_9x16.mp4). Elle sert pour Reels, Stories et le fil : tout le texte tient dans le recadrage 4:5 du fil. publicite_1x1.mp4 si un format carré est demandé.
+
 Deux textes principaux à tester l'un contre l'autre. Les premiers mots sont les seuls visibles avant « Plus ».
 
-A. 500 patients médecin traitant minimum, obligatoires ? C'est la piste de la Cour des comptes. Êtes-vous concerné ? Le Cercle fait 3 recommandations concrètes.
+A. Un minimum de 500 patients par médecin traitant, obligatoire ? C'est la piste de la Cour des comptes. Êtes-vous concerné ? Le Cercle fait 3 recommandations concrètes.
 
 B. En 2024, 8 553 généralistes libéraux suivaient moins de 200 patients médecin traitant. La Cour des comptes veut un seuil obligatoire. Êtes-vous visé ?
 
