@@ -72,9 +72,17 @@ def apercu(url: str) -> Image.Image | None:
         return None
 
 
-def image_video(src: Path, t: float) -> Image.Image | None:
-    vf = (f"scale={C.LARGEUR}:{C.HAUTEUR}:force_original_aspect_ratio=increase,"
-          f"crop={C.LARGEUR}:{C.HAUTEUR},scale={TW}:{TH}")
+def image_video(src: Path, t: float, cadrage: str | None = None) -> Image.Image | None:
+    cadre = (f"scale={C.LARGEUR}:{C.HAUTEUR}:force_original_aspect_ratio=increase,"
+             f"crop={C.LARGEUR}:{C.HAUTEUR}")
+    if cadrage == "largeur":
+        # meme composition que montage.base : plan entier sur son propre fond floute
+        vf = (f"split[pl][fd];[fd]{cadre},boxblur=luma_radius={C.PLAN_LARGEUR_FLOU}:luma_power=2:"
+              f"chroma_radius={C.PLAN_LARGEUR_FLOU // 2}:chroma_power=2,"
+              f"eq=brightness={C.PLAN_LARGEUR_LUMIERE}[fond];[pl]scale={C.LARGEUR}:-2[plan];"
+              f"[fond][plan]overlay=0:{C.PLAN_LARGEUR_Y},scale={TW}:{TH}")
+    else:
+        vf = f"{cadre},scale={TW}:{TH}"
     r = subprocess.run([B.FFMPEG, "-v", "error", "-ss", f"{t:.2f}", "-i", str(src),
                         "-frames:v", "1", "-vf", vf, "-f", "image2pipe", "-vcodec", "png", "-"],
                        capture_output=True)
@@ -170,7 +178,7 @@ def revue(dossier):
         dur = bl["duree"]
         for k, t in enumerate([C.BROLL_MARGE_S + 0.2, C.BROLL_MARGE_S + dur / 2,
                                C.BROLL_MARGE_S + dur - 0.2]):
-            im = image_video(src, t)
+            im = image_video(src, t, bl.get("cadrage"))
             if im:
                 feuille.paste(im, (x0 + k * (TW + 4), y0 + 68))
     sortie = episode / "revue_plans.jpg"

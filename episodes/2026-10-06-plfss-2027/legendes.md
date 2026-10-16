@@ -1,8 +1,8 @@
 # PLFSS 2027 — légendes de publication
 
 À faire par Romain avant de publier :
-- l'article n'était pas encore en ligne le 06/10/2026 : dès qu'il l'est, remplacer [LIEN] par
-  son adresse dans la légende LinkedIn et dans le lien de la bio (le suivi « utm » est déjà écrit) ;
+- article en ligne (relevé le 16/10/2026) : son adresse est reportée ci-dessous, dans la
+  légende LinkedIn et dans le lien de la bio ;
 - étiquette « Info IA » (voix de synthèse) sur Instagram et Facebook ;
 - réponse en message privé aux commentaires « PLFSS » (lien de l'article).
 
@@ -30,8 +30,8 @@ L'objectif de dépenses de soins de ville passe de 117,4 à 118,3 milliards d'eu
 
 Ce milliard sur les indemnités journalières, aucun article ne dit d'où il viendra : l'article 20, seul consacré aux arrêts de travail, n'entre en vigueur qu'en juillet 2027, et son effet n'est pas chiffré. Pour des revalorisations conventionnelles en 2027, la marge sera très étroite.
 
-Le Cercle fait 2 recommandations concrètes pour le cabinet dans son analyse (inscription gratuite) : [LIEN]?utm_source=linkedin&utm_medium=social&utm_campaign=plfss-2027
+Le Cercle fait 2 recommandations concrètes pour le cabinet dans son analyse (inscription gratuite) : https://www.lecercledesgeneralistes.fr/article/plfss-2027-les-economies-passent-par-le-stylo-du-medecin?utm_source=linkedin&utm_medium=social&utm_campaign=plfss-2027
 
 ## Lien de la bio Instagram, à mettre à jour le jour de la publication
 
-[LIEN]?utm_source=instagram&utm_medium=reel&utm_campaign=plfss-2027
+https://www.lecercledesgeneralistes.fr/article/plfss-2027-les-economies-passent-par-le-stylo-du-medecin?utm_source=instagram&utm_medium=reel&utm_campaign=plfss-2027

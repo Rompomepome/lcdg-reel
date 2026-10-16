@@ -1,0 +1,114 @@
+{
+  "slug": "minimum-patients",
+  "date": "2026-10-13",
+  "rubrique": "pro",
+  "label": "Médecin traitant",
+  "sous_titre": "Un minimum de patients *obligatoire* pour vous ?",
+  "appel": "Nos 3 recommandations :",
+  "bandeau": "Pour recevoir l’analyse, | commentez *500*",
+  "voix_off": "femme_agee",
+  "badge": "Cour des comptes",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "requete": "hospital waiting area seats",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 7.0,
+      "texte": "La Cour des comptes veut un minimum de patients *obligatoire*. | Pour chaque généraliste libéral installé.",
+      "requete": "page : https://www.ccomptes.fr/fr/publications/le-dispositif-du-medecin-traitant",
+      "fichier": "B1.mp4",
+      "voix": "[shocked] Pardon ?! [incredulous] La Cour des comptes veut rendre obligatoire un minimum de patients suivis comme médecin traitant ? | [emphatic] Pour chaque généraliste libéral installé !"
+    },
+    {
+      "duree": 5.5,
+      "type": "chiffre",
+      "valeur": 500,
+      "suffixe": " patients",
+      "legende": "le seuil que la Cour *envisage*.",
+      "requete": "medical clinic reception desk",
+      "fichier": "B2.mp4",
+      "voix": "[curious] Et le seuil qu’elle envisage ? Cinq cents patients médecin traitant.",
+      "cadrage": "largeur"
+    },
+    {
+      "duree": 6.5,
+      "type": "chiffre",
+      "valeur": 8553,
+      "legende": "généralistes libéraux suivaient moins de *200 patients* médecin traitant en 2024.",
+      "requete": "doctor hands desk pen",
+      "fichier": "B3.mp4",
+      "voix": "En deux mille vingt-quatre, huit mille cinq cent cinquante-trois généralistes libéraux en suivaient moins de deux cents, vus dans l’année. [surprised] Voire aucun !"
+    },
+    {
+      "duree": 6.0,
+      "texte": "Qui sont-ils ? | 3 sur 4 exercent dans un *grand centre urbain*.",
+      "requete": "aerial view Paris city",
+      "fichier": "B4.mp4",
+      "voix": "[curious] Qui sont-ils ? | Trois sur quatre exercent dans un grand centre urbain. Contre un médecin traitant sur deux.",
+      "insert": {
+        "type": "barres",
+        "suffixe": " %",
+        "lignes": [
+          {
+            "label": "Les 8 553",
+            "valeur": 75,
+            "temps": 1
+          },
+          {
+            "label": "Les médecins traitants",
+            "valeur": 50,
+            "reference": true,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 8.0,
+      "texte": "Une proposition de loi prévoit *au moins 30 %* de patients médecin traitant. | Sans accord en 12 mois, le ministre fixerait le seuil.",
+      "requete": "page : https://www.assemblee-nationale.fr/dyn/17/textes/l17b3264_proposition-loi",
+      "fichier": "B5.mp4",
+      "voix": "[excited] Et ce n’est pas tout ! Le six octobre, des députés ont déposé une proposition de loi. Elle prévoit qu’au moins trente pour cent de vos patients vous aient déclaré médecin traitant. | [shocked] Et sans accord en douze mois ? C’est le ministre qui fixerait ce seuil !"
+    },
+    {
+      "duree": 4.5,
+      "type": "phrase",
+      "texte": "Rien ne s’applique aujourd’hui. | Mais deux questions restent *sans réponse*.",
+      "requete": "man thinking window daylight",
+      "fichier": "B6.mp4",
+      "voix": "[reassuring] Rassurez-vous : rien de tout cela ne s’applique aujourd’hui. | [intrigued] Mais deux questions restent sans réponse."
+    },
+    {
+      "duree": 8.0,
+      "texte": "Patients déclarés ou patients vus ? Le rapport ne le dit pas. | Et sous le seuil, que risqueriez-vous ? | Ni le rapport ni la proposition de loi *ne le disent*.",
+      "requete": "filing cabinet drawer",
+      "fichier": "B7.mp4",
+      "voix": "[curious] Le seuil compterait-il vos patients déclarés ? Ou vos patients vus ? Le rapport ne le dit pas. | [concerned] Et sous le seuil, que risqueriez-vous ? | [incredulous] Ni le rapport, ni la proposition de loi ne le disent !"
+    },
+    {
+      "duree": 6.0,
+      "type": "chiffre",
+      "valeur": 1130,
+      "depuis": 919,
+      "suffixe": " patients",
+      "legende": "suivis en moyenne par un médecin traitant libéral, *en 2024*.",
+      "requete": "pediatrician examining child",
+      "fichier": "B8.mp4",
+      "voix": "[thoughtful] Pour rappel, en deux mille vingt-quatre, un médecin traitant libéral suivait en moyenne mille cent trente patients. Contre neuf cent dix-neuf en deux mille seize."
+    },
+    {
+      "duree": 4.5,
+      "texte": "Êtes-vous concerné ? | Le Cercle fait *3 recommandations*.",
+      "requete": "hands typing keyboard office",
+      "fichier": "B9.mp4",
+      "voix": "[warm] Alors, êtes-vous concerné ? | [cheerful] Le Cercle vous donne trois recommandations concrètes, sur son site.",
+      "insert": {
+        "type": "verrou",
+        "n": 3
+      }
+    }
+  ]
+}

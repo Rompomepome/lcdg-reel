@@ -2,8 +2,8 @@
 
 À faire par Romain avant de publier :
 - à publier avant le 13 octobre, jour où la campagne démarre ;
-- l'article n'était pas encore en ligne le 06/10/2026 : dès qu'il l'est, remplacer [LIEN] par
-  son adresse dans la légende LinkedIn et dans le lien de la bio (le suivi « utm » est déjà écrit) ;
+- article en ligne (relevé le 16/10/2026) : son adresse est reportée ci-dessous, dans la
+  légende LinkedIn et dans le lien de la bio ;
 - étiquette « Info IA » (voix de synthèse) sur Instagram et Facebook ;
 - réponse en message privé aux commentaires « GRIPPE » (lien de l'article).
 
@@ -31,8 +31,8 @@ L'hiver dernier, 49,6 % des personnes à risque se sont fait vacciner contre la 
 
 Pour le médecin libéral, la question reste ouverte : les modalités de contrôle et les conséquences d'un refus ne seront connues qu'avec les textes attendus d'ici fin mars 2027.
 
-Le Cercle fait 2 recommandations concrètes pour la campagne dans son analyse (inscription gratuite) : [LIEN]?utm_source=linkedin&utm_medium=social&utm_campaign=grippe-covid
+Le Cercle fait 2 recommandations concrètes pour la campagne dans son analyse (inscription gratuite) : https://www.lecercledesgeneralistes.fr/article/grippe-et-covid-19-top-depart-le-13-octobre-vaccin-grippal-sur-prescription?utm_source=linkedin&utm_medium=social&utm_campaign=grippe-covid
 
 ## Lien de la bio Instagram, à mettre à jour le jour de la publication
 
-[LIEN]?utm_source=instagram&utm_medium=reel&utm_campaign=grippe-covid
+https://www.lecercledesgeneralistes.fr/article/grippe-et-covid-19-top-depart-le-13-octobre-vaccin-grippal-sur-prescription?utm_source=instagram&utm_medium=reel&utm_campaign=grippe-covid
