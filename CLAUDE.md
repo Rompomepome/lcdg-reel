@@ -175,15 +175,24 @@ selon le thème, la gravité et l'urgence, et on alterne d'un reel à l'autre :
 
 - `homme_age` (Guillaume, posé) : alertes de sécurité sanitaire, sujets graves ou
   réglementaires lourds.
-- `femme_agee` (40 ans, chaleureuse) : prévention, santé des patientes, sujets qui
-  demandent de l'empathie ; urgence pratique (rupture, contingentement) dite calmement.
+- `femme_agee` (Emilie, « plus sérieuse, genre 42 ans ») : prévention, santé des
+  patientes, sujets qui demandent de l'empathie ou du sérieux ; urgence pratique (rupture,
+  contingentement) dite calmement.
 - `homme_jeune` : organisation du cabinet, numérique, tarifs, bonnes nouvelles.
-- `femme_jeune` (23 ans, pétillante) : sujets pratiques ou légers, jeunes patients,
-  contraception, remboursements nouveaux.
+- `femme_jeune` (Jeanne, « plus jeune donc plus punchy ») : sujets pratiques ou légers,
+  jeunes patients, contraception, remboursements nouveaux, reels à booster en publicité.
+
+Depuis le 20/10/2026, les deux voix de femme sont des comédiennes de la bibliothèque
+ElevenLabs (enregistrées en studio) : les voix créées par synthèse résonnaient (« comme
+dans un bocal »). Elles restent au catalogue sous `femme_agee_creee` et
+`femme_jeune_creee`, pour les reels déjà rendus avec elles ; ne pas les choisir pour un
+nouveau reel. Avec une voix qui résonne, chaque prise sonne sur une autre fréquence : des
+prises recollées par `revoix.py` s'entendent alors, et le filtre anti-résonance ne les
+rattrape pas toutes.
 
 Sans `voix_off`, c'est `charte.VOIX_ID`. Le compte ElevenLabs reste gratuit (Romain ne
-paiera pas d'abonnement) : trois emplacements de voix ; Guillaume vient de la
-bibliothèque et n'en prend pas. Les indications de jeu entre
+paiera pas d'abonnement) : trois emplacements de voix ; Guillaume, Jeanne et Emilie
+viennent de la bibliothèque et n'en prennent pas. Les indications de jeu entre
 crochets (v3) donnent le ton : `[curious]`, `[thoughtful]`, `[matter-of-fact]`, `[warm]` ;
 `[serious]` et `[concerned]` se gardent pour les vrais sujets de gravité.
 Une narration est générée une fois puis gardée en cache (`episodes/<dossier>/voix/`) :

@@ -25,7 +25,7 @@ Vous êtes le médecin traitant de peu de patients, des patients qui vous ont d�
 
 ## Publicité Meta (si la campagne passe par le gestionnaire de publicités)
 
-Vidéo : la version publicité, 35 s (publicite_9x16.mp4). Elle sert pour Reels, Stories et le fil : tout le texte tient dans le recadrage 4:5 du fil. publicite_1x1.mp4 si un format carré est demandé.
+Vidéo : la version publicité, 37 s (publicite_9x16.mp4). Elle sert pour Reels, Stories et le fil : tout le texte tient dans le recadrage 4:5 du fil. publicite_1x1.mp4 si un format carré est demandé.
 
 Deux textes principaux à tester l'un contre l'autre. Les premiers mots sont les seuls visibles avant « Plus ».
 

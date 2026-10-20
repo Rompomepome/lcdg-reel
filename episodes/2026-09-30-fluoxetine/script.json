@@ -6,7 +6,7 @@
   "sous_titre": "Votre patient adulte doit-il attendre *mi-octobre* ?",
   "appel": "Nos 3 recommandations :",
   "bandeau": "Pour recevoir l’analyse, | commentez *FLUOX*",
-  "voix_off": "femme_agee",
+  "voix_off": "femme_agee_creee",
   "blocs": [
     {
       "duree": 3.0,

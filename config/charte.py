@@ -336,8 +336,8 @@ MENTION = "Images d\u2019illustration"
 # Quatre voix (Romain, 02/10/2026) : un homme et une femme plus ages, un homme et une
 # femme jeunes, a choisir selon le theme, la gravite et l'urgence du sujet (CLAUDE.md).
 # "voix_off" dans le script prend une de ces cles (ou un dict id / modele / reglages).
-# Compte ElevenLabs gratuit : 3 emplacements ; Guillaume vient de la bibliotheque et n'en
-# prend pas. Une voix sans id n'est pas encore enregistree dans l'espace de Romain.
+# Compte ElevenLabs gratuit : 3 emplacements ; Guillaume, Jeanne et Emilie viennent de la
+# bibliotheque et n'en prennent pas. Une voix sans id n'est pas encore enregistree dans l'espace de Romain.
 VOIX_CATALOGUE = {
     # posee, documentaire ; « la voix du gars est super » (reel Franchises)
     "homme_age": {"nom": "Guillaume, documentaire (v3)", "id": "3HZyQcLKlT0a3RDeXVsP",
@@ -345,15 +345,25 @@ VOIX_CATALOGUE = {
     # creee le 01/10 ; « ca fait jeune » ; silences un peu bruites a la creation (-27 dB)
     "homme_jeune": {"nom": "LCDG homme 2 (creee), jeune", "id": "Dgpg0WcilBNRm5h3jupj",
                     "modele": "eleven_v3"},
-    # creee le 02/10 (essai F40_3, « top ») : 40 ans, petillante, chaleureuse. Le 05/10,
-    # Romain y entend « de la resonance, comme dans un bocal en verre » : des zones etroites
-    # qui sonnent, a une frequence differente a chaque generation (2,9 kHz, puis 4 kHz).
-    # "anti_resonance" les mesure sur chaque narration et les rabote (lcdg/resonance.py).
-    "femme_agee": {"nom": "LCDG femme 40 ans (creee)", "id": "qSjNKhS5SxoMSi5a8f7j",
-                   "modele": "eleven_v3", "anti_resonance": True},
-    # creee le 02/10 (essai F23_1) : 23 ans, petillante ; enregistree le 02/10
-    "femme_jeune": {"nom": "LCDG femme 23 ans (creee)", "id": "g46Ltvy4v0xVIHvbT0Fi",
+    # Voix de femme depuis le 20/10/2026 : comediennes de la bibliotheque ElevenLabs (voix
+    # professionnelles, enregistrees en studio, ouvertes aux comptes gratuits, sans
+    # emplacement). Choisies par Romain a l'ecoute contre les voix creees, qui resonnent.
+    # « Jeanne (qui fait plus jeune donc plus punchy) »
+    "femme_jeune": {"nom": "Jeanne, narratrice (bibliotheque, v3)", "id": "txtf1EDouKke753vN8SL",
                     "modele": "eleven_v3"},
+    # « Emilie (plus serieux, genre 42 ans) »
+    "femme_agee": {"nom": "Emilie, animatrice de podcast (bibliotheque, v3)",
+                   "id": "d3AXX0BlgJHYFCuH9X88", "modele": "eleven_v3"},
+    # Voix creees par synthese, remplacees le 20/10/2026 ; gardees pour que les reels deja
+    # rendus avec elles se rendent a l'identique (fluoxetine, grippe-covid, protections).
+    # F40_3 (02/10, « top ») : le 05/10, Romain y entend « de la resonance, comme dans un
+    # bocal en verre » ; le 20/10 encore, malgre "anti_resonance" (lcdg/resonance.py) : un
+    # pic fixe vers 3 kHz sur toute la narration.
+    "femme_agee_creee": {"nom": "LCDG femme 40 ans (creee)", "id": "qSjNKhS5SxoMSi5a8f7j",
+                         "modele": "eleven_v3", "anti_resonance": True},
+    # F23_1 (02/10) : 23 ans, petillante
+    "femme_jeune_creee": {"nom": "LCDG femme 23 ans (creee)", "id": "g46Ltvy4v0xVIHvbT0Fi",
+                          "modele": "eleven_v3"},
 }
 # anti-resonance (lcdg/resonance.py) : bosses du spectre de la parole, mesurees en dB
 # au-dessus du spectre lisse sur une octave ; la voix de Guillaume n'en a pas au-dela de 4,5
