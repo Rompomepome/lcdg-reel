@@ -75,10 +75,11 @@ membres. Le reel doit donner envie de cliquer vers l'article, jamais dispenser d
 - **On garde** la solution et les recommandations. On les promet sans les livrer.
 - **On finit** sur le champ `appel` du script, qui nomme ce que l'article donne et que
   le reel a gardé (« Nos 2 recommandations : »). Une ligne, une trentaine de caractères.
-- **Le bandeau** (champ `bandeau`) invite à commenter un mot clé pour recevoir l'analyse :
-  « Pour recevoir l'analyse, | commentez *140* ». Un mot court et propre au sujet (un
-  chiffre du reel, par exemple). Il s'efface tout seul le temps d'un bloc qui entrerait
-  dans sa zone.
+- **Le bandeau** (champ `bandeau`) renvoie au site : « L'analyse complète | sur *notre
+  site* ». Depuis le 22/10/2026, plus de « commentez un mot clé » : personne ne commentait,
+  l'objectif est le clic vers le site (Romain). Il s'efface tout seul le temps d'un bloc qui
+  entrerait dans sa zone. La légende donne le lien de la bio, avec un lien de suivi pour la
+  story du jour (sticker lien).
 - **Jamais de piège à clic** : chaque promesse est tenue par l'article.
 
 **La structure** (voir l'exemple) :
@@ -128,7 +129,10 @@ La légende de la publication porte la question qui fait commenter et le « lien
 **Les inserts** (champ `insert` d'un bloc de texte, `lcdg/inserts.py`) : une petite
 illustration animée au-dessus du texte, pour comprendre d'un coup d'œil (Romain,
 05/10/2026 : « les inserts et les illustrations en plus, ça aide à la compréhension »).
-Deux ou trois par reel, là où ils éclairent le propos, jamais en décor :
+Depuis le 23/10/2026, un reel destiné à la publicité en porte sur presque chaque bloc de
+texte (Romain : « rajoute encore du motion », « ça doit être interactif et ultra ludique ») ;
+toujours là où ils éclairent le propos, jamais en décor. La liste complète, avec leurs
+champs, est en tête de `lcdg/inserts.py` :
 
 - `{"type": "verrou", "n": 3}` : les recommandations gardées pour le site, en cartes
   fermées d'un cadenas, sur le dernier bloc (« Le Cercle fait 3 recommandations »).
@@ -136,8 +140,20 @@ Deux ou trois par reel, là où ils éclairent le propos, jamais en décor :
   "mi-octobre"}` : une date ou une période (sur une même semaine).
 - `{"type": "barres", "unite": "×", "lignes": [{"label": "Sans désogestrel", "valeur": 1},
   ...]}` : comparer des valeurs ; une première ligne à ×1 sert de référence (grise).
-- `{"type": "choix", "lignes": [{"label": "En pharmacie", "ok": true}, ...]}` : oui / non.
+- `{"type": "choix", "lignes": [{"label": "En pharmacie", "ok": true}, ...]}` : oui / non ;
+  sans `"ok"`, un « ? » qui se balance : une question encore ouverte.
 - `{"type": "tampon", "texte": "Export interdit", "temps": 1}` : une interdiction.
+- `circuit` (ce que devient l'argent), `duel` (deux annonces contraires, un « ≠ »), `frise`
+  (une procédure et ses délais).
+- Illustrations : `frigo` (le réfrigérateur qui se remplit, ou qui enregistre sa
+  température), `ticket` (ce qui se facture, ligne par ligne), `appel` (un téléphone qui
+  sonne, puis le courrier), `loupe` (une page fouillée où rien ne sort), `calcul` (une part
+  qui se détache, un « ? »).
+
+Le champ `insert` peut être une liste ; `"sur": true` centre un élément sur le premier (un
+tampon qui claque sur un dessin). Une illustration montre un mécanisme, jamais un chiffre
+inventé : les parts de `calcul` n'affichent aucune valeur ; la courbe et l'écran de `frigo`
+restent dans la plage de conservation du RCP (+2 à +8 °C), la seule donnée qu'ils citent.
 
 `"temps"` fait arriver un élément avec le temps du texte de ce numéro (0 = début du
 bloc). Un insert n'invente rien : il dit ce que dit le texte, avec les mots de l'article.

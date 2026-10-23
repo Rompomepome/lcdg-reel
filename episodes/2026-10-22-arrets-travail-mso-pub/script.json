@@ -1,0 +1,116 @@
+{
+  "slug": "arrets-travail-mso-pub",
+  "date": "2026-10-22",
+  "rubrique": "pro",
+  "label": "Arrêts de travail",
+  "sous_titre": "Arrêts de travail : *650 médecins* dans le viseur",
+  "appel": "Nos 2 recommandations :",
+  "voix_off": "homme_age",
+  "badge": "Arrêts de travail",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "doctor filling form"
+    },
+    {
+      "duree": 6.2,
+      "type": "chiffre",
+      "valeur": 650,
+      "suffixe": " médecins",
+      "fichier": "B1.mp4",
+      "legende": "vont être contrôlés, *selon la CSMF*",
+      "requete": "envelopes letters",
+      "voix": "Six cent cinquante médecins vont être contrôlés sur leurs arrêts de travail, selon la C.S.M.F."
+    },
+    {
+      "duree": 8.5,
+      "fichier": "B2.mp4",
+      "requete": "telephone pink background",
+      "texte": "Retour de la *mise sous objectifs*. | Les courriers arrivent, en principe *après un appel*.",
+      "voix": "L’Assurance Maladie relance la mise sous objectifs. | Selon MG France, les courriers partiront bientôt, précédés en principe d’un appel.",
+      "insert": {
+        "type": "appel",
+        "temps": 1,
+        "etapes": [
+          {
+            "icone": "telephone",
+            "label": "Appel de votre CPAM",
+            "note": "en principe"
+          },
+          {
+            "icone": "courrier",
+            "label": "Puis le courrier"
+          }
+        ]
+      }
+    },
+    {
+      "duree": 6.0,
+      "fichier": "B3.mp4",
+      "requete": "man at computer monitor",
+      "texte": "Et cette fois ? *Aucun critère* publié. | Pas une ligne sur ameli.fr.",
+      "voix": "[incredulous] Et cette fois ? Aucun critère publié. | Au vingt-deux octobre, pas une ligne sur ameli.fr.",
+      "insert": [
+        {
+          "type": "loupe",
+          "site": "ameli.fr",
+          "recherche": "mise sous objectifs",
+          "vide": "Aucun résultat"
+        },
+        {
+          "type": "tampon",
+          "texte": "Non publiés",
+          "temps": 1,
+          "sur": true
+        }
+      ]
+    },
+    {
+      "duree": 9.7,
+      "fichier": "B4.mp4",
+      "requete": "marking calendar",
+      "texte": "Ciblé ? *1 mois* pour vos observations. | *15 jours* pour refuser. Sans réponse, c’est accepté.",
+      "voix": "Si vous êtes ciblé : un mois pour vos observations, | puis quinze jours pour refuser la mise sous objectifs. Sans réponse, elle est considérée comme acceptée.",
+      "insert": {
+        "type": "frise",
+        "etapes": [
+          {
+            "label": "Vos chiffres notifiés",
+            "temps": 0
+          },
+          {
+            "label": "1 mois : vos observations",
+            "temps": 0
+          },
+          {
+            "label": "Proposition de MSO",
+            "temps": 1
+          },
+          {
+            "label": "15 jours pour refuser",
+            "temps": 1
+          },
+          {
+            "label": "Sans réponse : acceptée",
+            "alerte": true,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 5.9,
+      "fichier": "B5.mp4",
+      "requete": "notebook phone desk",
+      "texte": "Votre caisse vous appelle ? | Ce qu’il faut faire, *dès l’appel*.",
+      "voix": "Votre caisse vous appelle ? | Ce qu’il faut faire, dès l’appel, est sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ]
+}

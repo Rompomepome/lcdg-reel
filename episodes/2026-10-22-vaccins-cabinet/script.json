@@ -1,0 +1,184 @@
+{
+  "slug": "vaccins-cabinet",
+  "date": "2026-10-22",
+  "rubrique": "pro",
+  "label": "Vaccins au cabinet",
+  "sous_titre": "Le vaccin « gratuit » que vous *payez d’abord*",
+  "appel": "Notre recommandation :",
+  "voix_off": "homme_jeune",
+  "badge": "Décret du 9 octobre",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "flu vaccine syringe vial"
+    },
+    {
+      "duree": 8.7,
+      "fichier": "B5.mp4",
+      "requete": "vaccine injection syringe",
+      "texte": "Depuis le 11 octobre, vous pouvez stocker *le vaccin grippe*. | Mais ces doses, vous les *payez d’abord*.",
+      "voix": "[matter-of-fact] Depuis le onze octobre, vous pouvez stocker au cabinet des vaccins contre la grippe. | [incredulous] Mais ces doses, c’est vous qui les payez d’abord !",
+      "insert": {
+        "type": "frigo",
+        "mode": "remplir",
+        "doses": 6,
+        "prix": 1,
+        "carre": false,
+        "etiquette": [
+          "Payées d’abord",
+          "par vous"
+        ]
+      }
+    },
+    {
+      "duree": 8.3,
+      "fichier": "B3.mp4",
+      "requete": "pharmacist handing medicine",
+      "texte": "Efluelda, hautement dosé : *plus du double*. | Prix public, hors honoraire de dispensation.",
+      "voix": "Onze euros soixante-quinze la dose de Vaxigrip. Plus du double pour Efluelda. | C’est le prix public, hors honoraire de dispensation.",
+      "insert": {
+        "type": "barres",
+        "suffixe": " €",
+        "lignes": [
+          {
+            "label": "Vaxigrip",
+            "valeur": 11.75
+          },
+          {
+            "label": "Efluelda",
+            "valeur": 23.97
+          }
+        ]
+      }
+    },
+    {
+      "duree": 11.2,
+      "fichier": "B1.mp4",
+      "requete": "page : ameli, vaccination grippe, espace médecin",
+      "texte": "La dose vous est remboursée *une fois injectée*. | Et l’injection ? *Pas facturable à part.*",
+      "voix": "Une fois injectée, l’Assurance Maladie vous la rembourse, avec la majoration S.K.B. ou S.K.C. | [incredulous] Et l’injection ? Elle ne se facture pas à part : elle est comprise dans la consultation.",
+      "insert": {
+        "type": "ticket",
+        "titre": "Votre facturation",
+        "lignes": [
+          {
+            "label": "Dose : SKB ou SKC",
+            "valeur": "remboursée",
+            "ok": true,
+            "temps": 0
+          },
+          {
+            "label": "Injection",
+            "valeur": "pas à part",
+            "ok": false,
+            "temps": 1
+          },
+          {
+            "label": "Consultation",
+            "valeur": "comme d’habitude",
+            "ok": true,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 9.3,
+      "fichier": "B7.mp4",
+      "requete": "vials on the table",
+      "texte": "*Enceinte réfrigérée* obligatoire, avec relevé de température. | Dès la délivrance, le stock est sous votre responsabilité.",
+      "voix": "Il vous faut aussi une enceinte réfrigérée qui enregistre la température. | Et dès la délivrance, transport et stockage sont sous votre responsabilité.",
+      "insert": [
+        {
+          "type": "frigo",
+          "mode": "releve",
+          "titre": "Température enregistrée"
+        },
+        {
+          "type": "tampon",
+          "texte": "Sous votre responsabilité",
+          "temps": 1,
+          "sur": true
+        }
+      ]
+    },
+    {
+      "duree": 7.3,
+      "fichier": "B4.mp4",
+      "requete": "counting coins desk",
+      "texte": "Dose périmée ou perdue : *aucun texte* ne dit qui paie. | Selon la CSMF, *c’est vous*.",
+      "voix": "[curious] Et la dose périmée, ou perdue ? Aucun texte ne dit qui la paie. | [incredulous] Selon la C.S.M.F., elle reste à votre charge !",
+      "insert": {
+        "type": "circuit",
+        "lignes": [
+          {
+            "titre": "Dose injectée",
+            "etapes": [
+              "−11,75 €",
+              "+11,75 €"
+            ],
+            "fin": "remboursée",
+            "ok": true,
+            "temps": 0
+          },
+          {
+            "titre": "Dose perdue ou périmée",
+            "etapes": [
+              "−11,75 €",
+              "? €"
+            ],
+            "fin": "à votre charge ?",
+            "ok": false,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 11.3,
+      "fichier": "B6.mp4",
+      "requete": "abstract blue background",
+      "texte": "Faut-il le *bon de prise en charge* du patient ? | Et les *2 à 17 ans* sans comorbidité, avec vos doses ?",
+      "voix": "Deux autres questions restent ouvertes. Faut-il le bon de prise en charge du patient ? | Et les enfants de deux à dix-sept ans sans comorbidité : pouvez-vous les vacciner avec vos doses ?",
+      "insert": {
+        "type": "choix",
+        "lignes": [
+          {
+            "label": "Doses perdues : qui paie ?",
+            "temps": 0
+          },
+          {
+            "label": "Bon de prise en charge : obligatoire ?",
+            "temps": 0
+          },
+          {
+            "label": "Enfants de 2 à 17 ans sans comorbidité ?",
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 5.6,
+      "type": "phrase",
+      "fichier": "B2.mp4",
+      "requete": "doctor typing computer office",
+      "texte": "Remboursé, *pas rémunéré*.",
+      "voix": "Le vaccin vous est remboursé. Mais la commande et le stock, eux, ne sont pas payés."
+    },
+    {
+      "duree": 6.7,
+      "fichier": "B9.mp4",
+      "requete": "hands writing notebook",
+      "texte": "Combien de doses commander, et *à quel rythme* ? | Notre recommandation, *sur le site*.",
+      "voix": "Alors, combien de doses commander, et à quel rythme ? | Notre recommandation est sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 1
+      }
+    }
+  ]
+}

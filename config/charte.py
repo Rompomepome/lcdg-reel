@@ -238,8 +238,50 @@ CAL_GEO = dict(pad=22, jours_y=38, grille_y=30, titre_px=32, jour_px=22, numero_
                bande_retrait=6, bande_rayon=14)
 BARRES_GEO = dict(label_ecart=12, valeur_ecart=14, valeur_marge=16, tolerance=4,
                   fondu_ligne=3)
-CHOIX_GEO = dict(trait=7, icone_depart=0.3, fondu_icone=2)
+CHOIX_GEO = dict(trait=7, icone_depart=0.3, fondu_icone=2, question=1.3,   # « ? » : corps / rayon
+                 balance=(6, 0.7))   # le « ? » se balance : amplitude (degres), frequence (Hz)
 TAMPON_GEO = dict(rayon=14, trait=7, filet_retrait=5, filet_rayon=9, fondu=2)
+# schemas animes (Romain, 22/10/2026 : « s'il doit y avoir des schemas animes pour qu'il
+# comprenne, n'hesite pas ») : circuit d'argent, face-a-face date, frise de delais
+CIRCUIT_LIGNE_H, CIRCUIT_ECART, CIRCUIT_PAD = 176, 18, 26
+CIRCUIT_TITRE_PX, CIRCUIT_PILULE_PX, CIRCUIT_FIN_PX = 32, 44, 36
+CIRCUIT_PILULE_H, CIRCUIT_FLECHE = 80, 50
+CIRCUIT_DECALAGE = 0.34        # entre deux elements d'une ligne (pilule, fleche, issue)
+CIRCUIT_GEO = dict(titre_y=20, pilule_pad=18, trait=6, tete=15, fleche_marge=7, rangee_y=62)
+DUEL_H, DUEL_TETE = 264, 70
+DUEL_DATE_PX, DUEL_TEXTE_PX, DUEL_SIGNE = 34, 40, 92
+DUEL_DECALAGE, DUEL_SIGNE_DELAI = 0.3, 0.35
+DUEL_GEO = dict(pad=22, interligne=1.2, signe_px=54, ecart=120)   # le « ≠ » loge dans l'ecart
+# frise verticale : une etape par ligne, lisible sur un telephone
+FRISE_PAD, FRISE_NOEUD, FRISE_LABEL_PX, FRISE_LIGNE_H = 30, 27, 40, 92
+FRISE_DECALAGE, FRISE_TRACE = 0.34, 0.26   # entre deux etapes ; trace du trait jusqu'a un noeud
+FRISE_GEO = dict(trait=8, label_x=34, numero_px=28, glisse=24)
+# illustrations animees (Romain, 23/10/2026 : « rajoute encore du motion, notamment quand on parle
+# d'enceinte refrigeree », « ca doit etre interactif et ultra ludique ») : refrigerateur qui se
+# remplit ou qui enregistre sa temperature, ticket de facturation, appel puis courrier, loupe sur
+# une page vide, calcul dont une part se detache
+INSERT_SURECHANTILLON = 3      # formes tracees a 3x puis reduites : bords nets, sans escalier
+FRIGO_W, FRIGO_H = 280, 380
+FRIGO_GEO = dict(rayon=30, panneau=64, vitre_marge=20, poignee=(9, 110), pied=(28, 14), etagere=6,
+                 ecran=(150, 40), ecran_px=26, boite=(56, 78), boite_ecart=12, chute=110,
+                 piece=34, piece_px=22, etiquette_px=32, etiquette_pad=(26, 14), etiquette_angle=-8,
+                 etiquette_y=0.62, chevauche=34)
+FRIGO_DECALAGE, FRIGO_PIECE_DECALAGE = 0.12, 0.08   # entre deux boites qui tombent, deux pieces
+FRIGO_RELEVE_H = 330           # mode « releve » : le refrigerateur et sa courbe de temperature
+FRIGO_COURBE = dict(duree=2.4, ecart=26, pad=24, titre_px=28, axe_px=22, rec_px=22, trait=6,
+                    plage=(2, 8), echelle=(0, 10), tete=9)
+TICKET_W = 720
+TICKET_GEO = dict(fente_h=30, fente_deborde=18, tete=62, ligne_h=78, pad=28, dents=14, titre_px=24,
+                  label_px=32, valeur_px=30, icone=42, avance=0.35, trait_icone=6)
+APPEL_H = 300
+APPEL_GEO = dict(ecart=110, pad=22, label_px=32, note_px=26, icone_y=96, sonnerie=1.3, secousse=8,
+                 courrier=1.15, telephone=(84, 150), enveloppe=(150, 100), trait=6, ondes=3)
+LOUPE_H = 330
+LOUPE_GEO = dict(barre=54, point=8, url_px=24, url_pad=18, champ_h=62, champ_px=30, champ_y=34,
+                 frappe=0.8, balayage=1.2, loupe=42, trait=10, vide_px=34, vide_y=0.76, curseur=0.5)
+CALCUL_H = 300
+CALCUL_GEO = dict(pad=30, titre_px=28, barre_y=150, barre_h=64, remplissage=0.9, levee=80, angle=-5,
+                  label_px=26, accolade_y=22, badge=30, rayures=14, pointille=(14, 10), flotte=6)
 
 # Credit (champ "credit" d'un bloc) : la source d'un plan qui ne vient pas d'une banque
 # d'images libre de droits, en petit sous le logo, le temps du plan (02/10/2026)

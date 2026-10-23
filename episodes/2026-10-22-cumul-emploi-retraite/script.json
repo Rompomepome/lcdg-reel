@@ -1,0 +1,93 @@
+{
+  "slug": "cumul-emploi-retraite",
+  "date": "2026-10-22",
+  "rubrique": "pro",
+  "label": "Cumul emploi-retraite",
+  "sous_titre": "Retraite avant 67 ans : votre pension *réduite* ?",
+  "appel": "Notre recommandation :",
+  "voix_off": "femme_agee",
+  "badge": "Retraite 2027",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "requete": "senior man working desk",
+      "fichier": "B0.mp4"
+    },
+    {
+      "duree": 7.0,
+      "texte": "Retraite à partir de 2027 : le cumul *change*. | Avant 67 ans, vos revenus pourront réduire votre pension.",
+      "requete": "page : https://www.service-public.gouv.fr/particuliers/actualites/A18914",
+      "voix": "Pour les retraites qui prennent effet dès deux mille vingt-sept, le cumul emploi-retraite change. | Avant soixante-sept ans, vos revenus pourront réduire votre pension.",
+      "fichier": "B1.mp4"
+    },
+    {
+      "duree": 7.0,
+      "texte": "Avant l’âge légal : déduits *dès le 1er euro*. | Indemnités journalières comprises.",
+      "requete": "money euro bills counting",
+      "voix": "Avant l’âge légal, vos revenus d’activité seront déduits de la pension dès le premier euro. | Indemnités journalières comprises.",
+      "fichier": "B2.mp4"
+    },
+    {
+      "duree": 6.0,
+      "type": "chiffre",
+      "valeur": 7000,
+      "suffixe": " €",
+      "legende": "brut par an, entre l’âge légal et 67 ans : le seuil *annoncé*",
+      "requete": "euro banknotes",
+      "voix": "Entre l’âge légal et soixante-sept ans, le seuil annoncé est de sept mille euros brut par an. Un décret doit encore le fixer.",
+      "fichier": "B3.mp4"
+    },
+    {
+      "duree": 6.0,
+      "texte": "Au-delà, la pension baisse de *50 %* du dépassement. | 2 € gagnés en plus : 1 € de pension en moins.",
+      "requete": "piggy bank coins",
+      "voix": "Au-delà, la pension baisse de la moitié du dépassement : | deux euros gagnés en plus, un euro de pension en moins.",
+      "fichier": "B4.mp4"
+    },
+    {
+      "duree": 6.5,
+      "type": "chiffre",
+      "valeur": 8500,
+      "depuis": 35000,
+      "suffixe": " €",
+      "legende": "de pension par an pour 60 000 € de revenus : *le calcul de la Carmf*",
+      "requete": "pension paperwork desk",
+      "voix": "L’exemple de la Carmf : trente-cinq mille euros de pension, soixante mille euros de revenus. La pension tombe à huit mille cinq cents euros.",
+      "fichier": "B5.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "À partir de 67 ans : cumul *intégral*, sans plafond.",
+      "requete": "grey hair man working computer",
+      "voix": "À partir de soixante-sept ans, le cumul reste intégral, sans plafond.",
+      "fichier": "B6.mp4"
+    },
+    {
+      "duree": 6.5,
+      "texte": "À la Carmf, les demandes déposées *après le 30 septembre*. | Elles prennent effet en 2027.",
+      "requete": "calendar january 2027",
+      "voix": "À la Carmf, sont concernées les demandes déposées après le trente septembre : | elles prennent effet en deux mille vingt-sept.",
+      "fichier": "B7.mp4"
+    },
+    {
+      "duree": 7.0,
+      "texte": "Zones sous-denses, permanence des soins, régulation : *exclues* ? | Un décret doit le dire. Rien n’est publié.",
+      "requete": "french village countryside",
+      "voix": "Zones sous-denses, permanence des soins, régulation : seront-elles exclues du calcul ? | Un décret doit le dire. Rien n’est publié.",
+      "fichier": "B8.mp4"
+    },
+    {
+      "duree": 5.0,
+      "texte": "Vous comptez liquider avant 67 ans ? | Notre recommandation, *avant de déposer*.",
+      "requete": "glasses on documents",
+      "voix": "Vous comptez liquider votre retraite avant soixante-sept ans ? | Lisez d’abord notre recommandation, sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 1
+      },
+      "fichier": "B9.mp4"
+    }
+  ]
+}
