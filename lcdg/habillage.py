@@ -437,7 +437,14 @@ class Bandeau:
         self.lignes = []           # par ligne : mots (ombre, glyphes, x, y) et encadres (image, centre)
         y = C.BANDEAU_Y
         for ligne in (l.strip() for l in texte.split('|') if l.strip()):
-            atomes = T.atomes(ligne)
+            # un surlignage de plusieurs mots ne fait qu'un encadre : « notre site » d'un
+            # bloc, pas en deux (Romain, 23/10/2026)
+            atomes = []
+            for at in T.atomes(ligne):
+                if at[1] and atomes and atomes[-1][1]:
+                    atomes[-1] = (atomes[-1][0] + at[0], True)
+                else:
+                    atomes.append(at)
             px = self._corps_appel(atomes) if any(at[1] for at in atomes) else C.BANDEAU_PX
             cap = T._police(px, g).getbbox("H")
             x = 0.0
