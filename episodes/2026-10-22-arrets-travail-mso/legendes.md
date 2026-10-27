@@ -1,8 +1,7 @@
 # Arrêts de travail, mise sous objectifs et SOS IJ — légendes de publication
 
 À faire par Romain avant de publier :
-- l'article n'était pas encore en ligne le 22/10/2026 : dès qu'il l'est, remplacer [LIEN] par
-  son adresse dans la légende LinkedIn, la publicité, le lien de la bio et le sticker de la story ;
+- l'article est en ligne depuis le 27/10/2026 : ses liens de suivi sont dans ce fichier ;
 - étiquette « Info IA » (voix de synthèse) sur Instagram et Facebook ;
 - le jour de la publication, une story avec un sticker lien vers l'article (lien « story » en bas
   de ce fichier) : c'est le seul lien cliquable d'Instagram en dehors de la bio.
@@ -29,7 +28,7 @@ Le code de la sécurité sociale fixe les délais : 1 mois après la notificatio
 
 Le 20 octobre, l'Assurance Maladie a lancé SOS IJ, un téléservice d'amelipro pour les situations complexes d'arrêt de travail (poste, employeur, poursuite des indemnités journalières, fragilité sociale), avec un premier retour sous 48 heures. Rien ne dit si un arrêt signalé dans SOS IJ sortira du calcul qui sert à cibler les médecins.
 
-Le Cercle fait 2 recommandations, dont ce qu'il faut faire dès l'appel de la caisse, dans son analyse (inscription gratuite) : [LIEN]?utm_source=linkedin&utm_medium=social&utm_campaign=arrets-travail-mso
+Le Cercle fait 2 recommandations, dont ce qu'il faut faire dès l'appel de la caisse, dans son analyse (inscription gratuite) : https://www.lecercledesgeneralistes.fr/article/arrets-de-travail-nouvelle-campagne-de-mise-sous-objectifs-et-sos-ij-un?utm_source=linkedin&utm_medium=social&utm_campaign=arrets-travail-mso
 
 ## Publicité Meta (reel boosté)
 
@@ -38,10 +37,10 @@ Texte principal (les 125 premiers caractères s'affichent sans « Plus ») :
 
 Titre : Votre caisse vous appelle ? Ce qu'il faut faire
 
-Bouton : En savoir plus. Lien : [LIEN]?utm_source=meta&utm_medium=paid&utm_campaign=arrets-travail-mso
+Bouton : En savoir plus. Lien : https://www.lecercledesgeneralistes.fr/article/arrets-de-travail-nouvelle-campagne-de-mise-sous-objectifs-et-sos-ij-un?utm_source=meta&utm_medium=paid&utm_campaign=arrets-travail-mso
 
 ## Lien de la bio Instagram, à mettre à jour le jour de la publication
 
-[LIEN]?utm_source=instagram&utm_medium=reel&utm_campaign=arrets-travail-mso
+https://www.lecercledesgeneralistes.fr/article/arrets-de-travail-nouvelle-campagne-de-mise-sous-objectifs-et-sos-ij-un?utm_source=instagram&utm_medium=reel&utm_campaign=arrets-travail-mso
 
-Lien du sticker de la story : [LIEN]?utm_source=instagram&utm_medium=story&utm_campaign=arrets-travail-mso
+Lien du sticker de la story : https://www.lecercledesgeneralistes.fr/article/arrets-de-travail-nouvelle-campagne-de-mise-sous-objectifs-et-sos-ij-un?utm_source=instagram&utm_medium=story&utm_campaign=arrets-travail-mso

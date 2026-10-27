@@ -48,7 +48,8 @@ Illustrations (Romain, 23/10/2026 : « ça doit être interactif et ultra ludiqu
   {"type": "calcul", "titre": "...", "temps_question": 1,
    "parts": [{"label": "...", "valeur": 0.68}, {"label": "...", "valeur": 0.32, "question": true}]}
       une barre qui se remplit ; la part "question" se detache, un « ? » au-dessus. Les parts
-      sont une illustration : aucun chiffre ne s'affiche
+      sont une illustration : aucun chiffre ne s'affiche. "ton": "rouge", "vert" ou "bleu"
+      colore une part et son libelle (trois regimes selon l'age, par exemple)
 
 Le champ "insert" peut aussi etre une liste : les elements s'empilent dans l'ordre, et
 "sur": true centre un element sur le premier (un tampon qui claque sur un dessin).
@@ -1548,6 +1549,12 @@ class Calcul(_Insert):
                 outline=C.INSERT_GRIS_TEXTE + (255,), width=int(self.px(4) * k)))
             self.empreinte = _pointilles(empreinte, *[self.px(v) for v in g["pointille"]])
 
+    def _ton(self, p):
+        """Couleur d'une part : "ton" rouge ou vert (une regle defavorable ou favorable) ; "bleu",
+        ou pas de ton, la rubrique. Un libelle ne prend la couleur de sa part que si elle porte un
+        ton."""
+        return {"rouge": C.INSERT_ROUGE, "vert": C.INSERT_VERT}.get(p.get("ton"), tuple(self.rubrique))
+
     def _segment(self, i):
         """Le segment i, arrondi a ses bouts exterieurs ; raye s'il porte la question."""
         g = C.CALCUL_GEO
@@ -1558,7 +1565,7 @@ class Calcul(_Insert):
 
         def dessin(d, k):
             W, H = w * k, h * k
-            couleur = _teinte(self.rubrique, 0.45) if question else tuple(self.rubrique)
+            couleur = _teinte(self.rubrique, 0.45) if question else self._ton(self.parts[i])
             gauche = 0 if premier else -H
             droite = W if dernier else W + H
             d.rounded_rectangle([gauche, 0, droite - 1, H - 1], radius=H / 2, fill=couleur + (255,))
@@ -1580,7 +1587,7 @@ class Calcul(_Insert):
             dernier = i == len(self.parts) - 1
             im = Image.new("RGBA", self.fond.size, (0, 0, 0, 0))
             d = ImageDraw.Draw(im)
-            couleur = (C.NAVY if p.get("question") else C.INSERT_GRIS_TEXTE) + (255,)
+            couleur = (self._ton(p) if p.get("ton") else C.NAVY if p.get("question") else C.INSERT_GRIS_TEXTE) + (255,)
             tr = max(2, self.px(3))
             d.line([(self.bx0 + a + tr, y), (self.bx0 + b - tr, y)], fill=couleur, width=tr)
             for x in (self.bx0 + a + tr, self.bx0 + b - tr):

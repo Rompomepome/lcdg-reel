@@ -6,88 +6,167 @@
   "sous_titre": "Retraite avant 67 ans : votre pension *réduite* ?",
   "appel": "Notre recommandation :",
   "voix_off": "femme_agee",
-  "badge": "Retraite 2027",
+  "badge": "Cumul emploi-retraite",
   "bandeau": "L’analyse complète | sur *notre site*",
   "blocs": [
     {
       "duree": 3.0,
       "texte": null,
-      "requete": "senior man working desk",
-      "fichier": "B0.mp4"
+      "fichier": "B0.mp4",
+      "requete": "senior man writing desk"
     },
     {
-      "duree": 7.0,
-      "texte": "Retraite à partir de 2027 : le cumul *change*. | Avant 67 ans, vos revenus pourront réduire votre pension.",
+      "duree": 10.0,
+      "fichier": "B1.mp4",
       "requete": "page : https://www.service-public.gouv.fr/particuliers/actualites/A18914",
-      "voix": "Pour les retraites qui prennent effet dès deux mille vingt-sept, le cumul emploi-retraite change. | Avant soixante-sept ans, vos revenus pourront réduire votre pension.",
-      "fichier": "B1.mp4"
+      "texte": "Toucher sa retraite *et continuer d’exercer* ? | Départ dès 2027 ? Avant 67 ans, la pension *pourra baisser*.",
+      "voix": "[curious] Toucher votre retraite et continuer d’exercer ? | Si elle commence dès deux mille vingt-sept, avant soixante-sept ans, vos revenus pourront réduire votre pension.",
+      "insert": {
+        "type": "calcul",
+        "titre": "Dès 2027, seul l’âge compte",
+        "carre": false,
+        "parts": [
+          {
+            "label": "Avant l’âge légal",
+            "valeur": 0.33,
+            "ton": "rouge"
+          },
+          {
+            "label": "De l’âge légal à 67 ans",
+            "valeur": 0.39,
+            "ton": "bleu"
+          },
+          {
+            "label": "67 ans et plus",
+            "valeur": 0.28,
+            "ton": "vert"
+          }
+        ]
+      }
     },
     {
-      "duree": 7.0,
+      "duree": 8.1,
+      "fichier": "B2.mp4",
+      "requete": "money wallet bills",
       "texte": "Avant l’âge légal : déduits *dès le 1er euro*. | Indemnités journalières comprises.",
-      "requete": "money euro bills counting",
       "voix": "Avant l’âge légal, vos revenus d’activité seront déduits de la pension dès le premier euro. | Indemnités journalières comprises.",
-      "fichier": "B2.mp4"
+      "insert": {
+        "type": "ticket",
+        "titre": "Votre pension, avant l’âge légal",
+        "lignes": [
+          {
+            "label": "Revenus d’activité",
+            "valeur": "déduits",
+            "ok": false,
+            "temps": 0
+          },
+          {
+            "label": "Indemnités journalières",
+            "valeur": "déduites",
+            "ok": false,
+            "temps": 1
+          }
+        ]
+      }
     },
     {
-      "duree": 6.0,
+      "duree": 7.9,
       "type": "chiffre",
       "valeur": 7000,
       "suffixe": " €",
+      "fichier": "B3.mp4",
+      "requete": "wallet money",
       "legende": "brut par an, entre l’âge légal et 67 ans : le seuil *annoncé*",
-      "requete": "euro banknotes",
-      "voix": "Entre l’âge légal et soixante-sept ans, le seuil annoncé est de sept mille euros brut par an. Un décret doit encore le fixer.",
-      "fichier": "B3.mp4"
+      "voix": "Entre l’âge légal et soixante-sept ans, le seuil annoncé est de sept mille euros brut par an. Un décret doit encore le fixer."
     },
     {
-      "duree": 6.0,
+      "duree": 7.3,
+      "fichier": "B4.mp4",
+      "requete": "coins bag",
       "texte": "Au-delà, la pension baisse de *50 %* du dépassement. | 2 € gagnés en plus : 1 € de pension en moins.",
-      "requete": "piggy bank coins",
       "voix": "Au-delà, la pension baisse de la moitié du dépassement : | deux euros gagnés en plus, un euro de pension en moins.",
-      "fichier": "B4.mp4"
+      "insert": {
+        "type": "circuit",
+        "lignes": [
+          {
+            "titre": "Au-delà de 7 000 € de revenus par an",
+            "etapes": [
+              "+2 € gagnés",
+              "−1 € de pension"
+            ],
+            "temps": 1
+          }
+        ]
+      }
     },
     {
-      "duree": 6.5,
+      "duree": 8.8,
       "type": "chiffre",
       "valeur": 8500,
       "depuis": 35000,
       "suffixe": " €",
+      "fichier": "B5.mp4",
+      "requete": "stack of papers",
       "legende": "de pension par an pour 60 000 € de revenus : *le calcul de la Carmf*",
-      "requete": "pension paperwork desk",
-      "voix": "L’exemple de la Carmf : trente-cinq mille euros de pension, soixante mille euros de revenus. La pension tombe à huit mille cinq cents euros.",
-      "fichier": "B5.mp4"
+      "voix": "L’exemple de la Carmf : trente-cinq mille euros de pension, soixante mille euros de revenus. La pension tombe à huit mille cinq cents euros."
     },
     {
-      "duree": 5.0,
-      "texte": "À partir de 67 ans : cumul *intégral*, sans plafond.",
-      "requete": "grey hair man working computer",
-      "voix": "À partir de soixante-sept ans, le cumul reste intégral, sans plafond.",
-      "fichier": "B6.mp4"
+      "duree": 7.4,
+      "fichier": "B7.mp4",
+      "requete": "clipboard pencil",
+      "texte": "À la Carmf, une demande déposée *après le 30 septembre* | prend effet en 2027 : nouvelles règles.",
+      "voix": "À la Carmf, une demande déposée après le trente septembre | prend effet en deux mille vingt-sept : nouvelles règles.",
+      "insert": {
+        "type": "calendrier",
+        "annee": 2026,
+        "mois": 9,
+        "du": 30,
+        "au": 30,
+        "legende": "30 septembre"
+      }
     },
     {
-      "duree": 6.5,
-      "texte": "À la Carmf, les demandes déposées *après le 30 septembre*. | Elles prennent effet en 2027.",
-      "requete": "calendar january 2027",
-      "voix": "À la Carmf, sont concernées les demandes déposées après le trente septembre : | elles prennent effet en deux mille vingt-sept.",
-      "fichier": "B7.mp4"
-    },
-    {
-      "duree": 7.0,
-      "texte": "Zones sous-denses, permanence des soins, régulation : *exclues* ? | Un décret doit le dire. Rien n’est publié.",
-      "requete": "french village countryside",
-      "voix": "Zones sous-denses, permanence des soins, régulation : seront-elles exclues du calcul ? | Un décret doit le dire. Rien n’est publié.",
-      "fichier": "B8.mp4"
-    },
-    {
-      "duree": 5.0,
-      "texte": "Vous comptez liquider avant 67 ans ? | Notre recommandation, *avant de déposer*.",
+      "duree": 8.9,
+      "type": "phrase",
+      "fichier": "B9.mp4",
       "requete": "glasses on documents",
-      "voix": "Vous comptez liquider votre retraite avant soixante-sept ans ? | Lisez d’abord notre recommandation, sur le site du Cercle.",
+      "texte": "Une décision prise *à l’aveugle*.",
+      "voix": "[serious] Pour garder les anciennes règles, il fallait donc, en général, déposer avant. Sans connaître le seuil : son décret n’était toujours pas paru."
+    },
+    {
+      "duree": 8.9,
+      "fichier": "B8.mp4",
+      "requete": "village aerial countryside",
+      "texte": "Zones sous-denses, permanence des soins, régulation : *exclues* ? | Un décret doit le dire. Rien n’est publié.",
+      "voix": "Et les zones sous-denses, la permanence des soins, la régulation : seront-elles exclues du calcul ? | Un décret doit le dire. Rien n’est publié.",
+      "insert": {
+        "type": "choix",
+        "lignes": [
+          {
+            "label": "Zones sous-denses ?",
+            "temps": 0
+          },
+          {
+            "label": "Permanence des soins ?",
+            "temps": 0
+          },
+          {
+            "label": "Régulation ?",
+            "temps": 0
+          }
+        ]
+      }
+    },
+    {
+      "duree": 7.6,
+      "fichier": "B6.mp4",
+      "requete": "smiling senior doctor",
+      "texte": "Retraite avant 67 ans en continuant d’exercer ? | Notre recommandation, *avant de déposer*.",
+      "voix": "Retraite avant soixante-sept ans, en continuant d’exercer ? | Lisez d’abord notre recommandation, sur le site du Cercle.",
       "insert": {
         "type": "verrou",
         "n": 1
-      },
-      "fichier": "B9.mp4"
+      }
     }
   ]
 }

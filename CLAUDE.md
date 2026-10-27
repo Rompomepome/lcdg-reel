@@ -129,9 +129,12 @@ La légende de la publication porte la question qui fait commenter et le « lien
 **Les inserts** (champ `insert` d'un bloc de texte, `lcdg/inserts.py`) : une petite
 illustration animée au-dessus du texte, pour comprendre d'un coup d'œil (Romain,
 05/10/2026 : « les inserts et les illustrations en plus, ça aide à la compréhension »).
-Depuis le 23/10/2026, un reel destiné à la publicité en porte sur presque chaque bloc de
-texte (Romain : « rajoute encore du motion », « ça doit être interactif et ultra ludique ») ;
-toujours là où ils éclairent le propos, jamais en décor. La liste complète, avec leurs
+Depuis le 27/10/2026, **tout reel** en porte sur presque chaque bloc de texte, au niveau du
+reel « arrêts de travail » (`episodes/2026-10-22-arrets-travail-mso`), la référence (Romain :
+« rajoute encore du motion », « ça doit être interactif et ultra ludique », puis « il faut que
+ce soit aussi poussé que ça sur les prochains reels ») ; toujours là où ils éclairent le
+propos, jamais en décor. Quand aucun insert ne dit ce que dit le texte, on en dessine un
+nouveau. La liste complète, avec leurs
 champs, est en tête de `lcdg/inserts.py` :
 
 - `{"type": "verrou", "n": 3}` : les recommandations gardées pour le site, en cartes

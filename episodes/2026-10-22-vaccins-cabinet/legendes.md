@@ -1,8 +1,7 @@
 # Vaccins au cabinet — légendes de publication
 
 À faire par Romain avant de publier :
-- l'article n'était pas encore en ligne le 22/10/2026 : dès qu'il l'est, remplacer [LIEN] par
-  son adresse dans la légende LinkedIn, la publicité, le lien de la bio et le sticker de la story ;
+- l'article est en ligne depuis le 27/10/2026 : ses liens de suivi sont dans ce fichier ;
 - étiquette « Info IA » (voix de synthèse) sur Instagram et Facebook ;
 - le jour de la publication, une story avec un sticker lien vers l'article (lien « story » en bas
   de ce fichier) : c'est le seul lien cliquable d'Instagram en dehors de la bio.
@@ -27,7 +26,7 @@ Le médecin avance le prix des doses au pharmacien (11,75 € pour Vaxigrip, 23,
 
 Au 22 octobre, 3 questions restent ouvertes : qui paie les doses perdues ou périmées, le bon de prise en charge du patient est-il exigé, et les enfants de 2 à 17 ans sans comorbidité peuvent-ils être vaccinés avec les doses du cabinet ?
 
-Le Cercle donne sa recommandation pour commander au plus juste dans son analyse (inscription gratuite) : [LIEN]?utm_source=linkedin&utm_medium=social&utm_campaign=vaccins-cabinet
+Le Cercle donne sa recommandation pour commander au plus juste dans son analyse (inscription gratuite) : https://www.lecercledesgeneralistes.fr/article/vaccins-grippe-et-covid-19-au-cabinet-ska-skb-skc-mode-demploi?utm_source=linkedin&utm_medium=social&utm_campaign=vaccins-cabinet
 
 ## Publicité Meta (reel boosté)
 
@@ -36,10 +35,10 @@ Vaccin grippe au cabinet : vous payez les doses d'abord, seules les doses inject
 
 Titre : Vaccins au cabinet : qui paie la dose perdue ?
 
-Bouton : En savoir plus. Lien : [LIEN]?utm_source=meta&utm_medium=paid&utm_campaign=vaccins-cabinet
+Bouton : En savoir plus. Lien : https://www.lecercledesgeneralistes.fr/article/vaccins-grippe-et-covid-19-au-cabinet-ska-skb-skc-mode-demploi?utm_source=meta&utm_medium=paid&utm_campaign=vaccins-cabinet
 
 ## Lien de la bio Instagram, à mettre à jour le jour de la publication
 
-[LIEN]?utm_source=instagram&utm_medium=reel&utm_campaign=vaccins-cabinet
+https://www.lecercledesgeneralistes.fr/article/vaccins-grippe-et-covid-19-au-cabinet-ska-skb-skc-mode-demploi?utm_source=instagram&utm_medium=reel&utm_campaign=vaccins-cabinet
 
-Lien du sticker de la story : [LIEN]?utm_source=instagram&utm_medium=story&utm_campaign=vaccins-cabinet
+Lien du sticker de la story : https://www.lecercledesgeneralistes.fr/article/vaccins-grippe-et-covid-19-au-cabinet-ska-skb-skc-mode-demploi?utm_source=instagram&utm_medium=story&utm_campaign=vaccins-cabinet
