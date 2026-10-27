@@ -151,7 +151,10 @@ champs, est en tête de `lcdg/inserts.py` :
 - Illustrations : `frigo` (le réfrigérateur qui se remplit, ou qui enregistre sa
   température), `ticket` (ce qui se facture, ligne par ligne), `appel` (un téléphone qui
   sonne, puis le courrier), `loupe` (une page fouillée où rien ne sort), `calcul` (une part
-  qui se détache, un « ? »).
+  qui se détache, un « ? »), `ages` (une règle d'âges parcourue par un curseur), `vases`
+  (deux bocaux communicants), `pieces` (des piles qui montent et qui fondent), `part` (un
+  anneau d'activité et sa part plafonnée), `bascule` (un éphéméride dont la page se plie),
+  `icones` (des cartes à icône dessinée).
 
 Le champ `insert` peut être une liste ; `"sur": true` centre un élément sur le premier (un
 tampon qui claque sur un dessin). Une illustration montre un mécanisme, jamais un chiffre

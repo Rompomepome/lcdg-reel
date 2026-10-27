@@ -279,6 +279,35 @@ APPEL_GEO = dict(ecart=110, pad=22, label_px=32, note_px=26, icone_y=96, sonneri
 LOUPE_H = 330
 LOUPE_GEO = dict(barre=54, point=8, url_px=24, url_pad=18, champ_h=62, champ_px=30, champ_y=34,
                  frappe=0.8, balayage=1.2, loupe=42, trait=10, vide_px=34, vide_y=0.76, curseur=0.5)
+# reel cumul emploi-retraite (Romain, 27/10/2026 : « il faut que tu proposes de meilleur motion
+# design, ça doit vraiment être beaucoup développé ») : la regle des ages, les bocaux communicants,
+# les piles de pieces, la part d'activite, l'ephemeride qui bascule, les cartes a icones
+AGES_H = 300
+AGES_GEO = dict(pad=28, titre_px=28, regle_y=206, regle_h=20, label_px=21, bulle_px=27, bulle_h=54,
+                bulle_pad=20, curseur=17, deplacement=0.9, pause=0.75, ecart=5, label_ecart=14,
+                bulle_ecart=8)
+VASES_H = 340
+VASES_GEO = dict(pad=24, titre_px=28, vase=(150, 200), trait=7, col=(0.3, 0.7), label_px=27, fond_y=300,
+                 remplissage=1.8, revenus=(0.06, 0.55), pension=(0.9, 0.41), ij=0.16, chute=0.45,
+                 jeton=46, jeton_px=20, envol=0.8, envol_pas=0.32, envol_px=26, vague=5,
+                 onde=(1.3, 0.9), envol_dy=60, envol_ecart=16, egal_px=64, egal_y=0.55, jeton_haut=70,
+                 jeton_vie=1.4)
+PIECES_H = 330
+PIECES_GEO = dict(pad=24, titre_px=28, piece=(160, 32), epaisseur=14, col=(0.3, 0.7), sol_y=262,
+                  pension=6, cycle=1.05, cycles=2, chute=0.38, envol=0.6, label_px=26, compteur_px=34,
+                  label_ecart=14, chute_haut=150, envol_dx=90, envol_dy=120, compteur_ecart=10,
+                  chute_pas=0.55, envol_delai=1.4)
+PART_H = 320
+PART_GEO = dict(pad=28, rayon=108, epaisseur=40, pilule_px=26, pilule_h=50, legende_px=27, centre_px=50,
+                petit_px=22, remplissage=1.1, part_duree=0.7, eclat=12, point=10, colonne=36,
+                pilule_pad=18, centre_dy=6, legende_y=18, legende_pas=1.7, point_ecart=14)
+BASCULE_H = 330
+BASCULE_GEO = dict(page=(236, 262), tete=64, mois_px=30, jour_px=104, bas_px=22, anneau=(14, 34),
+                   pli=0.42, ecart=40, legende_px=27, pilule_px=30, pilule_h=60, page_rayon=22,
+                   bas_y=26, page_marge=(28, 26), pilule_pad=24, legende_y=30, pilule_dy=6)
+ICONES_H = 300
+ICONES_GEO = dict(ecart=22, icone=118, icone_y=24, label_px=27, badge=48, trait=9, decalage=0.22,
+                  label_marge=24, label_ecart=18, badge_pos=0.55)
 CALCUL_H = 300
 CALCUL_GEO = dict(pad=30, titre_px=28, barre_y=150, barre_h=64, remplissage=0.9, levee=80, angle=-5,
                   label_px=26, accolade_y=22, badge=30, rayures=14, pointille=(14, 10), flotte=6)

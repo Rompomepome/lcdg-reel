@@ -22,23 +22,27 @@
       "texte": "Toucher sa retraite *et continuer d’exercer* ? | Départ dès 2027 ? Avant 67 ans, la pension *pourra baisser*.",
       "voix": "[curious] Toucher votre retraite et continuer d’exercer ? | Si elle commence dès deux mille vingt-sept, avant soixante-sept ans, vos revenus pourront réduire votre pension.",
       "insert": {
-        "type": "calcul",
+        "type": "ages",
         "titre": "Dès 2027, seul l’âge compte",
         "carre": false,
-        "parts": [
+        "ordre": [
+          2,
+          1,
+          0
+        ],
+        "zones": [
           {
             "label": "Avant l’âge légal",
-            "valeur": 0.33,
+            "bulle": "Réduite dès le 1er €",
             "ton": "rouge"
           },
           {
             "label": "De l’âge légal à 67 ans",
-            "valeur": 0.39,
-            "ton": "bleu"
+            "bulle": "Réduite au-delà d’un seuil"
           },
           {
             "label": "67 ans et plus",
-            "valeur": 0.28,
+            "bulle": "Cumul intégral",
             "ton": "vert"
           }
         ]
@@ -51,22 +55,14 @@
       "texte": "Avant l’âge légal : déduits *dès le 1er euro*. | Indemnités journalières comprises.",
       "voix": "Avant l’âge légal, vos revenus d’activité seront déduits de la pension dès le premier euro. | Indemnités journalières comprises.",
       "insert": {
-        "type": "ticket",
-        "titre": "Votre pension, avant l’âge légal",
-        "lignes": [
-          {
-            "label": "Revenus d’activité",
-            "valeur": "déduits",
-            "ok": false,
-            "temps": 0
-          },
-          {
-            "label": "Indemnités journalières",
-            "valeur": "déduites",
-            "ok": false,
-            "temps": 1
-          }
-        ]
+        "type": "vases",
+        "titre": "1 € gagné, 1 € de pension en moins",
+        "gauche": "Vos revenus",
+        "droite": "Votre pension",
+        "ajout": {
+          "label": "IJ",
+          "temps": 1
+        }
       }
     },
     {
@@ -86,17 +82,11 @@
       "texte": "Au-delà, la pension baisse de *50 %* du dépassement. | 2 € gagnés en plus : 1 € de pension en moins.",
       "voix": "Au-delà, la pension baisse de la moitié du dépassement : | deux euros gagnés en plus, un euro de pension en moins.",
       "insert": {
-        "type": "circuit",
-        "lignes": [
-          {
-            "titre": "Au-delà de 7 000 € de revenus par an",
-            "etapes": [
-              "+2 € gagnés",
-              "−1 € de pension"
-            ],
-            "temps": 1
-          }
-        ]
+        "type": "pieces",
+        "titre": "Au-delà du seuil",
+        "gauche": "Vos revenus",
+        "droite": "Votre pension",
+        "temps": 1
       }
     },
     {
@@ -111,18 +101,43 @@
       "voix": "L’exemple de la Carmf : trente-cinq mille euros de pension, soixante mille euros de revenus. La pension tombe à huit mille cinq cents euros."
     },
     {
+      "duree": 11.1,
+      "fichier": "B10.mp4",
+      "requete": "telemedicine laptop video call",
+      "texte": "À partir de 67 ans : cumul *intégral*, sans plafond. | Au cabinet, et en complément, en téléconsultation.",
+      "voix": "À partir de soixante-sept ans, le cumul reste intégral, sans plafond : | au cabinet, et en complément, en téléconsultation, dans la limite de vingt pour cent de vos actes sur l’année.",
+      "insert": {
+        "type": "part",
+        "pastille": "Cumul intégral, sans plafond",
+        "part": 20,
+        "centre": "au plus",
+        "legende_part": "Téléconsultation",
+        "legende_reste": "Activité présentielle",
+        "temps_part": 1
+      }
+    },
+    {
       "duree": 7.4,
       "fichier": "B7.mp4",
       "requete": "clipboard pencil",
       "texte": "À la Carmf, une demande déposée *après le 30 septembre* | prend effet en 2027 : nouvelles règles.",
       "voix": "À la Carmf, une demande déposée après le trente septembre | prend effet en deux mille vingt-sept : nouvelles règles.",
       "insert": {
-        "type": "calendrier",
-        "annee": 2026,
-        "mois": 9,
-        "du": 30,
-        "au": 30,
-        "legende": "30 septembre"
+        "type": "bascule",
+        "temps": 1,
+        "pilule": "Nouvelles règles",
+        "avant": {
+          "haut": "Sept. 2026",
+          "jour": "30",
+          "bas": "dernier jour"
+        },
+        "apres": {
+          "haut": "Janv. 2027",
+          "jour": "1er",
+          "bas": "au plus tôt"
+        },
+        "legende_avant": "Dernier dépôt pour un effet en 2026",
+        "legende_apres": "Date d’effet de la retraite"
       }
     },
     {
@@ -139,28 +154,36 @@
       "requete": "village aerial countryside",
       "texte": "Zones sous-denses, permanence des soins, régulation : *exclues* ? | Un décret doit le dire. Rien n’est publié.",
       "voix": "Et les zones sous-denses, la permanence des soins, la régulation : seront-elles exclues du calcul ? | Un décret doit le dire. Rien n’est publié.",
-      "insert": {
-        "type": "choix",
-        "lignes": [
-          {
-            "label": "Zones sous-denses ?",
-            "temps": 0
-          },
-          {
-            "label": "Permanence des soins ?",
-            "temps": 0
-          },
-          {
-            "label": "Régulation ?",
-            "temps": 0
-          }
-        ]
-      }
+      "insert": [
+        {
+          "type": "icones",
+          "cartes": [
+            {
+              "icone": "repere",
+              "label": "Zones sous-denses"
+            },
+            {
+              "icone": "lune",
+              "label": "Permanence des soins"
+            },
+            {
+              "icone": "casque",
+              "label": "Régulation"
+            }
+          ]
+        },
+        {
+          "type": "tampon",
+          "texte": "Rien n’est publié",
+          "temps": 1,
+          "sur": true
+        }
+      ]
     },
     {
       "duree": 7.6,
-      "fichier": "B6.mp4",
-      "requete": "smiling senior doctor",
+      "fichier": "B11.mp4",
+      "requete": "hands signing documents desk",
       "texte": "Retraite avant 67 ans en continuant d’exercer ? | Notre recommandation, *avant de déposer*.",
       "voix": "Retraite avant soixante-sept ans, en continuant d’exercer ? | Lisez d’abord notre recommandation, sur le site du Cercle.",
       "insert": {

@@ -10,7 +10,7 @@
 
 Toucher votre retraite et continuer d'exercer ? Pour les retraites qui prennent effet à partir de 2027, seul l'âge compte.
 
-Avant l'âge légal, vos revenus d'activité sont déduits de la pension dès le 1er euro, indemnités journalières comprises. Entre l'âge légal et 67 ans, le seuil annoncé est de 7 000 € brut par an ; au-delà, la pension baisse de la moitié du dépassement. Un décret doit encore fixer ce seuil. L'exemple de la Carmf : 35 000 € de pension et 60 000 € de revenus, la pension tombe à 8 500 €. À partir de 67 ans, le cumul reste intégral, sans plafond.
+Avant l'âge légal, vos revenus d'activité sont déduits de la pension dès le 1er euro, indemnités journalières comprises. Entre l'âge légal et 67 ans, le seuil annoncé est de 7 000 € brut par an ; au-delà, la pension baisse de la moitié du dépassement. Un décret doit encore fixer ce seuil. L'exemple de la Carmf : 35 000 € de pension et 60 000 € de revenus, la pension tombe à 8 500 €. À partir de 67 ans, le cumul reste intégral, sans plafond : au cabinet, et en complément, en téléconsultation, dans la limite de 20 % de vos actes sur l'année.
 
 À la Carmf, une demande déposée après le 30 septembre 2026 prend effet en 2027 et relève des nouvelles règles. Et les zones sous-denses, la permanence des soins, la régulation : seront-elles exclues du calcul ? Un décret doit le dire, rien n'est publié.
 
