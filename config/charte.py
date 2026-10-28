@@ -272,10 +272,11 @@ FRIGO_COURBE = dict(duree=2.4, ecart=26, pad=24, titre_px=28, axe_px=22, rec_px=
                     plage=(2, 8), echelle=(0, 10), tete=9)
 TICKET_W = 720
 TICKET_GEO = dict(fente_h=30, fente_deborde=18, tete=62, ligne_h=78, pad=28, dents=14, titre_px=24,
-                  label_px=32, valeur_px=30, icone=42, avance=0.35, trait_icone=6)
+                  label_px=32, valeur_px=30, icone=42, avance=0.35, trait_icone=6, label_px_min=24, ecart_valeur=24)
 APPEL_H = 300
 APPEL_GEO = dict(ecart=110, pad=22, label_px=32, note_px=26, icone_y=96, sonnerie=1.3, secousse=8,
-                 courrier=1.15, telephone=(84, 150), enveloppe=(150, 100), trait=6, ondes=3)
+                 courrier=1.15, telephone=(84, 150), enveloppe=(150, 100), trait=6, ondes=3,
+                 infirmier=(128, 132))
 LOUPE_H = 330
 LOUPE_GEO = dict(barre=54, point=8, url_px=24, url_pad=18, champ_h=62, champ_px=30, champ_y=34,
                  frappe=0.8, balayage=1.2, loupe=42, trait=10, vide_px=34, vide_y=0.76, curseur=0.5)
@@ -316,6 +317,31 @@ ICONES_GEO = dict(ecart=22, icone=118, icone_y=24, label_px=27, badge=48, trait=
 CALCUL_H = 300
 CALCUL_GEO = dict(pad=30, titre_px=28, barre_y=150, barre_h=64, remplissage=0.9, levee=80, angle=-5,
                   label_px=26, accolade_y=22, badge=30, rayures=14, pointille=(14, 10), flotte=6)
+# reels docteurs juniors et acces direct aux IPA (28/10/2026) : la carte CPS et son lecteur, le
+# compteur qui s'arrete sur « ? », le bouclier en pointilles, les departements, l'ordonnance qui
+# s'ecrit, le sablier qui se retourne
+CARTE_H = 300
+CARTE_GEO = dict(carte=(372, 236), rayon=22, puce=(62, 48), puce_xy=(34, 84), titre_px=24, nom_px=34, nom_px_min=24,
+                 pad=30, croix=(34, 9), lecteur=(178, 276), lecteur_rayon=30, ecran=(126, 96), ecran_y=30,
+                 touche=17, touches_y=160, touches_pas=40, fente=(12, 250), attente=0.8, course=0.55,
+                 profondeur=0.22, resultat=58, trait=8, refus=(12, 0.55), glisse=120)
+COMPTEUR_H = 300
+COMPTEUR_GEO = dict(pad=28, titre_px=25, case=(104, 136), ecart=18, chiffre_px=88, case_y=70, rayon=18,
+                    vitesse=9, arret=0.3, chute=0.45, pilule_px=28, pilule_h=56, pilule_pad=24,
+                    pilule_delai=0.25, pilule_dy=26)
+BOUCLIER_H = 330
+BOUCLIER_GEO = dict(bouclier=(236, 270), trait=10, tete=32, buste=(124, 66), croix=(30, 8),
+                    pointilles=(26, 13), bascule=0.6, badge=58, pilule_px=28, pilule_h=56, pilule_pad=24,
+                    pilule_ecart=16, ecart=48)
+DEPARTEMENTS_GEO = dict(colonnes=3, case_h=128, ecart=20, numero_px=56, nom_px=26, numero_y=0.42,
+                        nom_y=0.76, decalage=0.16, retourne=0.42)
+ORDONNANCE_GEO = dict(w=780, tete=74, pad=30, titre_px=28, marque_px=24, marque_h=44, marque_pad=18,
+                      label_px=33, note_px=25, interligne=1.22, ligne_ecart=22, ecriture=1.0, stylo=(16, 92),
+                      stylo_angle=38, pilule_px=27, pilule_h=56, pilule_pad=22, pilule_delai=0.3, filet=4)
+SABLIER_H = 320
+SABLIER_GEO = dict(sablier=(156, 250), socle=22, trait=6, cycle=2.6, retournement=0.5, badge=56,
+                   ecart=56, pilule_px=28, pilule_h=58, pilule_pad=24, pilule_ecart=16)
+PILULE_GEO = dict(px=30, h=62, pad=26, angle=-3)   # une pilule seule, sous un dessin (« Aucune rémunération »)
 
 # Credit (champ "credit" d'un bloc) : la source d'un plan qui ne vient pas d'une banque
 # d'images libre de droits, en petit sous le logo, le temps du plan (02/10/2026)

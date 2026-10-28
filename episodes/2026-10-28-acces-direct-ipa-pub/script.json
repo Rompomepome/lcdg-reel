@@ -1,0 +1,117 @@
+{
+  "slug": "acces-direct-ipa-pub",
+  "date": "2026-10-28",
+  "rubrique": "pro",
+  "label": "Accès direct · 6 départements",
+  "sous_titre": "Vos patients *chez l’IPA*, sans passer par vous ?",
+  "appel": "Notre recommandation :",
+  "voix_off": "femme_agee",
+  "badge": "Médecins traitants",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "medical waiting room"
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B1.mp4",
+      "requete": "france map paper",
+      "texte": "Dès le *1er décembre*, dans 6 départements… | vos patients pourront voir un IPA de CPTS *sans passer par vous*.",
+      "voix": "Médecins traitants : à partir du premier décembre, et pour cinq ans, dans six départements… | vos patients pourront consulter un infirmier en pratique avancée de C.P.T.S., sans passer par vous.",
+      "insert": {
+        "type": "departements",
+        "carre": false,
+        "liste": [
+          {
+            "numero": "34",
+            "nom": "Hérault"
+          },
+          {
+            "numero": "45",
+            "nom": "Loiret"
+          },
+          {
+            "numero": "972",
+            "nom": "Martinique"
+          },
+          {
+            "numero": "976",
+            "nom": "Mayotte"
+          },
+          {
+            "numero": "95",
+            "nom": "Val-d’Oise"
+          },
+          {
+            "numero": "89",
+            "nom": "Yonne"
+          }
+        ]
+      }
+    },
+    {
+      "duree": 12.0,
+      "fichier": "B2.mp4",
+      "requete": "pen writing paper closeup",
+      "texte": "L’IPA en pathologies chroniques stabilisées peut même… | instaurer *un antihypertenseur*… | *sans diagnostic* médical préalable.",
+      "voix": "[serious] Et l’I.P.A. en pathologies chroniques stabilisées peut même… | instaurer un antihypertenseur… | sans diagnostic médical préalable. De première ligne, pour une hypertension de grade un sans retentissement, hors bêtabloquants.",
+      "insert": {
+        "type": "ordonnance",
+        "titre": "Ordonnance",
+        "marque": "IPA",
+        "lignes": [
+          {
+            "label": "Antihypertenseur de 1re ligne",
+            "note": "HTA de grade 1 sans retentissement, hors bêtabloquants",
+            "temps": 1
+          }
+        ],
+        "pied": "Sans diagnostic médical préalable",
+        "temps_pied": 2
+      }
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B3.mp4",
+      "requete": "doctor paperwork desk",
+      "texte": "Comptes rendus à intégrer, patients à reprendre… | Ce travail ? *Aucune rémunération* prévue.",
+      "voix": "Des comptes rendus à lire et à intégrer, des patients réorientés à reprendre… | [incredulous] et pour ce travail de coordination, le décret ne prévoit aucune rémunération du médecin traitant !",
+      "insert": [
+        {
+          "type": "pilule",
+          "texte": "Aucune rémunération prévue",
+          "temps": 1
+        },
+        {
+          "type": "icones",
+          "cartes": [
+            {
+              "icone": "compte_rendu",
+              "label": "Comptes rendus à intégrer",
+              "question": false
+            },
+            {
+              "icone": "patient",
+              "label": "Patients réorientés à reprendre",
+              "question": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "duree": 7.0,
+      "fichier": "B4.mp4",
+      "requete": "doctor desk notebook pen",
+      "texte": "Médecin dans l’un de ces 6 départements ? | Ce qu’il faut faire *avant le 1er décembre*.",
+      "voix": "[warm] Vous exercez dans l’un de ces six départements ? | Ce qu’il faut faire avant le premier décembre, on vous le détaille sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 1
+      }
+    }
+  ]
+}

@@ -154,12 +154,30 @@ champs, est en tête de `lcdg/inserts.py` :
   qui se détache, un « ? »), `ages` (une règle d'âges parcourue par un curseur), `vases`
   (deux bocaux communicants), `pieces` (des piles qui montent et qui fondent), `part` (un
   anneau d'activité et sa part plafonnée), `bascule` (un éphéméride dont la page se plie),
-  `icones` (des cartes à icône dessinée).
+  `icones` (des cartes à icône dessinée), `carte` (une carte CPS qui glisse dans le lecteur,
+  acceptée ou refusée), `compteur` (des rouleaux qui s'arrêtent sur « ? » : un nombre que
+  personne ne publie), `bouclier` (une couverture en pointillés : on ne sait pas si elle
+  protège), `departements` (des tuiles qui se retournent), `ordonnance` (une ordonnance qui
+  s'écrit au stylo), `sablier` (un délai que rien ne fixe), `pilule` (une mention seule qui
+  claque sous un dessin).
 
 Le champ `insert` peut être une liste ; `"sur": true` centre un élément sur le premier (un
-tampon qui claque sur un dessin). Une illustration montre un mécanisme, jamais un chiffre
-inventé : les parts de `calcul` n'affichent aucune valeur ; la courbe et l'écran de `frigo`
-restent dans la plage de conservation du RCP (+2 à +8 °C), la seule donnée qu'ils citent.
+tampon qui claque sur un dessin). Un tampon posé « sur » des cartes à libellé les cache :
+mets plutôt une `pilule` dessous. Une illustration montre un mécanisme, jamais un chiffre
+inventé : les parts de `calcul` n'affichent aucune valeur ; le `compteur` ne s'arrête que sur
+« ? » ; la courbe et l'écran de `frigo` restent dans la plage de conservation du RCP (+2 à
++8 °C), la seule donnée qu'ils citent.
+
+**Relecture indépendante.** Depuis le 28/10/2026 (Romain : « un truc super sans trop
+d'aller-retour »), le texte d'un script (écran, voix, libellés des inserts) est relu par un
+agent indépendant contre le PDF de l'article, avant la voix : la première relecture a relevé
+12 erreurs (une condition coupée, des opinions du regard du Cercle données comme des faits,
+un « il » ambigu à l'écran). Une opinion du regard s'attribue (« Pour le Cercle ») ; une
+question ouverte reste une question (« Organisée par qui ? »), jamais un verdict.
+
+**Nommer le public.** Depuis le 28/10/2026, la pastille d'ouverture (champ `badge`) et la
+première phrase lue nomment le public visé (« Maîtres de stage : », « Médecins traitants : »),
+avec le vocabulaire du métier (conseil reçu par Romain) ; le reel commence toujours sur un fait.
 
 `"temps"` fait arriver un élément avec le temps du texte de ce numéro (0 = début du
 bloc). Un insert n'invente rien : il dit ce que dit le texte, avec les mots de l'article.

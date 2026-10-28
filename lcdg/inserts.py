@@ -72,6 +72,29 @@ Illustrations (Romain, 23/10/2026 : « ça doit être interactif et ultra ludiqu
    "pastille": "plus du double"}
       des boites de vaccin dessinees, une etiquette de prix tombe sur chacune, une pastille claque
 
+Reels docteurs juniors et acces direct aux IPA (28/10/2026) :
+
+  {"type": "carte", "titulaire": "Docteur junior", "ok": true, "temps": 1}
+      une carte CPS au nom du titulaire glisse dans le lecteur ; l'ecran repond coche ou croix
+      (refusee, la carte tremble)
+  {"type": "compteur", "titre": "Cartes CPS délivrées", "date": "au 28 octobre", "pilule": "...", "temps": 1}
+      des rouleaux de chiffres qui defilent puis s'arretent sur « ? » ; aucun nombre ne reste
+  {"type": "bouclier", "temps": 1, "pilules": [{"texte": "...", "ton": "rouge", "temps": 1}, ...]}
+      un bouclier sur une silhouette, dont le contour passe en pointilles avec un « ? » ; les
+      pilules du texte a droite
+  {"type": "departements", "liste": [{"numero": "34", "nom": "Hérault"}, ...]}
+      des tuiles de departement qui se retournent l'une apres l'autre
+  {"type": "ordonnance", "titre": "Ordonnance", "marque": "IPA", "lignes": [{"label": "...", "note": "...",
+   "temps": 1}], "pied": "...", "temps_pied": 2}
+      une ordonnance qui s'ecrit au stylo, ligne par ligne, une pilule rouge au pied
+  {"type": "sablier", "pilules": [...]}
+      un sablier qui coule et se retourne sans fin, un « ? » ; les pilules du texte a droite
+  {"type": "pilule", "texte": "Aucune rémunération prévue", "temps": 1}
+      une pilule seule qui claque, sous un dessin : elle ne cache pas ses libelles
+  "appel" accepte aussi l'icone "infirmier", et un "temps" par etape ; "icones" accepte les icones
+  "compte_rendu", "concertation", "patient", et par carte "question": false (une tache, pas une
+  question ouverte) ou "temps_question"
+
 Le champ "insert" peut aussi etre une liste : les elements s'empilent dans l'ordre, et
 "sur": true centre un element sur le premier (un tampon qui claque sur un dessin).
 
@@ -1237,8 +1260,15 @@ class Ticket(_Insert):
             for x in range(self.pad, self.pw - self.pad, self.px(16)):     # pointilles d'imprimante
                 d.line([(x, y), (x + self.px(8), y)], fill=C.INSERT_GRIS + (255,), width=max(1, self.px(3)))
             cy = y + self.lh / 2
-            _ecrire(d, (self.pad + self.px(g["icone"]) + self.px(18), cy), l["label"], self.px(g["label_px"]),
-                    C.INSERT_GRAISSE_TEXTE, C.NAVY + (255,), "lm")
+            # le libelle se resserre plutot que de toucher la valeur, alignee a droite
+            x_label = self.pad + self.px(g["icone"]) + self.px(18)
+            place = (self.pw - self.pad - x_label - self.px(g["ecart_valeur"])
+                     - T.largeur(T.normaliser(l.get("valeur", "")), self.px(g["valeur_px"]), C.INSERT_GRAISSE_FORTE, 0))
+            px = self.px(g["label_px"])
+            while px > self.px(g["label_px_min"]) and \
+                    T.largeur(T.normaliser(l["label"]), px, C.INSERT_GRAISSE_TEXTE, 0) > place:
+                px -= 1
+            _ecrire(d, (x_label, cy), l["label"], px, C.INSERT_GRAISSE_TEXTE, C.NAVY + (255,), "lm")
             couleur = C.INSERT_VERT if l.get("ok") else C.INSERT_ROUGE
             _ecrire(d, (self.pw - self.pad, cy), l.get("valeur", ""), self.px(g["valeur_px"]), C.INSERT_GRAISSE_FORTE,
                     couleur + (255,), "rm")
@@ -1322,8 +1352,27 @@ class Appel(_Insert):
         self.ecart = self.px(g["ecart"])
         self.cw = (self.w - self.ecart) // 2
         self.cartes = [self._carte(e) for e in self.etapes]
-        self.icones = [self._telephone() if e.get("icone") == "telephone" else self._enveloppe() for e in self.etapes]
+        self.icones = [self._icone(e.get("icone")) for e in self.etapes]
         self.ondes = self._ondes()
+
+    def _icone(self, nom):
+        return {"telephone": self._telephone, "infirmier": self._infirmier}.get(nom, self._enveloppe)()
+
+    def _infirmier(self):
+        """Un soignant en buste, la croix du soin sur la poitrine (l'infirmier en pratique avancee)."""
+        g = C.APPEL_GEO
+        w, h = self.px(g["infirmier"][0]), self.px(g["infirmier"][1])
+        rub = tuple(self.rubrique) + (255,)
+
+        def dessin(d, k):
+            W, H = w * k, h * k
+            r = W * 0.2
+            d.ellipse([W / 2 - r, 0, W / 2 + r, 2 * r], fill=C.NAVY + (255,))
+            d.rounded_rectangle([W * 0.08, H * 0.42, W * 0.92, H - 1], radius=W * 0.3, fill=rub)
+            c, l, e = (W / 2, H * 0.7), W * 0.26, W * 0.08
+            d.rectangle([c[0] - l / 2, c[1] - e / 2, c[0] + l / 2, c[1] + e / 2], fill=C.BLANC + (255,))
+            d.rectangle([c[0] - e / 2, c[1] - l / 2, c[0] + e / 2, c[1] + l / 2], fill=C.BLANC + (255,))
+        return _net(w, h, dessin)
 
     def _carte(self, e):
         g, m = C.APPEL_GEO, self.m
@@ -1389,6 +1438,8 @@ class Appel(_Insert):
         return _net(w, h, dessin)
 
     def _t(self, i):
+        if "temps" in self.etapes[i]:                    # une etape peut attendre son temps du texte
+            return self.t0(self.etapes[i]["temps"])
         t = self.t0(self.spec.get("temps", 0))
         return t if i == 0 else t + C.APPEL_GEO["courrier"]
 
@@ -1411,7 +1462,7 @@ class Appel(_Insert):
                 if sonne:
                     angle = g["secousse"] * math.sin(2 * math.pi * 14 * tau)
                     _poser(out, self.ondes, ix, iy, 1.0, 0.55 + 0.45 * math.sin(2 * math.pi * 3 * tau) ** 2)
-            else:                                        # le courrier arrive en vol, de la droite
+            elif self.etapes[i].get("icone") != "infirmier":   # le courrier arrive en vol, de la droite
                 v = 1.0 if final else (t - self._t(i) - C.INSERT_ENTREE * 0.3) / (C.INSERT_ENTREE * 1.4)
                 if v <= 0:
                     continue
@@ -2278,6 +2329,26 @@ class Icones(_Insert):
                 dd.rounded_rectangle([cx - S * 0.17, S * 0.4, cx + S * 0.17, S * 0.74], radius=S * 0.08, fill=rub)
                 dd.rounded_rectangle([cx - S * 0.13, S * 0.68, cx - S * 0.03, S * 0.96], radius=S * 0.04, fill=navy)
                 dd.rounded_rectangle([cx + S * 0.03, S * 0.68, cx + S * 0.13, S * 0.96], radius=S * 0.04, fill=navy)
+            elif nom == "compte_rendu":                   # un compte rendu : une page, son titre, ses lignes
+                dd.rounded_rectangle([S * 0.16, S * 0.04, S * 0.84, S * 0.96], radius=S * 0.06, fill=C.BLANC + (255,),
+                                     outline=navy, width=int(e * 0.6))
+                dd.rounded_rectangle([S * 0.28, S * 0.15, S * 0.72, S * 0.27], radius=S * 0.03, fill=rub)
+                for y, l in ((0.4, 0.44), (0.52, 0.36), (0.64, 0.44), (0.76, 0.26)):
+                    dd.rounded_rectangle([S * 0.28, S * y, S * (0.28 + l), S * (y + 0.05)], radius=S * 0.02, fill=gris)
+            elif nom == "concertation":                   # deux bulles : on se concerte
+                dd.rounded_rectangle([S * 0.02, S * 0.1, S * 0.6, S * 0.5], radius=S * 0.13, fill=navy)
+                dd.polygon([(S * 0.12, S * 0.48), (S * 0.3, S * 0.48), (S * 0.1, S * 0.66)], fill=navy)
+                dd.rounded_rectangle([S * 0.38, S * 0.38, S * 0.98, S * 0.8], radius=S * 0.13, fill=rub)
+                dd.polygon([(S * 0.7, S * 0.78), (S * 0.88, S * 0.78), (S * 0.9, S * 0.96)], fill=rub)
+                for x in (0.55, 0.68, 0.81):
+                    r = S * 0.045
+                    dd.ellipse([S * x - r, S * 0.59 - r, S * x + r, S * 0.59 + r], fill=C.BLANC + (255,))
+            elif nom == "patient":                        # un patient qui vous revient : la fleche du retour
+                cx, r = S * 0.36, S * 0.13
+                dd.ellipse([cx - r, S * 0.1, cx + r, S * 0.1 + 2 * r], fill=navy)
+                dd.rounded_rectangle([cx - S * 0.21, S * 0.42, cx + S * 0.21, S * 0.94], radius=S * 0.12, fill=navy)
+                dd.arc([S * 0.5, S * 0.2, S * 0.98, S * 0.68], -90, 90, fill=rub, width=int(e))
+                dd.polygon([(S * 0.6, S * 0.68), (S * 0.76, S * 0.57), (S * 0.76, S * 0.79)], fill=rub)
             else:                                         # le casque de la regulation
                 box = [S * 0.14, S * 0.1, S * 0.86, S * 0.82]
                 dd.arc(box, 180, 360, fill=navy, width=int(e))
@@ -2321,7 +2392,11 @@ class Icones(_Insert):
             dy = 0 if final else C.INSERT_MONTEE * self.s * (1 - T.lisse((t - self._t(i)) / C.INSERT_ENTREE))
             cx = self.m + i * (self.cw + self.ecart) + self.cw / 2
             _poser(out, carte, cx, self.m + self.h / 2 + dy, k, a)
-            v = 1.0 if final else (t - self._t(i) - C.INSERT_ENTREE * 0.7) / C.INSERT_ENTREE
+            if self.items[i].get("question") is False:   # une tache, pas une question ouverte
+                continue
+            tq = self.t0(self.items[i]["temps_question"]) if "temps_question" in self.items[i] else \
+                self._t(i) + C.INSERT_ENTREE * 0.7
+            v = 1.0 if final else (t - tq) / C.INSERT_ENTREE
             if v > 0:
                 amp, freq = C.CHOIX_GEO["balance"]
                 angle = 0.0 if final or v < 1 else amp * math.sin(2 * math.pi * freq * (t - self._t(i)))
@@ -2446,11 +2521,620 @@ class Prix(_Insert):
         return out
 
 
+def _coller_coupe(fond, im, x, y):
+    """Compose im en (x, y), meme en partie hors de fond (la partie qui deborde est coupee)."""
+    x, y = int(round(x)), int(round(y))
+    g, h = max(0, -x), max(0, -y)
+    d, b = min(im.width, fond.width - x), min(im.height, fond.height - y)
+    if d > g and b > h:
+        fond.alpha_composite(im.crop((g, h, d, b)), (x + g, y + h))
+
+
+def _frappe(t, t0, final):
+    """(echelle, opacite) d'un element qui claque comme un tampon a t0."""
+    v = 1.0 if final else (t - t0) / C.TAMPON_FRAPPE
+    if v <= 0:
+        return 0.0, 0.0
+    return (1.0 if final or v >= 1 else C.TAMPON_ECHELLE - (C.TAMPON_ECHELLE - 1) * v * v,
+            1.0 if final else min(1.0, v * 2))
+
+
+class _Pilules:
+    """Pilules empilees a droite d'un dessin ("pilules" : [{"texte", "ton", "temps"}]) ; chacune
+    claque au temps de son numero. geo : pilule_px, pilule_h, pilule_pad, pilule_ecart."""
+
+    def _preparer_pilules(self, g, x, cy):
+        self.pil_specs = self.spec.get("pilules", [])
+        self.pil = [_ombre_marge(_bulle(p["texte"], self.px(g["pilule_px"]), self.px(g["pilule_h"]),
+                                        self.px(g["pilule_pad"]), _ton(p, self.rubrique), queue=False), self.s)
+                    for p in self.pil_specs]
+        n, ph, ec = len(self.pil), self.px(g["pilule_h"]), self.px(g["pilule_ecart"])
+        haut = cy - (n * ph + (n - 1) * ec) / 2
+        self.pil_xy = [(x, haut + i * (ph + ec) + ph / 2) for i in range(n)]
+
+    def _t_pilule(self, i):
+        return self.t0(self.pil_specs[i].get("temps", 0)) + C.INSERT_ENTREE * 0.6
+
+    def _pilules(self, out, t, final):
+        for i, (im, (x, y)) in enumerate(zip(self.pil, self.pil_xy)):
+            k, a = _frappe(t, self._t_pilule(i), final)
+            if a > 0:
+                _poser(out, im, x + (im.width - 2 * self.m) / 2, y, k, a, -3)
+
+    def _sons_pilules(self):
+        return [(self._t_pilule(i) + C.TAMPON_FRAPPE, "impact") for i in range(len(self.pil))]
+
+
+# ---------------------------------------------------------------- carte
+class Carte(_Insert):
+    """Une carte CPS au nom de son titulaire, a cote du lecteur ; au temps "temps" (sinon un instant
+    apres son arrivee), elle glisse dans la fente et l'ecran repond : une coche ("ok"), ou une croix,
+    et la carte refusee tremble."""
+
+    def taille_nominale(self):
+        return C.TEXTE_LARGEUR, C.CARTE_H
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.CARTE_GEO
+        self.ok = self.spec.get("ok", True)
+        self.carte = _ombre_marge(self._carte(), self.s)
+        self.lecteur = _ombre_marge(self._lecteur(), self.s)
+        self.verdict = _icone_choix(self.ok, self.px(g["resultat"]), self.px(g["trait"]), self.rubrique)
+        cw, lw = self.px(g["carte"][0]), self.px(g["lecteur"][0])
+        self.lx = self.m + self.w - self.px(g["pad"]) - lw / 2           # centre du lecteur
+        self.x0 = self.m + self.px(g["pad"]) + cw / 2                     # la carte posee a gauche
+        self.x1 = self.lx - lw / 2 + cw * (g["profondeur"] - 0.5)         # engagee dans la fente
+        self.cy = self.m + self.h / 2
+
+    def _carte(self):
+        g = C.CARTE_GEO
+        w, h, ra = self.px(g["carte"][0]), self.px(g["carte"][1]), self.px(g["rayon"])
+        pw, ph = self.px(g["puce"][0]), self.px(g["puce"][1])
+        px0, py0 = self.px(g["puce_xy"][0]), self.px(g["puce_xy"][1])
+        cl, ce, pad = self.px(g["croix"][0]), self.px(g["croix"][1]), self.px(g["pad"])
+        rub = tuple(self.rubrique)
+        im = _net(w, h, lambda d, k: d.rounded_rectangle([0, 0, w * k - 1, h * k - 1], radius=ra * k,
+                                                         fill=rub + (255,)))
+        reflet = _net(w, h, lambda d, k: d.ellipse([w * k * 0.5, h * k * 0.3, w * k * 1.4, h * k * 1.7],
+                                                   fill=_teinte(rub, 0.16) + (255,)))
+        reflet.putalpha(ImageChops.multiply(reflet.getchannel("A"), im.getchannel("A")))
+        im.alpha_composite(reflet)
+
+        def puce(d, k):
+            d.rounded_rectangle([0, 0, pw * k - 1, ph * k - 1], radius=ph * k * 0.22, fill=C.INSERT_GRIS + (255,))
+            trait, filet = max(1, int(ph * k * 0.07)), _teinte(rub, 0.45) + (255,)
+            for y in (ph * k / 3, ph * k * 2 / 3):
+                d.line([(0, y), (pw * k * 0.36, y)], fill=filet, width=trait)
+                d.line([(pw * k * 0.64, y), (pw * k, y)], fill=filet, width=trait)
+            d.rounded_rectangle([pw * k * 0.36, ph * k * 0.2, pw * k * 0.64, ph * k * 0.8], radius=ph * k * 0.08,
+                                outline=filet, width=trait)
+        im.alpha_composite(_net(pw, ph, puce), (px0, py0))
+        d = ImageDraw.Draw(im)
+        cx, cyc = w - pad - cl / 2, pad + cl / 2                          # la croix du soin
+        d.rectangle([cx - cl / 2, cyc - ce / 2, cx + cl / 2, cyc + ce / 2], fill=C.BLANC + (255,))
+        d.rectangle([cx - ce / 2, cyc - cl / 2, cx + ce / 2, cyc + cl / 2], fill=C.BLANC + (255,))
+        _ecrire(d, (pad, pad), "CARTE CPS", self.px(g["titre_px"]), C.INSERT_GRAISSE_FORTE, C.BLANC + (255,))
+        # le nom tient dans la part de la carte qui reste visible une fois engagee dans le lecteur
+        nom, px = T.normaliser(self.spec.get("titulaire", "")), self.px(g["nom_px"])
+        visible = w * (1 - g["profondeur"]) - 2 * pad
+        while px > self.px(g["nom_px_min"]) and T.largeur(nom, px, C.INSERT_GRAISSE_FORTE, 0) > visible:
+            px -= 1
+        _ecrire(d, (pad, h - pad), nom, px, C.INSERT_GRAISSE_FORTE, C.BLANC + (255,), "ls")
+        return im
+
+    def _lecteur(self):
+        g = C.CARTE_GEO
+        w, h, ra = self.px(g["lecteur"][0]), self.px(g["lecteur"][1]), self.px(g["lecteur_rayon"])
+        ew, eh, ey = self.px(g["ecran"][0]), self.px(g["ecran"][1]), self.px(g["ecran_y"])
+        tr, ty, tp = self.px(g["touche"]), self.px(g["touches_y"]), self.px(g["touches_pas"])
+        fw, fh = self.px(g["fente"][0]), self.px(g["fente"][1])
+
+        def dessin(d, k):
+            d.rounded_rectangle([0, 0, w * k - 1, h * k - 1], radius=ra * k, fill=C.NAVY + (255,))
+            d.rounded_rectangle([(w - ew) / 2 * k, ey * k, (w + ew) / 2 * k, (ey + eh) * k], radius=ra * k * 0.4,
+                                fill=(8, 5, 26, 255))
+            for rang in range(2):
+                for col in (-1, 0, 1):
+                    x, y = (w / 2 + col * tp) * k, (ty + rang * tp) * k
+                    d.ellipse([x - tr * k / 2, y - tr * k / 2, x + tr * k / 2, y + tr * k / 2],
+                              fill=_teinte(C.NAVY, 0.3) + (255,))
+            d.rounded_rectangle([0, (h - fh) / 2 * k, fw * k, (h + fh) / 2 * k], radius=fw * k / 2,
+                                fill=(8, 5, 26, 255))                     # la fente, sur le bord gauche
+        return _net(w, h, dessin)
+
+    def _t_glisse(self):
+        if "temps" in self.spec:
+            return self.t0(self.spec["temps"])
+        return self.t0() + C.CARTE_GEO["attente"]
+
+    def image(self, t, final):
+        g = C.CARTE_GEO
+        k, a = _entree(t, self.t0(), final)
+        if a <= 0:
+            return None
+        out = Image.new("RGBA", (self.w + 2 * self.m, self.h + 2 * self.m), (0, 0, 0, 0))
+        tg, tv = self._t_glisse(), self._t_glisse() + g["course"]
+        p = 1.0 if final else T.lisse((t - tg) / g["course"])
+        x = self.x0 + (self.x1 - self.x0) * p
+        if not final:                                    # la carte arrive de la gauche
+            x -= self.px(g["glisse"]) * (1 - T.lisse((t - self.t0()) / C.INSERT_ENTREE))
+            v = (t - tv) / g["refus"][1]
+            if not self.ok and 0 < v < 1:                # refusee : elle tremble
+                x += self.px(g["refus"][0]) * math.sin(2 * math.pi * 4 * v) * (1 - v)
+        _poser(out, self.carte, x, self.cy, k, a)
+        _poser(out, self.lecteur, self.lx, self.cy, k, a)   # le lecteur passe devant la carte engagee
+        v = 1.0 if final else (t - tv) / C.INSERT_ENTREE
+        if v > 0:
+            kk = C.CHOIX_GEO["icone_depart"] + (1 - C.CHOIX_GEO["icone_depart"]) * (1.0 if final else T.rebond(v))
+            ey = self.cy - self.px(g["lecteur"][1]) / 2 + self.px(g["ecran_y"]) + self.px(g["ecran"][1]) / 2
+            _poser(out, self.verdict, self.lx, ey, kk, 1.0 if final else T.lisse(v * C.INSERT_FONDU))
+        return out
+
+    def sons(self):
+        tv = self._t_glisse() + C.CARTE_GEO["course"]
+        return [(self.t0(), "souffle"), (self._t_glisse(), "souffle"), (tv, "clic" if self.ok else "impact")]
+
+
+# ---------------------------------------------------------------- compteur
+class Compteur(_Insert):
+    """Un compteur a rouleaux : les chiffres defilent, puis s'arretent un a un sur « ? » au temps
+    "temps" ; une pilule rouge claque dessous (« Aucun chiffre officiel »). Aucun nombre n'y reste :
+    le compteur dit que personne ne le publie."""
+
+    def taille_nominale(self):
+        return C.TEXTE_LARGEUR, C.COMPTEUR_H
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.COMPTEUR_GEO
+        self.n = self.spec.get("chiffres", 4)
+        self.cw, self.ch = self.px(g["case"][0]), self.px(g["case"][1])
+        ra, pad = self.px(g["rayon"]), self.px(g["pad"])
+        self.case = _net(self.cw, self.ch, lambda d, k: d.rounded_rectangle(
+            [0, 0, self.cw * k - 1, self.ch * k - 1], radius=ra * k, fill=C.NAVY + (255,)))
+        px = self.px(g["chiffre_px"])
+        self.glyphes = {c: self._glyphe(c, px, C.BLANC) for c in "0123456789"}
+        self.glyphes["?"] = self._glyphe("?", px, _teinte(self.rubrique, 0.4))
+        carte = _cadre(self.w, self.h, self.s, marge=self.m)
+        d = ImageDraw.Draw(carte)
+        tp = self.px(g["titre_px"])
+        _ecrire(d, (self.m + pad, self.m + pad), T.normaliser(self.spec.get("titre", "")).upper(), tp,
+                C.INSERT_GRAISSE_FORTE, C.INSERT_GRIS_TEXTE + (255,))
+        _ecrire(d, (self.m + self.w - pad, self.m + pad), self.spec.get("date", ""), tp, C.INSERT_GRAISSE_TEXTE,
+                C.INSERT_GRIS_TEXTE + (255,), "ra")
+        self.carte = _ombre(carte, self.s)
+        largeur = self.n * self.cw + (self.n - 1) * self.px(g["ecart"])
+        self.xs = [self.m + (self.w - largeur) / 2 + i * (self.cw + self.px(g["ecart"])) for i in range(self.n)]
+        self.yc = self.m + self.px(g["case_y"])
+        self.pilule = None
+        if self.spec.get("pilule"):
+            self.pilule = _ombre_marge(_bulle(self.spec["pilule"], self.px(g["pilule_px"]), self.px(g["pilule_h"]),
+                                              self.px(g["pilule_pad"]), C.INSERT_ROUGE, queue=False), self.s)
+
+    def _glyphe(self, c, px, couleur):
+        im = Image.new("RGBA", (self.cw, self.ch), (0, 0, 0, 0))
+        _ecrire(ImageDraw.Draw(im), (self.cw / 2, self.ch / 2), c, px, C.INSERT_GRAISSE_CHIFFRE, couleur + (255,), "mm")
+        return im
+
+    def _t_arret(self, i):
+        return self.t0(self.spec.get("temps", 1)) + C.INSERT_DELAI + i * C.COMPTEUR_GEO["arret"]
+
+    def _t_pilule(self):
+        g = C.COMPTEUR_GEO
+        return self._t_arret(self.n - 1) + g["chute"] + g["pilule_delai"]
+
+    def _rouleau(self, i, t, final):
+        g = C.COMPTEUR_GEO
+        couche = Image.new("RGBA", (self.cw, self.ch), (0, 0, 0, 0))
+        ta = self._t_arret(i)
+        if final or t >= ta + g["chute"]:
+            couche.alpha_composite(self.glyphes["?"])
+        else:
+            v = g["vitesse"] * (max(self.t0(), min(t, ta)) - self.t0()) + i * 3.7
+            chiffre, f = int(v) % 10, v - int(v)
+            if t < ta:                                   # le rouleau tourne : le chiffre suivant monte
+                _coller_coupe(couche, self.glyphes[str(chiffre)], 0, -f * self.ch)
+                _coller_coupe(couche, self.glyphes[str((chiffre + 1) % 10)], 0, (1 - f) * self.ch)
+            else:                                        # il s'arrete : le « ? » tombe a sa place
+                q = T.rebond((t - ta) / g["chute"])
+                _coller_coupe(couche, self.glyphes[str(chiffre)], 0, q * self.ch)
+                _coller_coupe(couche, self.glyphes["?"], 0, (q - 1) * self.ch)
+        couche.putalpha(ImageChops.multiply(couche.getchannel("A"), self.case.getchannel("A")))
+        im = self.case.copy()
+        im.alpha_composite(couche)
+        return im
+
+    def image(self, t, final):
+        g = C.COMPTEUR_GEO
+        k, a = _entree(t, self.t0(), final)
+        if a <= 0:
+            return None
+        cal = self.carte.copy()
+        for i, x in enumerate(self.xs):
+            cal.alpha_composite(self._rouleau(i, t, final), (int(x), int(self.yc)))
+        if self.pilule is not None:
+            kk, aa = _frappe(t, self._t_pilule(), final)
+            if aa > 0:
+                _poser(cal, self.pilule, self.m + self.w / 2,
+                       self.m + self.h - self.px(g["pilule_dy"]) - self.px(g["pilule_h"]) / 2, kk, aa, -3)
+        out = Image.new("RGBA", cal.size, (0, 0, 0, 0))
+        _poser(out, cal, cal.width / 2, cal.height / 2, k, a)
+        return out
+
+    def sons(self):
+        out = [(self.t0(), "compteur")] + [(self._t_arret(i), "clic") for i in range(self.n)]
+        if self.pilule is not None:
+            out.append((self._t_pilule() + C.TAMPON_FRAPPE, "impact"))
+        return out
+
+
+# ---------------------------------------------------------------- bouclier
+_BOUCLIER = [(0.5, 0.0), (0.95, 0.12), (0.95, 0.48), (0.89, 0.68), (0.76, 0.85), (0.5, 1.0), (0.24, 0.85),
+             (0.11, 0.68), (0.05, 0.48), (0.05, 0.12)]
+
+
+class Bouclier(_Pilules, _Insert):
+    """Un bouclier qui couvre une silhouette (le docteur junior) ; au temps "temps", son contour se
+    defait en pointilles et un « ? » se balance : on ne sait pas s'il le couvre. A droite, les
+    pilules du texte."""
+
+    def taille_nominale(self):
+        return C.TEXTE_LARGEUR, C.BOUCLIER_H
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.BOUCLIER_GEO
+        bw, bh = self.px(g["bouclier"][0]), self.px(g["bouclier"][1])
+        tr = self.px(g["trait"])
+        navy, rub = C.NAVY + (255,), tuple(self.rubrique) + (255,)
+
+        def pts(k, retrait=0):
+            cx, cy = bw * k / 2, bh * k * 0.48
+            fx, fy = 1 - 2 * retrait / bw, 1 - 2 * retrait / bh
+            return [(cx + (x * bw * k - cx) * fx, cy + (y * bh * k - cy) * fy) for x, y in _BOUCLIER]
+
+        def fond(d, k):
+            d.polygon(pts(k), fill=C.BLANC + (255,))
+            r, (lb, hb_) = self.px(g["tete"]) * k, (self.px(g["buste"][0]) * k, self.px(g["buste"][1]) * k)
+            cx, cy = bw * k / 2, bh * k * 0.5
+            d.ellipse([cx - r, cy - r * 2.4, cx + r, cy - r * 0.4], fill=rub)
+            d.rounded_rectangle([cx - lb / 2, cy - r * 0.1, cx + lb / 2, cy - r * 0.1 + hb_], radius=hb_ * 0.45, fill=rub)
+            cl, ce = self.px(g["croix"][0]) * k, self.px(g["croix"][1]) * k
+            yc = cy - r * 0.1 + hb_ * 0.48
+            d.rectangle([cx - cl / 2, yc - ce / 2, cx + cl / 2, yc + ce / 2], fill=C.BLANC + (255,))
+            d.rectangle([cx - ce / 2, yc - cl / 2, cx + ce / 2, yc + cl / 2], fill=C.BLANC + (255,))
+
+        def anneau(d, k):
+            d.polygon(pts(k), fill=navy)
+            d.polygon(pts(k, tr), fill=(0, 0, 0, 0))
+        self.fond = _ombre_marge(_net(bw, bh, fond), self.s)
+        plein = _net(bw, bh, anneau)
+        periode, trace = (self.px(v) for v in g["pointilles"])
+        self.anneaux = [_ombre_marge(plein, self.s), _ombre_marge(_pointilles(plein, periode, trace), self.s)]
+        self.badge = _icone_choix(None, self.px(g["badge"]), self.px(C.CHOIX_GEO["trait"]), self.rubrique)
+        self.bx, self.by = self.m + bw / 2, self.m + self.h / 2
+        self.bw, self.bh = bw, bh
+        self._preparer_pilules(g, self.m + bw + self.px(g["ecart"]), self.by)
+
+    def _t_doute(self):
+        return self.t0(self.spec.get("temps", 1)) + C.INSERT_DELAI
+
+    def image(self, t, final):
+        g = C.BOUCLIER_GEO
+        k, a = _entree(t, self.t0(), final)
+        if a <= 0:
+            return None
+        out = Image.new("RGBA", (self.w + 2 * self.m, self.h + 2 * self.m), (0, 0, 0, 0))
+        q = 1.0 if final else T.lisse((t - self._t_doute()) / g["bascule"])
+        _poser(out, self.fond, self.bx, self.by, k, a)
+        _poser(out, self.anneaux[0], self.bx, self.by, k, a * (1 - q))
+        _poser(out, self.anneaux[1], self.bx, self.by, k, a * q)
+        v = 1.0 if final else (t - self._t_doute() - g["bascule"] * 0.5) / C.INSERT_ENTREE
+        if v > 0:
+            amp, freq = C.CHOIX_GEO["balance"]
+            angle = 0.0 if final or v < 1 else amp * math.sin(2 * math.pi * freq * (t - self._t_doute()))
+            kk = 0.3 + 0.7 * (1.0 if final else T.rebond(v))
+            _poser(out, self.badge, self.bx + self.bw * 0.4, self.by - self.bh * 0.4, kk,
+                   1.0 if final else T.lisse(v * 2), angle)
+        self._pilules(out, t, final)
+        return out
+
+    def sons(self):
+        return [(self.t0(), "souffle"), (self._t_doute(), "clic")] + self._sons_pilules()
+
+
+# ---------------------------------------------------------------- departements
+class Departements(_Insert):
+    """Les departements concernes : des tuiles (numero, nom) qui se retournent l'une apres l'autre."""
+
+    def taille_nominale(self):
+        g = C.DEPARTEMENTS_GEO
+        rangs = -(-len(self.spec["liste"]) // g["colonnes"])
+        return C.TEXTE_LARGEUR, rangs * g["case_h"] + (rangs - 1) * g["ecart"]
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.DEPARTEMENTS_GEO
+        self.ecart = self.px(g["ecart"])
+        self.cw = (self.w - (g["colonnes"] - 1) * self.ecart) // g["colonnes"]
+        self.ch = self.px(g["case_h"])
+        self.tuiles = []
+        for dep in self.spec["liste"]:
+            im = _cadre(self.cw, self.ch, self.s, marge=self.m)
+            d = ImageDraw.Draw(im)
+            _ecrire(d, (self.m + self.cw / 2, self.m + self.ch * g["numero_y"]), dep["numero"],
+                    self.px(g["numero_px"]), C.INSERT_GRAISSE_FORTE, tuple(self.rubrique) + (255,), "mm")
+            _ecrire(d, (self.m + self.cw / 2, self.m + self.ch * g["nom_y"]), dep["nom"], self.px(g["nom_px"]),
+                    C.INSERT_GRAISSE_FORTE, C.NAVY + (255,), "mm")
+            self.tuiles.append(_ombre(im, self.s))
+
+    def _t(self, i):
+        return self.t0(self.spec.get("temps", 0)) + i * C.DEPARTEMENTS_GEO["decalage"]
+
+    def image(self, t, final):
+        g = C.DEPARTEMENTS_GEO
+        out = Image.new("RGBA", (self.w + 2 * self.m, self.h + 2 * self.m), (0, 0, 0, 0))
+        for i, tuile in enumerate(self.tuiles):
+            p = 1.0 if final else (t - self._t(i)) / g["retourne"]
+            if p <= 0:
+                continue
+            ky = 1.0 if final else max(0.02, T.rebond(p))     # la tuile se retourne : elle s'ouvre en hauteur
+            im = tuile.resize((tuile.width, max(1, int(tuile.height * ky))), Image.BICUBIC)
+            col, rang = i % g["colonnes"], i // g["colonnes"]
+            cx = self.m + col * (self.cw + self.ecart) + self.cw / 2
+            cy = self.m + rang * (self.ch + self.ecart) + self.ch / 2
+            T.coller(out, im, (cx - im.width / 2, cy - im.height / 2), 1.0 if final else T.lisse(p * C.INSERT_FONDU))
+        return out
+
+    def sons(self):
+        return [(self._t(i), "clic") for i in range(len(self.tuiles))]
+
+
+# ---------------------------------------------------------------- ordonnance
+class Ordonnance(_Insert):
+    """Une ordonnance qui s'ecrit : chaque ligne (le traitement, puis sa condition en gris) se trace
+    de gauche a droite, un stylo au bout du trait ; une pilule rouge claque au pied ("pied")."""
+
+    def _mise_en_page(self, s):
+        """Lignes de texte de chaque prescription et hauteur totale, a l'echelle s."""
+        g = C.ORDONNANCE_GEO
+        p = lambda v: max(1, int(round(v * s)))
+        utile = p(g["w"]) - 2 * p(g["pad"])
+        blocs = [(_couper(l["label"], p(g["label_px"]), C.INSERT_GRAISSE_FORTE, utile),
+                  _couper(l.get("note", ""), p(g["note_px"]), C.INSERT_GRAISSE_TEXTE, utile) if l.get("note") else [])
+                 for l in self.spec["lignes"]]
+        hauteurs = [len(a) * p(g["label_px"]) * g["interligne"] + len(b) * p(g["note_px"]) * g["interligne"]
+                    for a, b in blocs]
+        h = p(g["tete"]) + p(g["pad"]) + sum(hauteurs) + (len(blocs) - 1) * p(g["ligne_ecart"]) + p(g["pad"])
+        if self.spec.get("pied"):
+            h += p(g["pilule_h"]) + p(g["pad"]) * 0.6
+        return blocs, hauteurs, h
+
+    def taille_nominale(self):
+        return C.ORDONNANCE_GEO["w"], int(self._mise_en_page(1.0)[2])
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.ORDONNANCE_GEO
+        blocs, hauteurs, _ = self._mise_en_page(self.s)
+        pad, tete = self.px(g["pad"]), self.px(g["tete"])
+        rub = tuple(self.rubrique)
+        papier = _cadre(self.w, self.h, self.s, marge=self.m)
+        bande = _net(self.w, tete, lambda d, k: (
+            d.rounded_rectangle([0, 0, self.w * k - 1, tete * k * 1.5], radius=self.px(C.INSERT_RAYON) * k,
+                                fill=_teinte(rub, 0.88) + (255,)),
+            d.rectangle([0, (tete - self.px(g["filet"])) * k, self.w * k, tete * k], fill=rub + (255,))))
+        bande.putalpha(ImageChops.multiply(bande.getchannel("A"),
+                                           papier.crop((self.m, self.m, self.m + self.w, self.m + tete)).getchannel("A")))
+        papier.alpha_composite(bande, (self.m, self.m))
+        d = ImageDraw.Draw(papier)
+        _ecrire(d, (self.m + pad, self.m + tete / 2), T.normaliser(self.spec.get("titre", "Ordonnance")).upper(),
+                self.px(g["titre_px"]), C.INSERT_GRAISSE_FORTE, rub + (255,), "lm")
+        if self.spec.get("marque"):
+            marque = _bulle(self.spec["marque"], self.px(g["marque_px"]), self.px(g["marque_h"]),
+                            self.px(g["marque_pad"]), rub, queue=False)
+            papier.alpha_composite(marque, (int(self.m + self.w - pad - marque.width),
+                                            int(self.m + (tete - marque.height) / 2)))
+        self.papier = _ombre(papier, self.s)
+        self.lignes, self.ly = [], []
+        y = self.m + tete + pad
+        for (labels, notes), hh in zip(blocs, hauteurs):
+            im = Image.new("RGBA", (self.w - 2 * pad, int(hh) + 2), (0, 0, 0, 0))
+            dl = ImageDraw.Draw(im)
+            yy, lp, np_ = 0, self.px(g["label_px"]), self.px(g["note_px"])
+            for l in labels:
+                _ecrire(dl, (0, yy), l, lp, C.INSERT_GRAISSE_FORTE, C.NAVY + (255,))
+                yy += lp * g["interligne"]
+            for l in notes:
+                _ecrire(dl, (0, yy), l, np_, C.INSERT_GRAISSE_TEXTE, C.INSERT_GRIS_TEXTE + (255,))
+                yy += np_ * g["interligne"]
+            self.lignes.append(im)
+            self.ly.append(y)
+            y += hh + self.px(g["ligne_ecart"])
+        self.pied = None
+        if self.spec.get("pied"):
+            self.pied = _ombre_marge(_bulle(self.spec["pied"], self.px(g["pilule_px"]), self.px(g["pilule_h"]),
+                                            self.px(g["pilule_pad"]), C.INSERT_ROUGE, queue=False), self.s)
+            self.pied_y = self.m + self.h - pad * 0.6 - self.px(g["pilule_h"]) / 2
+        sw, sl = self.px(g["stylo"][0]), self.px(g["stylo"][1])
+        cote = 2 * sl + 4
+
+        def stylo(dd, k):                                # pointe au centre, corps vers le haut
+            c = cote * k / 2
+            dd.rounded_rectangle([c - sw * k / 2, c - sl * k, c + sw * k / 2, c - sw * k * 1.2], radius=sw * k / 2,
+                                 fill=C.NAVY + (255,))
+            dd.polygon([(c - sw * k / 2, c - sw * k * 1.4), (c + sw * k / 2, c - sw * k * 1.4), (c, c)],
+                       fill=(8, 5, 26, 255))
+        self.stylo = _ombre_marge(_net(cote, cote, stylo).rotate(-g["stylo_angle"], resample=Image.BICUBIC), self.s)
+
+    def _t_ligne(self, j):
+        g = C.ORDONNANCE_GEO
+        l = self.spec["lignes"][j]
+        avant = [i for i in range(j) if self.spec["lignes"][i].get("temps", 0) == l.get("temps", 0)]
+        return self.t0(l.get("temps", 0)) + C.INSERT_ENTREE * 0.6 + len(avant) * g["ecriture"]
+
+    def _t_pied(self):
+        g = C.ORDONNANCE_GEO
+        fin = self._t_ligne(len(self.lignes) - 1) + g["ecriture"] + g["pilule_delai"]
+        return max(fin, self.t0(self.spec["temps_pied"])) if "temps_pied" in self.spec else fin
+
+    def image(self, t, final):
+        g = C.ORDONNANCE_GEO
+        k, a = _entree(t, self.t0(), final)
+        if a <= 0:
+            return None
+        cal = self.papier.copy()
+        x0 = self.m + self.px(g["pad"])
+        plume = None
+        for j, (im, y) in enumerate(zip(self.lignes, self.ly)):
+            p = 1.0 if final else T.lisse((t - self._t_ligne(j)) / g["ecriture"])
+            if p <= 0:
+                continue
+            larg = max(1, int(im.width * p))
+            cal.alpha_composite(im.crop((0, 0, larg, im.height)), (int(x0), int(y)))
+            if 0 < p < 1:
+                plume = (x0 + larg, y + self.px(g["label_px"]) * 0.85)
+        if self.pied is not None:
+            kk, aa = _frappe(t, self._t_pied(), final)
+            if aa > 0:
+                _poser(cal, self.pied, x0 + (self.pied.width - 2 * self.m) / 2, self.pied_y, kk, aa, -2)
+        if plume is not None:
+            _poser(cal, self.stylo, plume[0], plume[1])
+        out = Image.new("RGBA", cal.size, (0, 0, 0, 0))
+        _poser(out, cal, cal.width / 2, cal.height / 2, k, a)
+        return out
+
+    def sons(self):
+        out = [(self.t0(), "souffle")] + [(self._t_ligne(j), "clic") for j in range(len(self.lignes))]
+        if self.pied is not None:
+            out.append((self._t_pied() + C.TAMPON_FRAPPE, "impact"))
+        return out
+
+
+# ---------------------------------------------------------------- sablier
+_VERRE = [(0.1, 0.0), (0.9, 0.0), (0.88, 0.2), (0.62, 0.44), (0.54, 0.5), (0.62, 0.56), (0.88, 0.8), (0.9, 1.0),
+          (0.1, 1.0), (0.12, 0.8), (0.38, 0.56), (0.46, 0.5), (0.38, 0.44), (0.12, 0.2)]
+
+
+class Sablier(_Pilules, _Insert):
+    """Un sablier dont le sable coule, qui se retourne sans fin ; un « ? » se balance a son coin :
+    aucun delai n'est fixe. A droite, les pilules du texte."""
+
+    def taille_nominale(self):
+        return C.TEXTE_LARGEUR, C.SABLIER_H
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.SABLIER_GEO
+        self.sw, self.sh = self.px(g["sablier"][0]), self.px(g["sablier"][1])
+        self.socle, self.tr = self.px(g["socle"]), self.px(g["trait"])
+        self.cote = int(max(self.sw, self.sh) * 1.1)
+        self.badge = _icone_choix(None, self.px(g["badge"]), self.px(C.CHOIX_GEO["trait"]), self.rubrique)
+        self.cx, self.cy = self.m + self.cote / 2, self.m + self.h / 2
+        self._preparer_pilules(g, self.m + self.cote + self.px(g["ecart"]), self.cy)
+        self.cache = {}
+
+    def _dessin(self, p):
+        """Le sablier, sable ecoule a la fraction p (le haut se vide, le bas se remplit)."""
+        cle = round(p, 2)
+        if cle in self.cache:
+            return self.cache[cle]
+        sw, sh, so, tr, cote = self.sw, self.sh, self.socle, self.tr, self.cote
+        rub, navy = tuple(self.rubrique) + (255,), C.NAVY + (255,)
+
+        def geo(k):
+            x0, y0 = (cote - sw) / 2 * k, (cote - sh) / 2 * k
+            ya, yb = y0 + so * k, y0 + (sh - so) * k              # haut et bas du verre
+            return x0, y0, ya, yb, [(x0 + sw * k * x, ya + (yb - ya) * y) for x, y in _VERRE]
+
+        def verre(d, k):
+            d.polygon(geo(k)[4], fill=C.BLANC + (235,))
+
+        def sable(d, k):
+            x0, _, ya, yb, _ = geo(k)
+            col = (yb - ya) / 2
+            d.rectangle([0, ya + col * p, cote * k, ya + col], fill=rub)            # le haut se vide
+            d.rectangle([0, yb - col * p, cote * k, yb], fill=rub)                  # le bas se remplit
+            if 0 < p < 1:
+                d.line([(x0 + sw * k / 2, ya + col), (x0 + sw * k / 2, yb)], fill=rub, width=max(2, int(tr * k * 0.5)))
+
+        def contour(d, k):
+            x0, y0, _, _, pts = geo(k)
+            d.line(pts + [pts[0]], fill=navy, width=int(tr * k), joint="curve")
+            for y in (y0, y0 + (sh - so) * k):
+                d.rounded_rectangle([x0 - so * k * 0.4, y, x0 + (sw + so * 0.4) * k, y + so * k], radius=so * k * 0.4,
+                                    fill=navy)
+        im = _net(cote, cote, verre)
+        grains = _net(cote, cote, sable)
+        grains.putalpha(ImageChops.multiply(grains.getchannel("A"), _net(cote, cote, lambda d, k: d.polygon(
+            geo(k)[4], fill=C.BLANC + (255,))).getchannel("A")))
+        im.alpha_composite(grains)
+        im.alpha_composite(_net(cote, cote, contour))
+        im = _ombre_marge(im, self.s)
+        self.cache[cle] = im
+        return im
+
+    def image(self, t, final):
+        g = C.SABLIER_GEO
+        k, a = _entree(t, self.t0(), final)
+        if a <= 0:
+            return None
+        out = Image.new("RGBA", (self.w + 2 * self.m, self.h + 2 * self.m), (0, 0, 0, 0))
+        coule = g["cycle"] - g["retournement"]
+        phase = 0.0 if final else (t - self.t0()) % g["cycle"]
+        p, angle = (0.5, 0.0) if final else (min(1.0, phase / coule), 180 * T.lisse((phase - coule) / g["retournement"]))
+        _poser(out, self._dessin(p), self.cx, self.cy, k, a, angle)
+        v = 1.0 if final else (t - self.t0() - C.INSERT_ENTREE) / C.INSERT_ENTREE
+        if v > 0:
+            amp, freq = C.CHOIX_GEO["balance"]
+            ang = 0.0 if final or v < 1 else amp * math.sin(2 * math.pi * freq * (t - self.t0()))
+            _poser(out, self.badge, self.cx + self.sw * 0.55, self.cy - self.sh * 0.45,
+                   0.3 + 0.7 * (1.0 if final else T.rebond(v)), 1.0 if final else T.lisse(v * 2), ang)
+        self._pilules(out, t, final)
+        return out
+
+    def sons(self):
+        return [(self.t0(), "souffle")] + self._sons_pilules()
+
+
+# ---------------------------------------------------------------- pilule
+class Pilule(_Insert):
+    """Une pilule seule (« Aucune rémunération prévue ») qui claque au temps "temps", ton rouge par
+    defaut : sous un dessin, elle ne cache rien, la ou un tampon couvrirait ses libelles."""
+
+    def _sprite(self, s):
+        g = C.PILULE_GEO
+        # appele par taille_nominale, avant que _Insert.__init__ ne pose self.rubrique
+        return _bulle(self.spec["texte"], max(8, int(g["px"] * s)), max(8, int(g["h"] * s)), int(g["pad"] * s),
+                      _ton({"ton": self.spec.get("ton", "rouge")}, tuple(hb._RUBRIQUE)), queue=False)
+
+    def taille_nominale(self):
+        im = self._sprite(1.0)
+        return im.width, im.height
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        self.sprite = _ombre_marge(self._sprite(self.s), self.s)
+
+    def image(self, t, final):
+        k, a = _frappe(t, self.t0(self.spec.get("temps", 0)), final)
+        if a <= 0:
+            return None
+        out = Image.new("RGBA", (self.w + 2 * self.m, self.h + 2 * self.m), (0, 0, 0, 0))
+        _poser(out, self.sprite, self.m + self.w / 2, self.m + self.h / 2, k, a, C.PILULE_GEO["angle"])
+        return out
+
+    def sons(self):
+        return [(self.t0(self.spec.get("temps", 0)) + C.TAMPON_FRAPPE, "impact")]
+
+
 TYPES = {"verrou": Verrou, "calendrier": Calendrier, "barres": Barres, "choix": Choix,
          "tampon": Tampon, "circuit": Circuit, "duel": Duel, "frise": Frise, "frigo": Frigo,
          "ticket": Ticket, "appel": Appel, "loupe": Loupe, "calcul": Calcul, "ages": Ages,
          "vases": Vases, "pieces": Pieces, "part": Part, "bascule": Bascule, "icones": Icones,
-         "prix": Prix}
+         "prix": Prix, "carte": Carte, "compteur": Compteur, "bouclier": Bouclier,
+         "departements": Departements, "ordonnance": Ordonnance, "sablier": Sablier, "pilule": Pilule}
 
 
 def inserts(ep, scenes, ouverture=None):

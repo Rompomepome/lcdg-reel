@@ -1,0 +1,85 @@
+{
+  "slug": "docteurs-juniors-pub",
+  "date": "2026-10-28",
+  "rubrique": "pro",
+  "label": "Docteurs juniors",
+  "sous_titre": "Docteur junior : *qui paie*, qui répond ?",
+  "appel": "Nos 2 recommandations :",
+  "voix_off": "homme_age",
+  "badge": "Maîtres de stage",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "white coat hanging"
+    },
+    {
+      "duree": 8.0,
+      "fichier": "B1.mp4",
+      "requete": "page : https://www.hauts-de-france.ars.sante.fr/4eme-annee-dinternat-de-medecine-generale-ce-quil-faut-savoir",
+      "texte": "Le *2 novembre*, votre docteur junior arrive. | Il consulte seul, et facture avec *sa propre carte CPS*.",
+      "voix": "Maîtres de stage : le deux novembre, votre docteur junior arrive. | Il consulte seul… et il facture avec sa propre carte C.P.S.",
+      "insert": {
+        "type": "carte",
+        "titulaire": "Docteur junior",
+        "ok": true,
+        "temps": 1,
+        "carre": false
+      }
+    },
+    {
+      "duree": 7.0,
+      "fichier": "B2.mp4",
+      "requete": "computer keyboard closeup",
+      "texte": "Il facture avec *votre carte* ? En aucun cas. | Ce serait *une fraude* : des contrôles sont prévus.",
+      "voix": "[incredulous] Et avec votre carte à vous ? En aucun cas ! | [serious] Ce serait une fraude, et l’Assurance Maladie fera des contrôles.",
+      "insert": [
+        {
+          "type": "carte",
+          "titulaire": "Maître de stage",
+          "ok": false
+        },
+        {
+          "type": "tampon",
+          "texte": "Fraude",
+          "temps": 1,
+          "sur": true
+        }
+      ]
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B3.mp4",
+      "requete": "doctor measuring blood pressure hands",
+      "texte": "Il consulte seul, sous *votre responsabilité*. | Votre assurance ? Selon MG France, *rien de précisé*.",
+      "voix": "Il consulte seul, mais sous votre responsabilité. | [curious] Et s’il se trompe ? Selon MG France, le ministère dit seulement que « le cadre actuel s’appliquera »… [incredulous] sans dire si votre assurance le couvre !",
+      "insert": {
+        "type": "bouclier",
+        "temps": 1,
+        "pilules": [
+          {
+            "texte": "Sous votre responsabilité"
+          },
+          {
+            "texte": "Votre assurance le couvre ?",
+            "ton": "rouge",
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 7.0,
+      "fichier": "B4.mp4",
+      "requete": "doctor desk notebook",
+      "texte": "Un docteur junior le 2 novembre, ou en 2027 ? | Ce qu’il faut faire *avant son arrivée*.",
+      "voix": "[warm] Un docteur junior le deux novembre… ou en deux mille vingt-sept ? | Ce qu’il faut faire avant son arrivée, on vous le détaille sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ]
+}

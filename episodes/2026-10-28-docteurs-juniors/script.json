@@ -1,0 +1,172 @@
+{
+  "slug": "docteurs-juniors",
+  "date": "2026-10-28",
+  "rubrique": "pro",
+  "label": "Docteurs juniors",
+  "sous_titre": "Docteur junior : *qui paie*, qui répond ?",
+  "appel": "Nos 2 recommandations :",
+  "voix_off": "homme_age",
+  "badge": "Maîtres de stage",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "white coat hanging"
+    },
+    {
+      "duree": 8.0,
+      "fichier": "B1.mp4",
+      "requete": "page : https://www.hauts-de-france.ars.sante.fr/4eme-annee-dinternat-de-medecine-generale-ce-quil-faut-savoir",
+      "texte": "Le *2 novembre*, votre docteur junior arrive. | Il consulte seul, et facture avec *sa propre carte CPS*.",
+      "voix": "Maîtres de stage : le deux novembre, votre docteur junior arrive. | Il consulte seul… et il facture avec sa propre carte C.P.S.",
+      "insert": {
+        "type": "carte",
+        "titulaire": "Docteur junior",
+        "ok": true,
+        "temps": 1,
+        "carre": false
+      }
+    },
+    {
+      "duree": 7.0,
+      "fichier": "B2.mp4",
+      "requete": "computer keyboard closeup",
+      "texte": "Il facture avec *votre carte* ? En aucun cas. | Ce serait *une fraude* : des contrôles sont prévus.",
+      "voix": "[incredulous] Et avec votre carte à vous ? En aucun cas ! | [serious] Ce serait une fraude, et l’Assurance Maladie fera des contrôles.",
+      "insert": [
+        {
+          "type": "carte",
+          "titulaire": "Maître de stage",
+          "ok": false
+        },
+        {
+          "type": "tampon",
+          "texte": "Fraude",
+          "temps": 1,
+          "sur": true
+        }
+      ]
+    },
+    {
+      "duree": 8.0,
+      "fichier": "B3.mp4",
+      "requete": "envelopes letters pile",
+      "texte": "Sans sa carte, *pas de facturation*. | Combien de cartes délivrées ? *Aucun chiffre* officiel.",
+      "voix": "Sans sa carte, il ne peut pas facturer. | [curious] Combien de cartes ont été délivrées ? [incredulous] Au vingt-huit octobre, aucun chiffre officiel !",
+      "insert": {
+        "type": "compteur",
+        "titre": "Cartes CPS délivrées",
+        "date": "au 28 octobre",
+        "pilule": "Aucun chiffre officiel",
+        "temps": 1
+      }
+    },
+    {
+      "duree": 8.0,
+      "fichier": "B4.mp4",
+      "requete": "coins on white table",
+      "texte": "En cabinet, ses tickets modérateurs : *tous pour vous*. | Encaissés en espèces ? Il doit *vous les reverser*.",
+      "voix": "En cabinet, les tickets modérateurs de ses consultations vous reviennent, en totalité. | Et s’il les encaisse en espèces ou par chèque, il doit vous les reverser.",
+      "insert": {
+        "type": "circuit",
+        "lignes": [
+          {
+            "titre": "En cabinet : son ticket modérateur",
+            "etapes": [
+              "Son patient",
+              "Vous"
+            ],
+            "fin": "en totalité",
+            "ok": true
+          },
+          {
+            "titre": "Encaissé en espèces ou par chèque",
+            "etapes": [
+              "Lui",
+              "Vous"
+            ],
+            "fin": "reversé",
+            "ok": true,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 6.0,
+      "type": "chiffre",
+      "valeur": 1200,
+      "suffixe": " €",
+      "fichier": "B5.mp4",
+      "requete": "calculator desk paper",
+      "legende": "de tickets modérateurs par mois pour *210 consultations*",
+      "voix": "À titre d’exemple, l’instruction estime ses tickets modérateurs à mille deux cents euros par mois, pour deux cent dix consultations."
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B6.mp4",
+      "requete": "payslip documents desk",
+      "texte": "L’indemnité de 1 200 € par mois ? *Supprimée* en mai. | Pour le Cercle, *son activité* vous paie en large part.",
+      "voix": "[serious] Mais l’indemnité prévue pour l’encadrement, mille deux cents euros bruts par mois, a été supprimée en mai. | Pour le Cercle, vous voilà payé, pour une large part, par les tickets modérateurs de votre docteur junior.",
+      "insert": {
+        "type": "ticket",
+        "titre": "Ce qui change",
+        "lignes": [
+          {
+            "label": "Indemnité de 1 200 €",
+            "valeur": "supprimée",
+            "ok": false
+          },
+          {
+            "label": "Ses tickets modérateurs",
+            "valeur": "pour vous",
+            "ok": true,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 5.0,
+      "type": "phrase",
+      "fichier": "B7.mp4",
+      "requete": "open book stethoscope",
+      "texte": "Former, pas *remplir l’agenda*.",
+      "voix": "[serious] Et le maître de stage doit rester celui qui forme… pas celui qui remplit l’agenda."
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B8.mp4",
+      "requete": "doctor measuring blood pressure hands",
+      "texte": "Il consulte seul, sous *votre responsabilité*. | Votre assurance ? Selon MG France, *rien de précisé*.",
+      "voix": "Il consulte seul, mais sous votre responsabilité. | [curious] Et s’il se trompe ? Selon MG France, le ministère dit seulement que « le cadre actuel s’appliquera »… [incredulous] sans dire si votre assurance le couvre !",
+      "insert": {
+        "type": "bouclier",
+        "temps": 1,
+        "pilules": [
+          {
+            "texte": "Sous votre responsabilité"
+          },
+          {
+            "texte": "Votre assurance le couvre ?",
+            "ton": "rouge",
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 7.0,
+      "fichier": "B9.mp4",
+      "requete": "doctor desk notebook",
+      "texte": "Un docteur junior le 2 novembre, ou en 2027 ? | Ce qu’il faut faire *avant son arrivée*.",
+      "voix": "[warm] Un docteur junior le deux novembre… ou en deux mille vingt-sept ? | Ce qu’il faut faire avant son arrivée, on vous le détaille sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ]
+}
