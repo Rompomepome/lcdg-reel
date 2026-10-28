@@ -20,7 +20,7 @@
       "fichier": "B1.mp4",
       "requete": "page : https://www.service-public.gouv.fr/particuliers/actualites/A18914",
       "texte": "Toucher sa retraite *et continuer d’exercer* ? | Départ dès 2027 ? Avant 67 ans, la pension *pourra baisser*.",
-      "voix": "[curious] Toucher votre retraite et continuer d’exercer ? | Si elle commence dès deux mille vingt-sept, avant soixante-sept ans, vos revenus pourront réduire votre pension.",
+      "voix": "[curious] Toucher votre retraite et continuer d’exercer ? | [serious] Si elle commence à partir de deux mille vingt-sept, avant soixante-sept ans, vos revenus pourront réduire votre pension.",
       "insert": {
         "type": "ages",
         "titre": "Dès 2027, seul l’âge compte",
@@ -53,7 +53,7 @@
       "fichier": "B2.mp4",
       "requete": "money wallet bills",
       "texte": "Avant l’âge légal : déduits *dès le 1er euro*. | Indemnités journalières comprises.",
-      "voix": "Avant l’âge légal, vos revenus d’activité seront déduits de la pension dès le premier euro. | Indemnités journalières comprises.",
+      "voix": "Avant l’âge légal, vos revenus d’activité seront déduits de la pension… [incredulous] dès le premier euro ! | Indemnités journalières comprises.",
       "insert": {
         "type": "vases",
         "titre": "1 € gagné, 1 € de pension en moins",
@@ -80,7 +80,7 @@
       "fichier": "B4.mp4",
       "requete": "coins bag",
       "texte": "Au-delà, la pension baisse de *50 %* du dépassement. | 2 € gagnés en plus : 1 € de pension en moins.",
-      "voix": "Au-delà, la pension baisse de la moitié du dépassement : | deux euros gagnés en plus, un euro de pension en moins.",
+      "voix": "[emphatic] Au-delà, la pension baisse de la moitié du dépassement. | Deux euros gagnés en plus… un euro de pension en moins.",
       "insert": {
         "type": "pieces",
         "titre": "Au-delà du seuil",
@@ -98,14 +98,14 @@
       "fichier": "B5.mp4",
       "requete": "stack of papers",
       "legende": "de pension par an pour 60 000 € de revenus : *le calcul de la Carmf*",
-      "voix": "L’exemple de la Carmf : trente-cinq mille euros de pension, soixante mille euros de revenus. La pension tombe à huit mille cinq cents euros."
+      "voix": "L’exemple de la Carmf : trente-cinq mille euros de pension par an, soixante mille euros de revenus. [incredulous] La pension tombe à huit mille cinq cents euros !"
     },
     {
       "duree": 11.1,
       "fichier": "B10.mp4",
       "requete": "telemedicine laptop video call",
       "texte": "À partir de 67 ans : cumul *intégral*, sans plafond. | Au cabinet, et en complément, en téléconsultation.",
-      "voix": "À partir de soixante-sept ans, le cumul reste intégral, sans plafond : | au cabinet, et en complément, en téléconsultation, dans la limite de vingt pour cent de vos actes sur l’année.",
+      "voix": "[warm] À partir de soixante-sept ans, le cumul reste intégral, sans plafond : | au cabinet, et en complément, en téléconsultation, dans la limite de vingt pour cent de vos actes sur l’année.",
       "insert": {
         "type": "part",
         "pastille": "Cumul intégral, sans plafond",
@@ -146,14 +146,14 @@
       "fichier": "B9.mp4",
       "requete": "glasses on documents",
       "texte": "Une décision prise *à l’aveugle*.",
-      "voix": "[serious] Pour garder les anciennes règles, il fallait donc, en général, déposer avant. Sans connaître le seuil : son décret n’était toujours pas paru."
+      "voix": "[serious] Pour garder les anciennes règles, il fallait donc, en règle générale, déposer avant. [incredulous] Sans même connaître le seuil : son décret n’était toujours pas paru ! [serious] Une décision prise à l’aveugle."
     },
     {
       "duree": 8.9,
       "fichier": "B8.mp4",
       "requete": "village aerial countryside",
       "texte": "Zones sous-denses, permanence des soins, régulation : *exclues* ? | Un décret doit le dire. Rien n’est publié.",
-      "voix": "Et les zones sous-denses, la permanence des soins, la régulation : seront-elles exclues du calcul ? | Un décret doit le dire. Rien n’est publié.",
+      "voix": "[curious] Et les zones sous-denses, la permanence des soins, la régulation : seront-elles exclues du calcul ? | Un décret doit le dire. [incredulous] Rien n’est publié !",
       "insert": [
         {
           "type": "icones",
@@ -185,7 +185,7 @@
       "fichier": "B11.mp4",
       "requete": "hands signing documents desk",
       "texte": "Retraite avant 67 ans en continuant d’exercer ? | Notre recommandation, *avant de déposer*.",
-      "voix": "Retraite avant soixante-sept ans, en continuant d’exercer ? | Lisez d’abord notre recommandation, sur le site du Cercle.",
+      "voix": "[warm] Retraite avant soixante-sept ans, en continuant d’exercer ? | Lisez d’abord notre recommandation, sur le site du Cercle.",
       "insert": {
         "type": "verrou",
         "n": 1

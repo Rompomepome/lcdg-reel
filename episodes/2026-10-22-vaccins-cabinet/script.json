@@ -20,7 +20,7 @@
       "fichier": "B5.mp4",
       "requete": "vaccine injection syringe",
       "texte": "Depuis le 11 octobre, vous pouvez stocker *le vaccin grippe*. | Mais ces doses, vous les *payez d’abord*.",
-      "voix": "[matter-of-fact] Depuis le onze octobre, vous pouvez stocker au cabinet des vaccins contre la grippe. | [incredulous] Mais ces doses, c’est vous qui les payez d’abord !",
+      "voix": "[matter-of-fact] Depuis le onze octobre, vous pouvez stocker des vaccins contre la grippe au cabinet. | [incredulous] Mais ces doses… c’est vous qui les payez d’abord !",
       "insert": {
         "type": "frigo",
         "mode": "remplir",
@@ -38,7 +38,7 @@
       "fichier": "B3.mp4",
       "requete": "pharmacist handing medicine",
       "texte": "Efluelda, hautement dosé : *plus du double*. | Prix public, hors honoraire de dispensation.",
-      "voix": "Onze euros soixante-quinze la dose de Vaxigrip. Plus du double pour Efluelda. | C’est le prix public, hors honoraire de dispensation.",
+      "voix": "[matter-of-fact] Onze euros soixante-quinze la dose de Vaxigrip. [surprised] Et plus du double pour Efluelda, le vaccin hautement dosé ! | Prix public, hors honoraire de dispensation.",
       "insert": {
         "type": "prix",
         "pastille": "plus du double",
@@ -60,7 +60,7 @@
       "fichier": "B1.mp4",
       "requete": "page : ameli, vaccination grippe, espace médecin",
       "texte": "La dose vous est remboursée *une fois injectée*. | Et l’injection ? *Pas facturable à part.*",
-      "voix": "Une fois injectée, l’Assurance Maladie vous la rembourse, avec la majoration S.K.B. ou S.K.C. | [incredulous] Et l’injection ? Elle ne se facture pas à part : elle est comprise dans la consultation.",
+      "voix": "Une fois la dose injectée, l’Assurance Maladie vous la rembourse au prix public : c’est la majoration S.K.B., ou S.K.C. | [incredulous] Et l’injection ? Elle ne se facture pas à part : elle est comprise dans la consultation.",
       "insert": {
         "type": "ticket",
         "titre": "Votre facturation",
@@ -91,7 +91,7 @@
       "fichier": "B7.mp4",
       "requete": "vials on the table",
       "texte": "*Enceinte réfrigérée* obligatoire, avec relevé de température. | Dès la délivrance, le stock est sous votre responsabilité.",
-      "voix": "Il vous faut aussi une enceinte réfrigérée qui enregistre la température. | Et dès la délivrance, transport et stockage sont sous votre responsabilité.",
+      "voix": "Il vous faut aussi une enceinte réfrigérée, qui enregistre la température. | [serious] Et dès que le pharmacien vous remet les doses, transport et stockage sont sous votre responsabilité.",
       "insert": [
         {
           "type": "frigo",
@@ -111,7 +111,7 @@
       "fichier": "B4.mp4",
       "requete": "counting coins desk",
       "texte": "Dose périmée ou perdue : *aucun texte* ne dit qui paie. | Selon la CSMF, *c’est vous*.",
-      "voix": "[curious] Et la dose périmée, ou perdue ? Aucun texte ne dit qui la paie. | [incredulous] Selon la C.S.M.F., elle reste à votre charge !",
+      "voix": "[curious] Et la dose périmée, ou perdue ? Ni le décret, ni l’arrêté ne disent qui la paie. | [incredulous] Selon la C.S.M.F., elle reste à votre charge !",
       "insert": {
         "type": "circuit",
         "lignes": [
@@ -143,7 +143,7 @@
       "fichier": "B6.mp4",
       "requete": "abstract blue background",
       "texte": "Faut-il le *bon de prise en charge* du patient ? | Et les *2 à 17 ans* sans comorbidité, avec vos doses ?",
-      "voix": "Deux autres questions restent ouvertes. Faut-il le bon de prise en charge du patient ? | Et les enfants de deux à dix-sept ans sans comorbidité : pouvez-vous les vacciner avec vos doses ?",
+      "voix": "[curious] Et deux autres questions restent sans réponse. Faut-il le bon de prise en charge du patient ? | Et les enfants de deux à dix-sept ans sans comorbidité : pouvez-vous les vacciner avec vos doses ?",
       "insert": {
         "type": "icones",
         "cartes": [
@@ -171,14 +171,14 @@
       "fichier": "B2.mp4",
       "requete": "doctor typing computer office",
       "texte": "Remboursé, *pas rémunéré*.",
-      "voix": "Le vaccin vous est remboursé. Mais la commande et le stock, eux, ne sont pas payés."
+      "voix": "[serious] Remboursé, oui. Rémunéré, non : rien pour la commande, rien pour le stock, rien pour les doses perdues."
     },
     {
       "duree": 6.7,
       "fichier": "B9.mp4",
       "requete": "hands writing notebook",
       "texte": "Combien de doses commander, et *à quel rythme* ? | Notre recommandation, *sur le site*.",
-      "voix": "Alors, combien de doses commander, et à quel rythme ? | Notre recommandation est sur le site du Cercle.",
+      "voix": "[curious] Alors, combien de doses commander, et à quel rythme ? | Notre recommandation est sur le site du Cercle.",
       "insert": {
         "type": "verrou",
         "n": 1

@@ -31,7 +31,7 @@ Le Cercle donne sa recommandation pour commander au plus juste dans son analyse 
 ## Publicité Meta (reel boosté)
 
 Texte principal (les 125 premiers caractères s'affichent sans « Plus ») :
-Vaccin grippe au cabinet : vous payez les doses d'abord, seules les doses injectées sont remboursées. Et la dose perdue ? Aucun texte ne le dit.
+Vaccin grippe au cabinet : vous payez les doses d'abord, seules les doses injectées sont remboursées. Et la dose perdue ? Ni le décret ni l'arrêté ne disent qui la paie.
 
 Titre : Vaccins au cabinet : qui paie la dose perdue ?
 

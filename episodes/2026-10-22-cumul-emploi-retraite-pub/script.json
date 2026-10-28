@@ -1,0 +1,98 @@
+{
+  "slug": "cumul-emploi-retraite-pub",
+  "date": "2026-10-22",
+  "rubrique": "pro",
+  "label": "Cumul emploi-retraite",
+  "sous_titre": "Retraite avant 67 ans : votre pension *réduite* ?",
+  "appel": "Notre recommandation :",
+  "voix_off": "femme_agee",
+  "badge": "Cumul emploi-retraite",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "senior man writing desk"
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B1.mp4",
+      "requete": "page : https://www.service-public.gouv.fr/particuliers/actualites/A18914",
+      "texte": "Toucher sa retraite *et continuer d’exercer* ? | Départ dès 2027 ? Avant 67 ans, la pension *pourra baisser*.",
+      "voix": "[curious] Toucher votre retraite et continuer d’exercer ? | [serious] Si elle commence à partir de deux mille vingt-sept, avant soixante-sept ans, vos revenus pourront réduire votre pension.",
+      "insert": {
+        "type": "ages",
+        "titre": "Dès 2027, seul l’âge compte",
+        "carre": false,
+        "ordre": [
+          2,
+          1,
+          0
+        ],
+        "zones": [
+          {
+            "label": "Avant l’âge légal",
+            "bulle": "Réduite dès le 1er €",
+            "ton": "rouge"
+          },
+          {
+            "label": "De l’âge légal à 67 ans",
+            "bulle": "Réduite au-delà d’un seuil"
+          },
+          {
+            "label": "67 ans et plus",
+            "bulle": "Cumul intégral",
+            "ton": "vert"
+          }
+        ]
+      }
+    },
+    {
+      "duree": 7.9,
+      "type": "chiffre",
+      "valeur": 7000,
+      "suffixe": " €",
+      "fichier": "B2.mp4",
+      "requete": "wallet money",
+      "legende": "brut par an, entre l’âge légal et 67 ans : le seuil *annoncé*",
+      "voix": "Entre l’âge légal et soixante-sept ans, le seuil annoncé est de sept mille euros brut par an. Un décret doit encore le fixer."
+    },
+    {
+      "duree": 7.3,
+      "fichier": "B3.mp4",
+      "requete": "coins bag",
+      "texte": "Au-delà, la pension baisse de *50 %* du dépassement. | 2 € gagnés en plus : 1 € de pension en moins.",
+      "voix": "[emphatic] Au-delà, la pension baisse de la moitié du dépassement. | Deux euros gagnés en plus… un euro de pension en moins.",
+      "insert": {
+        "type": "pieces",
+        "titre": "Au-delà du seuil",
+        "gauche": "Vos revenus",
+        "droite": "Votre pension",
+        "temps": 1
+      }
+    },
+    {
+      "duree": 8.8,
+      "type": "chiffre",
+      "valeur": 8500,
+      "depuis": 35000,
+      "suffixe": " €",
+      "fichier": "B4.mp4",
+      "requete": "stack of papers",
+      "legende": "de pension par an pour 60 000 € de revenus : *le calcul de la Carmf*",
+      "voix": "L’exemple de la Carmf : trente-cinq mille euros de pension par an, soixante mille euros de revenus. [incredulous] La pension tombe à huit mille cinq cents euros !"
+    },
+    {
+      "duree": 7.6,
+      "fichier": "B5.mp4",
+      "requete": "hands signing documents desk",
+      "texte": "Retraite avant 67 ans en continuant d’exercer ? | Notre recommandation, *avant de déposer*.",
+      "voix": "[warm] Retraite avant soixante-sept ans, en continuant d’exercer ? | Lisez d’abord notre recommandation, sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 1
+      }
+    }
+  ]
+}

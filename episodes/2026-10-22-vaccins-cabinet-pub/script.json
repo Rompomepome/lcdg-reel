@@ -1,0 +1,110 @@
+{
+  "slug": "vaccins-cabinet-pub",
+  "date": "2026-10-22",
+  "rubrique": "pro",
+  "label": "Vaccins au cabinet",
+  "sous_titre": "Le vaccin « gratuit » que vous *payez d’abord*",
+  "appel": "Notre recommandation :",
+  "voix_off": "homme_jeune",
+  "badge": "Vaccins au cabinet",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "flu vaccine syringe vial"
+    },
+    {
+      "duree": 8.7,
+      "fichier": "B1.mp4",
+      "requete": "vaccine injection syringe",
+      "texte": "Depuis le 11 octobre, vous pouvez stocker *le vaccin grippe*. | Mais ces doses, vous les *payez d’abord*.",
+      "voix": "[matter-of-fact] Depuis le onze octobre, vous pouvez stocker des vaccins contre la grippe au cabinet. | [incredulous] Mais ces doses… c’est vous qui les payez d’abord !",
+      "insert": {
+        "type": "frigo",
+        "mode": "remplir",
+        "doses": 6,
+        "prix": 1,
+        "carre": false,
+        "etiquette": [
+          "Payées d’abord",
+          "par vous"
+        ]
+      }
+    },
+    {
+      "duree": 8.3,
+      "fichier": "B2.mp4",
+      "requete": "pharmacist handing medicine",
+      "texte": "Efluelda, hautement dosé : *plus du double*. | Prix public, hors honoraire de dispensation.",
+      "voix": "[matter-of-fact] Onze euros soixante-quinze la dose de Vaxigrip. [surprised] Et plus du double pour Efluelda, le vaccin hautement dosé ! | Prix public, hors honoraire de dispensation.",
+      "insert": {
+        "type": "prix",
+        "pastille": "plus du double",
+        "boites": [
+          {
+            "nom": "Vaxigrip",
+            "prix": "11,75 €"
+          },
+          {
+            "nom": "Efluelda",
+            "prix": "23,97 €",
+            "ton": "rouge"
+          }
+        ]
+      }
+    },
+    {
+      "duree": 7.3,
+      "fichier": "B3.mp4",
+      "requete": "counting coins desk",
+      "texte": "Dose périmée ou perdue : *aucun texte* ne dit qui paie. | Selon la CSMF, *c’est vous*.",
+      "voix": "[curious] Et la dose périmée, ou perdue ? Ni le décret, ni l’arrêté ne disent qui la paie. | [incredulous] Selon la C.S.M.F., elle reste à votre charge !",
+      "insert": {
+        "type": "circuit",
+        "lignes": [
+          {
+            "titre": "Dose injectée",
+            "etapes": [
+              "−11,75 €",
+              "+11,75 €"
+            ],
+            "fin": "remboursée",
+            "ok": true,
+            "temps": 0
+          },
+          {
+            "titre": "Dose perdue ou périmée",
+            "etapes": [
+              "−11,75 €",
+              "? €"
+            ],
+            "fin": "à votre charge ?",
+            "ok": false,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 5.6,
+      "type": "phrase",
+      "fichier": "B4.mp4",
+      "requete": "doctor typing computer office",
+      "texte": "Remboursé, *pas rémunéré*.",
+      "voix": "[serious] Remboursé, oui. Rémunéré, non : rien pour la commande, rien pour le stock, rien pour les doses perdues."
+    },
+    {
+      "duree": 6.7,
+      "fichier": "B5.mp4",
+      "requete": "hands writing notebook",
+      "texte": "Combien de doses commander, et *à quel rythme* ? | Notre recommandation, *sur le site*.",
+      "voix": "[curious] Alors, combien de doses commander, et à quel rythme ? | Notre recommandation est sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 1
+      }
+    }
+  ]
+}
