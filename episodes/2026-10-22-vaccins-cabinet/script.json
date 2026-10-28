@@ -40,16 +40,17 @@
       "texte": "Efluelda, hautement dosé : *plus du double*. | Prix public, hors honoraire de dispensation.",
       "voix": "Onze euros soixante-quinze la dose de Vaxigrip. Plus du double pour Efluelda. | C’est le prix public, hors honoraire de dispensation.",
       "insert": {
-        "type": "barres",
-        "suffixe": " €",
-        "lignes": [
+        "type": "prix",
+        "pastille": "plus du double",
+        "boites": [
           {
-            "label": "Vaxigrip",
-            "valeur": 11.75
+            "nom": "Vaxigrip",
+            "prix": "11,75 €"
           },
           {
-            "label": "Efluelda",
-            "valeur": 23.97
+            "nom": "Efluelda",
+            "prix": "23,97 €",
+            "ton": "rouge"
           }
         ]
       }
@@ -144,18 +145,21 @@
       "texte": "Faut-il le *bon de prise en charge* du patient ? | Et les *2 à 17 ans* sans comorbidité, avec vos doses ?",
       "voix": "Deux autres questions restent ouvertes. Faut-il le bon de prise en charge du patient ? | Et les enfants de deux à dix-sept ans sans comorbidité : pouvez-vous les vacciner avec vos doses ?",
       "insert": {
-        "type": "choix",
-        "lignes": [
+        "type": "icones",
+        "cartes": [
           {
+            "icone": "poubelle",
             "label": "Doses perdues : qui paie ?",
             "temps": 0
           },
           {
-            "label": "Bon de prise en charge : obligatoire ?",
+            "icone": "bon",
+            "label": "Bon de prise en charge obligatoire ?",
             "temps": 0
           },
           {
-            "label": "Enfants de 2 à 17 ans sans comorbidité ?",
+            "icone": "enfant",
+            "label": "2 à 17 ans sans comorbidité ?",
             "temps": 1
           }
         ]

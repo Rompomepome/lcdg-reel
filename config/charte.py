@@ -305,6 +305,11 @@ BASCULE_H = 330
 BASCULE_GEO = dict(page=(236, 262), tete=64, mois_px=30, jour_px=104, bas_px=22, anneau=(14, 34),
                    pli=0.42, ecart=40, legende_px=27, pilule_px=30, pilule_h=60, page_rayon=22,
                    bas_y=26, page_marge=(28, 26), pilule_pad=24, legende_y=30, pilule_dy=6)
+PRIX_H = 330
+PRIX_GEO = dict(boite=(250, 196), bande=56, rayon=16, nom_px=30, trait=3, sol=8, etiquette_px=40,
+                etiquette_pad=(24, 14), etiquette_x=0.48, etiquette_y=0.62, etiquette_angle=-10, chute=0.45,
+                chute_haut=120, decalage=1.4, balance=(9, 1.6, 3.0), pastille_px=26, pastille_h=52,
+                pastille_pad=20, pastille_dy=44, pastille_delai=0.3)
 ICONES_H = 300
 ICONES_GEO = dict(ecart=22, icone=118, icone_y=24, label_px=27, badge=48, trait=9, decalage=0.22,
                   label_marge=24, label_ecart=18, badge_pos=0.55)
