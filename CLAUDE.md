@@ -326,13 +326,50 @@ python scripts/doctor.py                           # après un clone, ou en cas 
 python scripts/smoke_test.py                       # après toute modification de lcdg/ ou de la charte
 python scripts/prepare.py episodes/<dossier>       # premiers plans, planche contact
 python scripts/broll.py revue episodes/<dossier>   # controle des plans retenus
+python scripts/verifier.py episodes/<dossier>      # lignes et mise en page 9:16 + carre, sans rendu
+python scripts/apercu.py episodes/<dossier>        # apercu sans voix (aucun credit)
 python scripts/render.py  episodes/<dossier>       # reel 9:16 + couverture, controles
 python scripts/render_carre.py episodes/<dossier>  # declinaison carree LinkedIn
+python scripts/livrer.py episodes/<dossier>        # les deux formats + final/, d'un coup
+python scripts/controle_voix.py episodes/<dossier> "passage" ...   # debit, transcription, extrait
+python scripts/pub.py episodes/<dossier> 0,1,2,8,9 # version publicite, meme narration
+python scripts/proto_inserts.py spec.json essai.png  # banc d'essai d'un insert
 ```
 
 Après la revue des plans, **arrête-toi**. Montre à Romain le script et
 `revue_plans.jpg`, et attends sa validation avant de lancer `render`. C'est une étape de
 son processus, pas une formalité.
+
+### 3 bis. La chaîne complète, du PDF au kit (reels du 28/10/2026)
+
+C'est la méthode des reels « docteurs juniors » et « accès direct aux IPA » (commit 9fb71a3), au niveau
+du reel « arrêts de travail », livrés sans aller-retour. Romain : « un truc super sans trop
+d'aller-retour ». Dans l'ordre :
+
+1. **Lire le PDF de l'article en entier**, puis vérifier les faits clés à la source officielle (décret,
+   instruction, FAQ). Noter la date et l'URL de l'article sur le site (sitemap : le lien des légendes).
+2. **Écrire le script** dans un générateur de l'atelier (`lcdg-reel-atelier/lcdg_<date>/scripts_<date>.py`,
+   qui écrit les `script.json` ; modèle : `lcdg_1028/scripts_1028.py`), avec la source de chaque bloc en
+   commentaire. Public nommé dans la pastille et la 1re phrase lue ; un insert sur presque chaque bloc ;
+   si aucun insert ne dit le bloc, en dessiner un (`lcdg/inserts.py`, valeurs dans la charte, essayé avec
+   `proto_inserts.py`).
+3. **`verifier.py`** jusqu'à « conforme » en 9:16 et en carré, et 3 lignes au plus par temps.
+4. **Relecture indépendante** (voir plus haut) contre le PDF, avant la voix. Corriger, revérifier.
+5. **Plans** : `prepare.py`, puis `broll.py chercher` (souvent `--mixte`) et `choisir` pour chaque plan
+   faible ; aucun visage, aucun tournage déjà vu ; pages officielles par `page.py`. `broll.py revue`.
+6. **Voix et rendu** : `livrer.py`. Voix selon le sujet (Guillaume pour le réglementaire lourd, Emilie
+   pour le sérieux, Jeanne pour le « punchy »). Une narration d'environ 1 400 caractères coûte environ
+   300 crédits ; vérifier le solde avant.
+7. **Contrôles** : planche d'images de chaque vidéo (ffmpeg, une image toutes les 2,5 s) regardée en
+   entier, zooms sur chaque insert ; `controle_voix.py` avec les passages à risque, et l'extrait envoyé à
+   Romain.
+8. **Pub** : `pub.py` (35 à 45 s : le fait fort, le risque, une question, l'appel), puis `livrer.py` sur
+   l'épisode `-pub`.
+9. **Légendes** (`legendes.md` : Instagram, LinkedIn, publicité Meta, lien de la bio et de la story, avec
+   paramètres de suivi), puis le kit de publication (`lcdg-reel-atelier/kit_publication.py`, une entrée
+   par reel dans REELS et PUB).
+10. **Commit** : `smoke_test.py`, review Codex (`codex review --uncommitted`, modèle et effort relevés),
+    push sous le compte Rompomepome.
 
 ### 4. Ce que tu ne fais pas
 

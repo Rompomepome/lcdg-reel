@@ -26,3 +26,5 @@ assets/sfx/
 # officielles (regenerables par scripts/page.py) : hors depot
 episodes/*/final/
 episodes/*/pages/
+# apercus sans voix (scripts/apercu.py), a supprimer une fois valides
+episodes/_apercu-*/
