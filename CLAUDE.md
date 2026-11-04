@@ -159,7 +159,12 @@ champs, est en tête de `lcdg/inserts.py` :
   personne ne publie), `bouclier` (une couverture en pointillés : on ne sait pas si elle
   protège), `departements` (des tuiles qui se retournent), `ordonnance` (une ordonnance qui
   s'écrit au stylo), `sablier` (un délai que rien ne fixe), `pilule` (une mention seule qui
-  claque sous un dessin).
+  claque sous un dessin), `pharmacie` (la croix d'une enseigne, ses diodes s'allument),
+  `messagerie` (des messages qui arrivent dans une boîte sécurisée), `lettre` (un courrier qui
+  sort de son enveloppe), `associes` (des associés qui s'allument, le montant qui saute),
+  `plaques` (des plaques de médecin qui se posent, un nombre qui monte), `motifs` (des motifs
+  en grille, sans « ? »). Sur `tampon`, `"delai"` le fait claquer après le dessin ; sur `calcul`,
+  `"temps"` fait arriver la carte et `"levee"` limite la part qui se lève.
 
 Le champ `insert` peut être une liste ; `"sur": true` centre un élément sur le premier (un
 tampon qui claque sur un dessin). Un tampon posé « sur » des cartes à libellé les cache :

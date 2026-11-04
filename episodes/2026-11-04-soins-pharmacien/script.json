@@ -1,0 +1,191 @@
+{
+  "slug": "soins-pharmacien",
+  "date": "2026-11-04",
+  "rubrique": "pro",
+  "label": "Soins chez le pharmacien",
+  "sous_titre": "Le pharmacien va vous écrire. *Et ensuite* ?",
+  "appel": "Nos 2 recommandations :",
+  "voix_off": "homme_age",
+  "badge": "Médecins traitants",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "pharmacy shelves medicine boxes"
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B1.mp4",
+      "requete": "pharmacist hands medicine counter",
+      "texte": "Un décret est en vigueur depuis le *29 octobre*. | À venir : certains cas en pharmacie, *sans ordonnance*.",
+      "voix": "Médecins traitants : un décret est en vigueur depuis le vingt-neuf octobre. | Pour certaines situations cliniques, votre patient pourra être évalué et pris en charge en pharmacie, sans ordonnance.",
+      "insert": {
+        "type": "pharmacie",
+        "carre": false,
+        "pilules": [
+          {
+            "texte": "Décret en vigueur"
+          },
+          {
+            "texte": "Sans ordonnance",
+            "ton": "vert",
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 8.0,
+      "fichier": "B2.mp4",
+      "requete": "hands typing laptop stethoscope",
+      "texte": "Vous recevrez *chaque évaluation*, par messagerie sécurisée. | Même quand le patient est *seulement orienté*.",
+      "voix": "Et vous, vous recevrez chaque évaluation, par messagerie sécurisée : notamment les symptômes, la conclusion, les soins réalisés ou l’orientation. | Même quand le patient est seulement orienté.",
+      "insert": {
+        "type": "messagerie",
+        "titre": "Messagerie sécurisée",
+        "messages": [
+          {
+            "objet": "Évaluation d’un patient"
+          },
+          {
+            "objet": "Évaluation d’un patient"
+          },
+          {
+            "objet": "Patient seulement orienté",
+            "ton": "rouge",
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 8.0,
+      "fichier": "B3.mp4",
+      "requete": "bandage hand first aid close up",
+      "texte": "Selon l’Ordre des pharmaciens, le décret généralise *OSyS*. | Expérimenté dans 4 régions, sur *ces 4 motifs*.",
+      "voix": "Selon l’Ordre des pharmaciens, ce décret généralise l’expérimentation Ossis, menée dans quatre régions. | Brûlures, plaies simples, piqûres de tique, conjonctivites.",
+      "insert": {
+        "type": "motifs",
+        "cartes": [
+          {
+            "icone": "brulure",
+            "label": "Brûlures",
+            "temps": 1
+          },
+          {
+            "icone": "plaie",
+            "label": "Plaies simples",
+            "temps": 1
+          },
+          {
+            "icone": "tique",
+            "label": "Piqûres de tique",
+            "temps": 1
+          },
+          {
+            "icone": "oeil",
+            "label": "Conjonctivites",
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 7.0,
+      "type": "chiffre",
+      "valeur": 19,
+      "suffixe": " %",
+      "fichier": "B4.mp4",
+      "requete": "stethoscope desk daylight",
+      "legende": "des patients de l’expérimentation ont *évité un recours* au médecin",
+      "voix": "Selon l’évaluation citée par la Cour des comptes, dix-neuf pour cent des patients de l’expérimentation ont évité le recours à un médecin. [warm] Bien encadré, c’est, pour le Cercle, du temps médical rendu."
+    },
+    {
+      "duree": 4.0,
+      "type": "phrase",
+      "fichier": "B5.mp4",
+      "requete": "open book empty pages desk",
+      "texte": "Pour le Cercle : en vigueur, sans *son contenu*.",
+      "voix": "[serious] Mais pour le Cercle, ce décret est en vigueur… sans son contenu."
+    },
+    {
+      "duree": 8.0,
+      "fichier": "B6.mp4",
+      "requete": "page : question écrite",
+      "texte": "La liste du décret ? Elle dépend d’*un arrêté*. | Au 3 novembre : *introuvable*.",
+      "voix": "La liste du décret, elle, dépend d’un arrêté. | Au trois novembre, il reste introuvable.",
+      "insert": {
+        "type": "loupe",
+        "site": "Textes officiels",
+        "recherche": "arrêté situations cliniques",
+        "vide": "Introuvable au 3 novembre"
+      }
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B7.mp4",
+      "requete": "hands on computer mouse office",
+      "texte": "Et ces évaluations, vous en faites quoi ? | Le décret dit ce que le pharmacien envoie. *Rien sur la suite*.",
+      "voix": "Et ces évaluations, vous en faites quoi ? | Le décret ne prévoit ni délai de lecture, ni obligation de répondre, ni façon de reprendre un patient orienté vers vous.",
+      "insert": {
+        "type": "ticket",
+        "titre": "Dans le décret, pour vous",
+        "lignes": [
+          {
+            "label": "Délai de lecture",
+            "valeur": "rien",
+            "ok": false,
+            "temps": 1
+          },
+          {
+            "label": "Obligation de répondre",
+            "valeur": "rien",
+            "ok": false,
+            "temps": 1
+          },
+          {
+            "label": "Reprise du patient orienté",
+            "valeur": "rien",
+            "ok": false,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 4.0,
+      "type": "phrase",
+      "fichier": "B8.mp4",
+      "requete": "waiting room chairs daylight",
+      "texte": "Le patient, lui, attend *une réponse*.",
+      "voix": "[serious] Mais le patient orienté, lui, attend une réponse."
+    },
+    {
+      "duree": 8.0,
+      "fichier": "B10.mp4",
+      "requete": "euro coins table bright",
+      "texte": "Et lire ces évaluations, c’est rémunéré ? | Le décret ne fixe *aucune rémunération*.",
+      "voix": "Et les lire, c’est rémunéré ? | Le décret ne fixe aucune rémunération. Pour le médecin, rien n’est annoncé.",
+      "insert": {
+        "type": "compteur",
+        "titre": "Rémunération de cette lecture",
+        "date": "au 3 novembre",
+        "pilule": "Rien d’annoncé pour le médecin",
+        "temps": 1
+      }
+    },
+    {
+      "duree": 7.0,
+      "fichier": "B11.mp4",
+      "requete": "stethoscope desk top view",
+      "texte": "Votre cabinet est-il prêt à recevoir ces messages ? | Le Cercle fait *2 recommandations*.",
+      "voix": "[warm] Votre cabinet est-il prêt à recevoir ces messages ? | Deux recommandations : on vous les détaille sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ]
+}

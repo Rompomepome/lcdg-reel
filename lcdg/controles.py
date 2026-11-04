@@ -56,7 +56,9 @@ def mesurer_logo(video: Path, instants=None) -> tuple[int, int, int]:
     """
     haut = max(0, C.LOGO_Y - 34)
     commun = None
-    for t in (instants or _instants(video, 4)):
+    # 6 plans et non 4 : le 04/11/2026, les 4 instants du carre tombaient tous sur un insert clair sous le
+    # logo (238 px mesures pour un logo de 124 px, conforme a l'image)
+    for t in (instants or _instants(video, 6)):
         im = _frame(video, t)
         if im is None:
             continue

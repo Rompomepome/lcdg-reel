@@ -1,0 +1,104 @@
+{
+  "slug": "cotisation-ordre-pub",
+  "date": "2026-11-04",
+  "rubrique": "pro",
+  "label": "Cotisation à l’Ordre",
+  "sous_titre": "Relancé par l’Ordre : *payer la hausse* ?",
+  "appel": "Nos 2 recommandations :",
+  "voix_off": "femme_agee",
+  "badge": "Médecins en société",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "envelope letter desk hands opening"
+    },
+    {
+      "duree": 8.0,
+      "fichier": "B1.mp4",
+      "requete": "mail envelope hands desk",
+      "texte": "Des conseils de l’Ordre *relancent* des médecins en société. | Parmi ceux qui contestent la cotisation *de leur société* (CSMF).",
+      "voix": "Médecins en société : des conseils de l’Ordre relancent… | certains de ceux qui contestent la cotisation deux mille vingt-six de leur société, selon la C.S.M.F.",
+      "insert": [
+        {
+          "type": "lettre",
+          "carre": false,
+          "entete": "Conseil départemental de l’Ordre",
+          "titre": "Cotisation 2026 de votre société"
+        },
+        {
+          "type": "tampon",
+          "carre": false,
+          "texte": "Relance",
+          "sur": true,
+          "delai": 1.2
+        }
+      ]
+    },
+    {
+      "duree": 11.0,
+      "fichier": "B2.mp4",
+      "requete": "mail envelope hands desk",
+      "texte": "En société d’exercice libéral : *1,5 cotisation*, par associé médecin. | À 4 associés : *2 190 €*, pour la seule société.",
+      "voix": "Le barème, en société d’exercice libéral : une cotisation et demie… par associé médecin. | À quatre associés, deux mille cent quatre-vingt-dix euros, pour la seule société, selon le calcul du Cercle.",
+      "insert": {
+        "type": "associes",
+        "lignes": [
+          {
+            "titre": "Société d’exercice libéral",
+            "ton": "rouge",
+            "montants": [
+              {
+                "n": 1,
+                "montant": "547,50 €"
+              },
+              {
+                "n": 4,
+                "montant": "2 190 €",
+                "temps": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "duree": 13.0,
+      "fichier": "B3.mp4",
+      "requete": "paying bill hands desk",
+      "texte": "Le recours de la CSMF au Conseil d’État ? *En instruction*, dit-elle. | *Paiement partiel* et courrier type, sauf mise en demeure. | Recours rejeté : que devient ce paiement ? *La CSMF ne le dit pas*.",
+      "voix": "Le recours de la C.S.M.F. au Conseil d’État est toujours en instruction, selon elle. | En attendant, elle conseille de ne régler que la cotisation d’une société unipersonnelle, avec son courrier type, tant qu’aucune véritable mise en demeure n’arrive. | [curious] Et si le recours est rejeté ? La C.S.M.F. ne dit pas ce que devient ce paiement partiel.",
+      "insert": {
+        "type": "calcul",
+        "titre": "Le paiement partiel conseillé par la CSMF",
+        "temps": 1,
+        "temps_question": 2,
+        "levee": 34,
+        "parts": [
+          {
+            "label": "Réglé",
+            "valeur": 0.25
+          },
+          {
+            "label": "En litige",
+            "valeur": 0.75,
+            "question": true
+          }
+        ]
+      }
+    },
+    {
+      "duree": 8.0,
+      "fichier": "B4.mp4",
+      "requete": "writing notes hands desk bright",
+      "texte": "Si le recours est rejeté, combien resterait *à payer* ? | Le calcul du Cercle, et ses *2 recommandations*.",
+      "voix": "[warm] Si le recours est rejeté, combien resterait à payer ? | Le Cercle a fait ce calcul. Il fait aussi deux recommandations : on vous les détaille sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "slug": "soins-pharmacien-pub",
+  "date": "2026-11-04",
+  "rubrique": "pro",
+  "label": "Soins chez le pharmacien",
+  "sous_titre": "Le pharmacien va vous écrire. *Et ensuite* ?",
+  "appel": "Nos 2 recommandations :",
+  "voix_off": "homme_age",
+  "badge": "Médecins traitants",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "pharmacy shelves medicine boxes"
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B1.mp4",
+      "requete": "pharmacist hands medicine counter",
+      "texte": "Un décret est en vigueur depuis le *29 octobre*. | À venir : certains cas en pharmacie, *sans ordonnance*.",
+      "voix": "Médecins traitants : un décret est en vigueur depuis le vingt-neuf octobre. | Pour certaines situations cliniques, votre patient pourra être évalué et pris en charge en pharmacie, sans ordonnance.",
+      "insert": {
+        "type": "pharmacie",
+        "carre": false,
+        "pilules": [
+          {
+            "texte": "Décret en vigueur"
+          },
+          {
+            "texte": "Sans ordonnance",
+            "ton": "vert",
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 8.0,
+      "fichier": "B2.mp4",
+      "requete": "hands typing laptop stethoscope",
+      "texte": "Vous recevrez *chaque évaluation*, par messagerie sécurisée. | Même quand le patient est *seulement orienté*.",
+      "voix": "Et vous, vous recevrez chaque évaluation, par messagerie sécurisée : notamment les symptômes, la conclusion, les soins réalisés ou l’orientation. | Même quand le patient est seulement orienté.",
+      "insert": {
+        "type": "messagerie",
+        "titre": "Messagerie sécurisée",
+        "messages": [
+          {
+            "objet": "Évaluation d’un patient"
+          },
+          {
+            "objet": "Évaluation d’un patient"
+          },
+          {
+            "objet": "Patient seulement orienté",
+            "ton": "rouge",
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B3.mp4",
+      "requete": "hands on computer mouse office",
+      "texte": "Et ces évaluations, vous en faites quoi ? | Le décret dit ce que le pharmacien envoie. *Rien sur la suite*.",
+      "voix": "Et ces évaluations, vous en faites quoi ? | Le décret ne prévoit ni délai de lecture, ni obligation de répondre, ni façon de reprendre un patient orienté vers vous.",
+      "insert": {
+        "type": "ticket",
+        "titre": "Dans le décret, pour vous",
+        "lignes": [
+          {
+            "label": "Délai de lecture",
+            "valeur": "rien",
+            "ok": false,
+            "temps": 1
+          },
+          {
+            "label": "Obligation de répondre",
+            "valeur": "rien",
+            "ok": false,
+            "temps": 1
+          },
+          {
+            "label": "Reprise du patient orienté",
+            "valeur": "rien",
+            "ok": false,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 7.0,
+      "fichier": "B4.mp4",
+      "requete": "stethoscope desk top view",
+      "texte": "Votre cabinet est-il prêt à recevoir ces messages ? | Le Cercle fait *2 recommandations*.",
+      "voix": "[warm] Votre cabinet est-il prêt à recevoir ces messages ? | Deux recommandations : on vous les détaille sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ]
+}

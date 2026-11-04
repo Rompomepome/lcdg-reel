@@ -342,6 +342,25 @@ SABLIER_H = 320
 SABLIER_GEO = dict(sablier=(156, 250), socle=22, trait=6, cycle=2.6, retournement=0.5, badge=56,
                    ecart=56, pilule_px=28, pilule_h=58, pilule_pad=24, pilule_ecart=16)
 PILULE_GEO = dict(px=30, h=62, pad=26, angle=-3)   # une pilule seule, sous un dessin (« Aucune rémunération »)
+# reels du 04/11/2026 (soins chez le pharmacien, cotisation a l'Ordre, installations) : l'enseigne de
+# pharmacie, la messagerie securisee, le courrier de l'Ordre, les associes et leur montant, les plaques de
+# medecin, les motifs en grille
+PHARMACIE_GEO = dict(enseigne=300, grille=11, marge=0.12, bras=1.5, diode=0.36, eteinte=0.2, rayon=34, vague=0.055,
+                     allumage=0.22, halo=16, lueur=(0.6, 0.35, 0.7), ecart=44, pilule_px=30, pilule_h=62,
+                     pilule_pad=26, pilule_ecart=18)
+MESSAGERIE_GEO = dict(tete=78, ligne_h=94, pad=14, titre_px=28, cadenas=36, de_px=29, objet_px=25, icone=58, ligne_pad=18,
+                      point=16, decalage=0.6, glisse=0.35, rayon=18, teinte=0.9)
+LETTRE_H = 350
+LETTRE_GEO = dict(page=(610, 310), enveloppe=(700, 196), rabat=0.62, encoche=0.46, rayon=14, pad=30, entete_px=23,
+                  titre_px=29, ligne_y=118, ligne_pas=30, ligne_h=11, bande=10, sortie=0.65, depart=0.9, teinte=0.16)
+ASSOCIES_GEO = dict(pad=26, ligne_h=170, ecart=20, places=4, titre_px=27, silhouette=(66, 92), silhouette_ecart=14,
+                    silhouette_y=44, montant_px=62, legende_px=24, decalage=0.14, bosse=1.22, bosse_duree=0.32,
+                    delai_ligne=0.35, filet=3)
+PLAQUES_H = 300
+PLAQUES_GEO = dict(pad=26, titre_px=23, grille=(3, 2), plaque=(170, 96), ecart=14, grille_y=62, texte_px=20, vis=4,
+                   rayon=10, laiton=(206, 174, 108), laiton_fonce=(160, 128, 66), chute=70, angle=4, decalage=0.2,
+                   nombre_px=84, legende_px=24, nombre_duree=1.8)
+MOTIFS_GEO = dict(colonnes=2, carte_h=136, ecart=18, icone=96, icone_x=20, label_px=31, label_x=24, interligne=1.18)
 
 # Credit (champ "credit" d'un bloc) : la source d'un plan qui ne vient pas d'une banque
 # d'images libre de droits, en petit sous le logo, le temps du plan (02/10/2026)

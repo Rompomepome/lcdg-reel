@@ -1,0 +1,175 @@
+{
+  "slug": "premieres-installations",
+  "date": "2026-11-04",
+  "rubrique": "pro",
+  "label": "Premières installations",
+  "sous_titre": "Une profession qui fuit l’installation ? *+22,8 %*",
+  "appel": "Nos 2 recommandations :",
+  "voix_off": "femme_jeune",
+  "badge": "Médecins généralistes",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "clinic entrance door"
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B1.mp4",
+      "requete": "moving boxes new office",
+      "texte": "*+22,8 %* de premières installations, sur 12 mois à fin juin 2026. | Soit *523 installations* de plus, selon l’Assurance Maladie.",
+      "voix": "Médecins généralistes : plus vingt-deux virgule huit pour cent de premières installations, sur les douze mois à fin juin deux mille vingt-six… | soit cinq cent vingt-trois de plus que sur les douze mois d’avant, selon l’Assurance Maladie.",
+      "insert": {
+        "type": "plaques",
+        "carre": false,
+        "titre": "Premières installations",
+        "nombre": 523,
+        "prefixe": "+",
+        "legende": "de plus, sur 12 mois",
+        "temps": 1
+      }
+    },
+    {
+      "duree": 6.0,
+      "fichier": "B2.mp4",
+      "requete": "rural village aerial france",
+      "texte": "Sur ces 12 mois, en zone d’intervention prioritaire : *+28,5 %*.",
+      "voix": "Sur ces mêmes douze mois, dans les zones d’intervention prioritaire : plus vingt-huit virgule cinq pour cent.",
+      "insert": {
+        "type": "barres",
+        "unite": "+",
+        "suffixe": " %",
+        "lignes": [
+          {
+            "label": "Tout le territoire",
+            "valeur": 22.8,
+            "reference": true
+          },
+          {
+            "label": "Zones d’intervention prioritaire",
+            "valeur": 28.5
+          }
+        ]
+      }
+    },
+    {
+      "duree": 8.0,
+      "type": "phrase",
+      "fichier": "B3.mp4",
+      "requete": "doctor walking corridor from behind",
+      "texte": "Fuir l’installation ? | Pour le Cercle, *non*.",
+      "voix": "[incredulous] Une profession qui fuirait l’installation ? | [serious] Pour le Cercle, ces chiffres contredisent ce récit. Et contraindre l’installation maintenant, ce serait freiner une dynamique qui repart."
+    },
+    {
+      "duree": 11.0,
+      "fichier": "B4.mp4",
+      "requete": "doctor hands holding patient hands",
+      "texte": "Patients en ALD sans médecin traitant : de 5,6 % à *4,1 %*. | Pour le Cercle, ce recul, c’est *d’abord votre travail*.",
+      "voix": "Et la part de patients en A.L.D. sans médecin traitant recule : cinq virgule six pour cent fin deux mille vingt-deux, quatre virgule un au trente juin. | [warm] Pour le Cercle, ce recul, c’est d’abord votre travail.",
+      "insert": {
+        "type": "barres",
+        "suffixe": " %",
+        "lignes": [
+          {
+            "label": "Fin 2022",
+            "valeur": 5.6,
+            "reference": true
+          },
+          {
+            "label": "Fin 2025",
+            "valeur": 4.3,
+            "reference": true
+          },
+          {
+            "label": "Au 30 juin 2026",
+            "valeur": 4.1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 8.0,
+      "type": "chiffre",
+      "valeur": 2.5,
+      "decimales": 1,
+      "prefixe": "−",
+      "suffixe": " %",
+      "fichier": "B5.mp4",
+      "requete": "medical waiting room chairs",
+      "legende": "de file active moyenne des généralistes, *en 12 mois*",
+      "voix": "[serious] Mais la file active moyenne des généralistes recule : moins deux virgule cinq pour cent en douze mois."
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B6.mp4",
+      "requete": "page : https://www.assurance-maladie.ameli.fr/presse/2026-10-22-cp-observatoire-de-l-acces-aux-soins",
+      "texte": "Pourquoi ? *Le communiqué* ne le dit pas. | Trois pistes, *rien de confirmé*.",
+      "voix": "[curious] Pourquoi ? Le communiqué de l’Assurance Maladie ne l’explique pas. | Départs à la retraite, moins de temps médical par médecin, effet de calcul : rien n’est confirmé, rien n’est écarté.",
+      "insert": {
+        "type": "choix",
+        "lignes": [
+          {
+            "label": "Départs à la retraite",
+            "temps": 1
+          },
+          {
+            "label": "Moins de temps médical par médecin",
+            "temps": 1
+          },
+          {
+            "label": "Effet de calcul",
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B7.mp4",
+      "requete": "page : https://www.ccomptes.fr/fr/publications/le-dispositif-du-medecin-traitant",
+      "texte": "En moyenne : *1 048 patients* par médecin traitant. | La Cour des comptes envisage un seuil minimal : *500 patients*.",
+      "voix": "En moyenne, un généraliste est le médecin traitant de mille quarante-huit patients. | La Cour des comptes envisage un seuil minimal : cinq cents patients.",
+      "insert": {
+        "type": "barres",
+        "lignes": [
+          {
+            "label": "Moyenne des généralistes, au 30 juin 2026",
+            "valeur": 1048,
+            "reference": true
+          },
+          {
+            "label": "Seuil envisagé par la Cour des comptes",
+            "valeur": 500,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B8.mp4",
+      "requete": "doctor office chair empty daylight",
+      "texte": "Pour le Cercle, avant d’imposer un minimum de patients… | l’Assurance Maladie doit publier la file active *hors nouveaux installés*.",
+      "voix": "Pour le Cercle, avant que la file active serve d’argument pour imposer ce seuil… | l’Assurance Maladie doit la publier, hors nouveaux installés.",
+      "insert": {
+        "type": "loupe",
+        "site": "Observatoire",
+        "recherche": "file active hors nouveaux installés",
+        "vide": "Non détaillée"
+      }
+    },
+    {
+      "duree": 7.0,
+      "fichier": "B9.mp4",
+      "requete": "doctor desk stethoscope laptop daylight",
+      "texte": "Et vous, où vous situez-vous face aux *1 048 patients* ? | Le Cercle fait *2 recommandations*.",
+      "voix": "[warm] Et vous, où vous situez-vous par rapport à ces mille quarante-huit patients ? | Deux recommandations : on vous les détaille sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ]
+}
