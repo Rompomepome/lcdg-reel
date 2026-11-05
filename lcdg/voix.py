@@ -140,7 +140,9 @@ def preparer(episode: Path, ep: dict) -> Path:
     mp3, al = synthese(texte, v.get("id") or C.VOIX_ID, episode / "voix",
                        v.get("modele"), v.get("reglages"))
     modele = v.get("modele") or C.VOIX_MODELE
-    tempo = C.VOIX_TEMPO_V3 if modele.startswith("eleven_v3") else 1.0
+    # "voix_tempo" : un reel dont la prise est trop lente pour tenir sa duree (une minute au plus depuis le
+    # 05/11/2026) s'accelere au montage, sans nouvelle generation ni changement de hauteur
+    tempo = ep.get("voix_tempo", C.VOIX_TEMPO_V3) if modele.startswith("eleven_v3") else 1.0
     deb = [x / tempo for x in al["character_start_times_seconds"]]
     fin = [x / tempo for x in al["character_end_times_seconds"]]
 

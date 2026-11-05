@@ -134,8 +134,11 @@ def bande(episode: Path, ep: dict, bornes: list, total: float, voix: Path | None
     # mise au niveau final : un gain fixe, puis le limiteur pour les cretes
     gain = C.SON_LUFS - sonie(brute)
     dest = travail / f"bande_{ep['slug']}.wav"
+    # "son_limite_db" : limiteur plus bas pour un reel dont l'encodage AAC depasse le plafond sur une
+    # attaque de voix (2 dB sur le premier mot du reel pharmacien, 05/11/2026)
+    limite = ep.get("son_limite_db", C.SON_TP_CIBLE)
     B.run(["-i", str(brute), "-af",
-           f"volume={gain:.2f}dB,alimiter=limit={10 ** (C.SON_TP_CIBLE / 20):.3f}:level=false,"
+           f"volume={gain:.2f}dB,alimiter=limit={10 ** (limite / 20):.3f}:level=false,"
            f"aresample={SR}", "-ar", str(SR), "-ac", "2", str(dest), "-y"])
     brute.unlink(missing_ok=True)
     return dest

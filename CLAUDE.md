@@ -177,8 +177,15 @@ inventé : les parts de `calcul` n'affichent aucune valeur ; le `compteur` ne s'
 d'aller-retour »), le texte d'un script (écran, voix, libellés des inserts) est relu par un
 agent indépendant contre le PDF de l'article, avant la voix : la première relecture a relevé
 12 erreurs (une condition coupée, des opinions du regard du Cercle données comme des faits,
-un « il » ambigu à l'écran). Une opinion du regard s'attribue (« Pour le Cercle ») ; une
-question ouverte reste une question (« Organisée par qui ? »), jamais un verdict.
+un « il » ambigu à l'écran). Une opinion du regard s'attribue (« Selon le Cercle », « Mais
+selon nous », jamais « Pour le Cercle » : Romain, 05/11/2026) ; une question ouverte reste
+une question (« Organisée par qui ? »), jamais un verdict.
+
+**Expliquer le pourquoi.** Depuis le 05/11/2026 (Romain : « on doit plutôt expliquer
+pourquoi le décret n'en parle pas »), un reel ne répète pas « le décret ne le dit pas » : il
+donne la raison (la base légale, qui négocie quoi, ce que le texte encadre), puis la
+conséquence pour le médecin. Un pourquoi vient d'une source ou s'attribue ; aucune intention
+n'est prêtée à un ministère, à l'Ordre ou à un syndicat.
 
 **Nommer le public.** Depuis le 28/10/2026, la pastille d'ouverture (champ `badge`) et la
 première phrase lue nomment le public visé (« Maîtres de stage : », « Médecins traitants : »),
@@ -197,9 +204,23 @@ se coupe jamais, donc il reste court : une vingtaine de caractères dans un text
 quinzaine dans une accroche ou une phrase forte. `render` refuse de monter un texte qui
 déborde, avant les minutes de rendu.
 
-**Durées.** 50 à 55 s au total, une dizaine de plans. Compte 2,6 mots par seconde, un
-nombre vaut un mot et demi, et une seconde de plus par plan pour l'arrivée du texte. Un
-chiffre clé tient 5 à 6 s.
+**Durées.** Jamais plus d'une minute (Romain, 05/11/2026 : « il faudrait pas qu'il dépasse
+1 minute ») : vise 50 à 58 s, sept à dix plans. Compte 2,6 mots par seconde, un nombre vaut
+un mot et demi, et une seconde de plus par plan pour l'arrivée du texte. Un chiffre clé tient
+5 à 6 s. Budget de voix pour tenir la minute, fin de reel comprise (4,3 s), mesuré sur les
+reels du 05/11/2026 : Guillaume environ 800 caractères lus, Emilie environ 900, Jeanne
+environ 830. Une prise v3 varie de ±5 % d'une génération à l'autre (832 caractères :
+63,0 s, quand 844 avaient donné 60,0 s) : mesure la durée après la voix. Pour rattraper
+une prise trop lente sans la régénérer, `"voix_tempo": 1.12` dans le script accélère la
+voix au montage (défaut `charte.VOIX_TEMPO_V3`, 1,05), sans changer sa hauteur ; au-delà
+de 1,15, fais plutôt écouter Romain. Si l'encodage AAC fait dépasser le plafond de crête
+sur une attaque de voix (contrôle « true peak »), `"son_limite_db": -3.5` abaisse le
+limiteur de la bande son de ce seul reel.
+
+**L'ouverture.** C'est le plus important (Romain, 05/11/2026 : « capter l'attention en 3
+secondes ou même en 1 seconde »). Écris-la en premier : le conflit est dans le premier temps
+du bloc 1, à l'écran dès la première image et dans les premiers mots lus, après le public
+nommé. Pas d'interjection, pas de piège à clic, pas l'accroche d'un reel déjà publié.
 
 **La voix off.** Chaque bloc porte son texte lu dans le champ `voix`, sauf le bloc 0
 (couverture, sans voix). C'est la voix qui fixe la durée de chaque plan : le champ `duree` ne sert

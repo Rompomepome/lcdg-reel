@@ -2,8 +2,8 @@
   "slug": "cotisation-ordre",
   "date": "2026-11-04",
   "rubrique": "pro",
-  "label": "Cotisation à l’Ordre",
-  "sous_titre": "Relancé par l’Ordre : *payer la hausse* ?",
+  "label": "Cotisation de votre société",
+  "sous_titre": "Relancé par l’Ordre : *faut-il payer* ?",
   "appel": "Nos 2 recommandations :",
   "voix_off": "femme_agee",
   "badge": "Médecins en société",
@@ -16,11 +16,11 @@
       "requete": "envelope letter desk hands opening"
     },
     {
-      "duree": 8.0,
+      "duree": 7.0,
       "fichier": "B1.mp4",
       "requete": "mail envelope hands desk",
-      "texte": "Des conseils de l’Ordre *relancent* des médecins en société. | Parmi ceux qui contestent la cotisation *de leur société* (CSMF).",
-      "voix": "Médecins en société : des conseils de l’Ordre relancent… | certains de ceux qui contestent la cotisation deux mille vingt-six de leur société, selon la C.S.M.F.",
+      "texte": "Relancé par l’Ordre : *faut-il payer* ? | Selon la CSMF, certains qui contestent *sont relancés*.",
+      "voix": "[curious] Médecins en société, relancés par l’Ordre : faut-il payer ? | Selon la C.S.M.F., certains qui contestent leur cotisation sont relancés.",
       "insert": [
         {
           "type": "lettre",
@@ -33,16 +33,35 @@
           "carre": false,
           "texte": "Relance",
           "sur": true,
-          "delai": 1.2
+          "delai": 0.3
         }
       ]
     },
     {
-      "duree": 11.0,
+      "duree": 6.0,
+      "fichier": "B9.mp4",
+      "requete": "page : https://www.csmf.org/actualites/flash-info-12/",
+      "texte": "Recours de la CSMF : *pas jugé*. | Sauf ordre du juge, un recours *ne suspend pas*.",
+      "voix": "Son recours au Conseil d’État n’est pas jugé. | [serious] Et sauf ordre du juge, il ne suspend rien.",
+      "insert": {
+        "type": "sablier",
+        "pilules": [
+          {
+            "texte": "Recours en instruction"
+          },
+          {
+            "texte": "Aucune date annoncée",
+            "ton": "rouge"
+          }
+        ]
+      }
+    },
+    {
+      "duree": 7.0,
       "fichier": "B2.mp4",
       "requete": "mail envelope hands desk",
-      "texte": "En société d’exercice libéral : *1,5 cotisation*, par associé médecin. | À 4 associés : *2 190 €*, pour la seule société.",
-      "voix": "Le barème, en société d’exercice libéral : une cotisation et demie… par associé médecin. | À quatre associés, deux mille cent quatre-vingt-dix euros, pour la seule société, selon le calcul du Cercle.",
+      "texte": "En société d’exercice libéral : *1,5 cotisation*, par associé médecin. | À 4 associés : *2 190 €* pour la société (calcul du Cercle).",
+      "voix": "En société d’exercice libéral, à quatre associés : | deux mille cent quatre-vingt-dix euros.",
       "insert": {
         "type": "associes",
         "lignes": [
@@ -65,11 +84,11 @@
       }
     },
     {
-      "duree": 8.0,
+      "duree": 7.0,
       "fichier": "B3.mp4",
       "requete": "doctors office corridor daylight",
-      "texte": "En société civile professionnelle : *547,50 €*… | quel que soit le nombre d’associés.",
-      "voix": "En société civile professionnelle ? Cinq cent quarante-sept euros cinquante… | quel que soit le nombre d’associés.",
+      "texte": "En société civile professionnelle : *547,50 €*… | quel que soit le nombre d’associés. À 4, *4 fois moins*.",
+      "voix": "En S.C.P. : cinq cent quarante-sept euros cinquante… | quel que soit le nombre d’associés. [incredulous] À quatre, quatre fois moins !",
       "insert": {
         "type": "associes",
         "lignes": [
@@ -97,77 +116,40 @@
       }
     },
     {
-      "duree": 6.0,
-      "type": "phrase",
-      "fichier": "B4.mp4",
-      "requete": "calculator desk paper",
-      "texte": "À 4 associés : *4 fois plus* qu’une SCP.",
-      "voix": "[incredulous] Quatre fois plus qu’une société civile professionnelle ! [serious] Alors que, selon la C.S.M.F., les obligations de contrôle sont comparables."
-    },
-    {
-      "duree": 8.0,
-      "fichier": "B5.mp4",
-      "requete": "stack of documents office",
-      "texte": "L’Ordre invoque notamment *les vérifications*. | Pour le Cercle, ça vaut par société, *pas par associé*.",
-      "voix": "Cette hausse, l’Ordre la justifie notamment par le coût des vérifications. | [serious] Pour le Cercle, cet argument vaut par société, pas par associé.",
+      "duree": 7.0,
+      "fichier": "B6.mp4",
+      "requete": "page : https://www.conseil-etat.fr/fr/arianeweb/CE/decision/2026-04-30/505930",
+      "texte": "Le Conseil d’État a annulé la cotisation 2025 *des kinés*. | 2 000 € contre 90 € : « manifestement *disproportionné* ».",
+      "voix": "Chez les kinés, le Conseil d’État a annulé… | un tarif « manifestement disproportionné ».",
       "insert": {
-        "type": "duel",
-        "cartes": [
+        "type": "barres",
+        "suffixe": " €",
+        "lignes": [
           {
-            "date": "L’Ordre",
-            "texte": "Le coût des vérifications",
-            "temps": 0
+            "label": "Kinés, autres sociétés d’exercice",
+            "valeur": 90,
+            "temps": 1,
+            "reference": true
           },
           {
-            "date": "Le Cercle",
-            "texte": "Vaut par société, pas par associé",
+            "label": "Kinés, sociétés de participations financières",
+            "valeur": 2000,
             "temps": 1
           }
         ]
       }
     },
     {
-      "duree": 11.0,
-      "fichier": "B6.mp4",
-      "requete": "page : https://www.conseil-etat.fr/fr/arianeweb/CE/decision/2026-04-30/505930",
-      "texte": "Le Conseil d’État a annulé la cotisation 2025 *des kinés*. | 2 000 € contre 90 € : « manifestement *disproportionné* ».",
-      "voix": "Dans un litige comparable, le trente avril, le Conseil d’État a annulé la cotisation deux mille vingt-cinq de l’Ordre des kinés. | Il admet des écarts. Mais deux mille euros contre quatre-vingt-dix : « manifestement disproportionné ».",
-      "insert": [
-        {
-          "type": "pilule",
-          "texte": "Des écarts admis, pas celui-ci",
-          "temps": 1
-        },
-        {
-          "type": "barres",
-          "suffixe": " €",
-          "lignes": [
-            {
-              "label": "Kinés, autres sociétés d’exercice",
-              "valeur": 90,
-              "temps": 1,
-              "reference": true
-            },
-            {
-              "label": "Kinés, sociétés de participations financières",
-              "valeur": 2000,
-              "temps": 1
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "duree": 13.0,
+      "duree": 10.0,
       "fichier": "B7.mp4",
       "requete": "paying bill hands desk",
-      "texte": "Le recours de la CSMF au Conseil d’État ? *En instruction*, dit-elle. | *Paiement partiel* et courrier type, sauf mise en demeure. | Recours rejeté : que devient ce paiement ? *La CSMF ne le dit pas*.",
-      "voix": "Le recours de la C.S.M.F. au Conseil d’État est toujours en instruction, selon elle. | En attendant, elle conseille de ne régler que la cotisation d’une société unipersonnelle, avec son courrier type, tant qu’aucune véritable mise en demeure n’arrive. | [curious] Et si le recours est rejeté ? La C.S.M.F. ne dit pas ce que devient ce paiement partiel.",
+      "texte": "CSMF : *payer en partie*, avant toute mise en demeure. | Si rejet, à 4 : *1 642,50 €* dus, au moins (notre calcul).",
+      "voix": "La C.S.M.F. conseille de payer en partie, avant toute véritable mise en demeure. | [curious] Mais si son recours est rejeté ? À quatre, au moins mille six cent quarante-deux euros cinquante resteraient dus.",
       "insert": {
         "type": "calcul",
-        "titre": "Le paiement partiel conseillé par la CSMF",
-        "temps": 1,
-        "temps_question": 2,
+        "titre": "À 4 associés : le paiement partiel conseillé",
+        "temps": 0,
+        "temps_question": 1,
         "levee": 34,
         "parts": [
           {
@@ -183,11 +165,40 @@
       }
     },
     {
-      "duree": 8.0,
+      "duree": 6.0,
+      "fichier": "B10.mp4",
+      "requete": "empty office desk chair window daylight",
+      "texte": "Seul en société ? C’est déjà *toute la cotisation*. | Selon le Cercle, ce conseil ne vous apporte *rien*.",
+      "voix": "Seul en société ? Vous payez déjà toute sa cotisation. | Selon le Cercle, ce conseil ne vous apporte rien.",
+      "insert": [
+        {
+          "type": "associes",
+          "lignes": [
+            {
+              "titre": "Seul en société d’exercice libéral",
+              "ton": "rouge",
+              "montants": [
+                {
+                  "n": 1,
+                  "montant": "547,50 €"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "pilule",
+          "texte": "Rien ne reste impayé",
+          "temps": 1
+        }
+      ]
+    },
+    {
+      "duree": 6.0,
       "fichier": "B8.mp4",
       "requete": "writing notes hands desk bright",
-      "texte": "Si le recours est rejeté, combien resterait *à payer* ? | Le calcul du Cercle, et ses *2 recommandations*.",
-      "voix": "[warm] Si le recours est rejeté, combien resterait à payer ? | Le Cercle a fait ce calcul. Il fait aussi deux recommandations : on vous les détaille sur le site du Cercle.",
+      "texte": "Votre courrier : relance, ou *mise en demeure* ? | Le Cercle fait *2 recommandations*.",
+      "voix": "[warm] Votre courrier : relance, ou mise en demeure ? | Deux recommandations sur notre site.",
       "insert": {
         "type": "verrou",
         "n": 2
