@@ -35,9 +35,9 @@ Le Cercle fait 2 recommandations, au médecin qui prépare une installation ou u
 ## Publicité Meta (reel boosté)
 
 Texte principal (les 125 premiers caractères s'affichent sans « Plus ») :
-Médecins généralistes : +22,8 % de premières installations en 12 mois. Une profession qui fuit l'installation ? Et vous, où vous situez-vous face à la moyenne de 1 048 patients ?
+Médecins généralistes : +22,8 % de premières installations en 12 mois, mais −2,5 % de patients vus par médecin. Pourquoi ? Et vous, où vous situez-vous face à la moyenne de 1 048 patients ?
 
-Titre : Premières installations : +22,8 % en 12 mois
+Titre : Plus d'installations, moins de patients par médecin : pourquoi ?
 
 Bouton : En savoir plus. Lien : https://www.lecercledesgeneralistes.fr/article/medecins-generalistes-228-de-premieres-installations-en-plus-depuis-juillet-2025?utm_source=meta&utm_medium=paid&utm_campaign=premieres-installations
 

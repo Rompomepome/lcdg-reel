@@ -2,8 +2,8 @@
   "slug": "cotisation-ordre-pub",
   "date": "2026-11-04",
   "rubrique": "pro",
-  "label": "Cotisation à l’Ordre",
-  "sous_titre": "Relancé par l’Ordre : *payer la hausse* ?",
+  "label": "Cotisation de votre société",
+  "sous_titre": "Relancé par l’Ordre : *faut-il payer* ?",
   "appel": "Nos 2 recommandations :",
   "voix_off": "femme_agee",
   "badge": "Médecins en société",
@@ -16,11 +16,11 @@
       "requete": "envelope letter desk hands opening"
     },
     {
-      "duree": 8.0,
+      "duree": 9.0,
       "fichier": "B1.mp4",
       "requete": "mail envelope hands desk",
-      "texte": "Des conseils de l’Ordre *relancent* des médecins en société. | Parmi ceux qui contestent la cotisation *de leur société* (CSMF).",
-      "voix": "Médecins en société : des conseils de l’Ordre relancent… | certains de ceux qui contestent la cotisation deux mille vingt-six de leur société, selon la C.S.M.F.",
+      "texte": "Relancé par l’Ordre : *faut-il payer* ? | Selon la CSMF, certains qui contestent *sont relancés*.",
+      "voix": "[curious] Médecins en société, relancés par l’Ordre : faut-il payer ? | Selon la C.S.M.F., des conseils départementaux relancent les médecins qui contestent la cotisation deux mille vingt-six de leur société.",
       "insert": [
         {
           "type": "lettre",
@@ -33,7 +33,7 @@
           "carre": false,
           "texte": "Relance",
           "sur": true,
-          "delai": 1.2
+          "delai": 0.3
         }
       ]
     },
@@ -41,8 +41,8 @@
       "duree": 11.0,
       "fichier": "B2.mp4",
       "requete": "mail envelope hands desk",
-      "texte": "En société d’exercice libéral : *1,5 cotisation*, par associé médecin. | À 4 associés : *2 190 €*, pour la seule société.",
-      "voix": "Le barème, en société d’exercice libéral : une cotisation et demie… par associé médecin. | À quatre associés, deux mille cent quatre-vingt-dix euros, pour la seule société, selon le calcul du Cercle.",
+      "texte": "En société d’exercice libéral, chaque associé compte *1,5 cotisation*. | À 4 associés, la société paie *2 190 €* (calcul du Cercle).",
+      "voix": "Ce qu’ils contestent, c’est le nouveau barème. En société d’exercice libéral, la société paie une cotisation et demie par associé médecin. | À quatre associés, cela fait deux mille cent quatre-vingt-dix euros, selon le calcul du Cercle.",
       "insert": {
         "type": "associes",
         "lignes": [
@@ -65,26 +65,33 @@
       }
     },
     {
-      "duree": 13.0,
+      "duree": 9.0,
       "fichier": "B3.mp4",
-      "requete": "paying bill hands desk",
-      "texte": "Le recours de la CSMF au Conseil d’État ? *En instruction*, dit-elle. | *Paiement partiel* et courrier type, sauf mise en demeure. | Recours rejeté : que devient ce paiement ? *La CSMF ne le dit pas*.",
-      "voix": "Le recours de la C.S.M.F. au Conseil d’État est toujours en instruction, selon elle. | En attendant, elle conseille de ne régler que la cotisation d’une société unipersonnelle, avec son courrier type, tant qu’aucune véritable mise en demeure n’arrive. | [curious] Et si le recours est rejeté ? La C.S.M.F. ne dit pas ce que devient ce paiement partiel.",
+      "requete": "doctors office corridor daylight",
+      "texte": "En société civile professionnelle, c’est *547,50 €*… | quel que soit le nombre d’associés. À 4, c’est *4 fois moins*.",
+      "voix": "En société civile professionnelle, c’est cinq cent quarante-sept euros cinquante… | quel que soit le nombre d’associés. [incredulous] À quatre, c’est quatre fois moins !",
       "insert": {
-        "type": "calcul",
-        "titre": "Le paiement partiel conseillé par la CSMF",
-        "temps": 1,
-        "temps_question": 2,
-        "levee": 34,
-        "parts": [
+        "type": "associes",
+        "lignes": [
           {
-            "label": "Réglé",
-            "valeur": 0.25
+            "titre": "Société d’exercice libéral",
+            "ton": "rouge",
+            "montants": [
+              {
+                "n": 4,
+                "montant": "2 190 €"
+              }
+            ]
           },
           {
-            "label": "En litige",
-            "valeur": 0.75,
-            "question": true
+            "titre": "Société civile professionnelle",
+            "note": "quel que soit le nombre d’associés",
+            "montants": [
+              {
+                "n": 4,
+                "montant": "547,50 €"
+              }
+            ]
           }
         ]
       }
@@ -93,8 +100,8 @@
       "duree": 8.0,
       "fichier": "B4.mp4",
       "requete": "writing notes hands desk bright",
-      "texte": "Si le recours est rejeté, combien resterait *à payer* ? | Le calcul du Cercle, et ses *2 recommandations*.",
-      "voix": "[warm] Si le recours est rejeté, combien resterait à payer ? | Le Cercle a fait ce calcul. Il fait aussi deux recommandations : on vous les détaille sur le site du Cercle.",
+      "texte": "Votre courrier : relance, ou *mise en demeure* ? | Le Cercle fait *2 recommandations*.",
+      "voix": "[warm] Et le courrier que vous avez reçu : simple relance, ou mise en demeure ? | Deux recommandations : on vous les détaille sur le site du Cercle.",
       "insert": {
         "type": "verrou",
         "n": 2

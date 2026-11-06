@@ -39,9 +39,9 @@ Le Cercle fait 2 recommandations dans son analyse (inscription gratuite) : https
 ## Publicité Meta (reel boosté)
 
 Texte principal (les 125 premiers caractères s'affichent sans « Plus ») :
-Médecins en société : à 4 associés, 2 190 € pour la seule société, contre 547,50 € en société civile professionnelle. Et si le recours de la CSMF est rejeté, combien resterait à payer ?
+Médecins en société, relancés par l'Ordre : faut-il payer ? À 4 associés, une société d'exercice libéral paie 2 190 €, quatre fois plus qu'une société civile professionnelle, selon notre calcul.
 
-Titre : Cotisation à l'Ordre en société : payer la hausse ?
+Titre : Relancé par l'Ordre : faut-il payer ?
 
 Bouton : En savoir plus. Lien : https://www.lecercledesgeneralistes.fr/article/cotisation-a-lordre-des-medecins-en-societe-faut-il-payer-la-hausse?utm_source=meta&utm_medium=paid&utm_campaign=cotisation-ordre
 

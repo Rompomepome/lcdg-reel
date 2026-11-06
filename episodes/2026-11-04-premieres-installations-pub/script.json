@@ -2,8 +2,8 @@
   "slug": "premieres-installations-pub",
   "date": "2026-11-04",
   "rubrique": "pro",
-  "label": "Premières installations",
-  "sous_titre": "Une profession qui fuit l’installation ? *+22,8 %*",
+  "label": "Installations et file active",
+  "sous_titre": "Plus d’installations, moins de *patients* par médecin : pourquoi ?",
   "appel": "Nos 2 recommandations :",
   "voix_off": "femme_jeune",
   "badge": "Médecins généralistes",
@@ -16,11 +16,11 @@
       "requete": "clinic entrance door"
     },
     {
-      "duree": 9.0,
+      "duree": 14.0,
       "fichier": "B1.mp4",
       "requete": "moving boxes new office",
-      "texte": "*+22,8 %* de premières installations, sur 12 mois à fin juin 2026. | Soit *523 installations* de plus, selon l’Assurance Maladie.",
-      "voix": "Médecins généralistes : plus vingt-deux virgule huit pour cent de premières installations, sur les douze mois à fin juin deux mille vingt-six… | soit cinq cent vingt-trois de plus que sur les douze mois d’avant, selon l’Assurance Maladie.",
+      "texte": "Plus d’installations, mais *moins de patients* par médecin. | *+22,8 %* de premières installations en un an (Assurance Maladie).",
+      "voix": "[curious] Médecins généralistes : il y a plus d’installations, mais en moyenne, chaque médecin voit moins de patients. Pourquoi ? | Selon l’Assurance Maladie, les premières installations de généralistes ont augmenté de vingt-deux virgule huit pour cent en un an, jusqu’à fin juin deux mille vingt-six.",
       "insert": {
         "type": "plaques",
         "carre": false,
@@ -32,41 +32,35 @@
       }
     },
     {
-      "duree": 8.0,
-      "type": "phrase",
+      "duree": 14.0,
       "fichier": "B2.mp4",
-      "requete": "doctor walking corridor from behind",
-      "texte": "Fuir l’installation ? | Pour le Cercle, *non*.",
-      "voix": "[incredulous] Une profession qui fuirait l’installation ? | [serious] Pour le Cercle, ces chiffres contredisent ce récit. Et contraindre l’installation maintenant, ce serait freiner une dynamique qui repart."
-    },
-    {
-      "duree": 10.0,
-      "fichier": "B3.mp4",
-      "requete": "page : https://www.ccomptes.fr/fr/publications/le-dispositif-du-medecin-traitant",
-      "texte": "En moyenne : *1 048 patients* par médecin traitant. | La Cour des comptes envisage un seuil minimal : *500 patients*.",
-      "voix": "En moyenne, un généraliste est le médecin traitant de mille quarante-huit patients. | La Cour des comptes envisage un seuil minimal : cinq cents patients.",
+      "requete": "page : https://www.assurance-maladie.ameli.fr/presse/2026-10-22-cp-observatoire-de-l-acces-aux-soins",
+      "texte": "L’Assurance Maladie *ne l’explique pas*. | Selon le Cercle, c’est peut-être *un effet mécanique*. | Les nouveaux installés peuvent tirer la moyenne *vers le bas*.",
+      "voix": "Pourquoi ? L’Assurance Maladie donne le chiffre, sans l’expliquer. | Selon le Cercle, une partie de la baisse peut être mécanique : | les nouveaux installés, qui commencent à constituer leur patientèle, tirent la moyenne vers le bas. Elle peut aussi refléter des patients plus lourds.",
       "insert": {
-        "type": "barres",
+        "type": "choix",
         "lignes": [
           {
-            "label": "Moyenne des généralistes, au 30 juin 2026",
-            "valeur": 1048,
-            "reference": true
+            "label": "Explication de l’Assurance Maladie",
+            "ok": false
           },
           {
-            "label": "Seuil envisagé par la Cour des comptes",
-            "valeur": 500,
+            "label": "Effet des nouveaux installés",
             "temps": 1
+          },
+          {
+            "label": "Patients plus lourds",
+            "temps": 2
           }
         ]
       }
     },
     {
-      "duree": 7.0,
-      "fichier": "B4.mp4",
+      "duree": 10.0,
+      "fichier": "B3.mp4",
       "requete": "doctor desk stethoscope laptop daylight",
-      "texte": "Et vous, où vous situez-vous face aux *1 048 patients* ? | Le Cercle fait *2 recommandations*.",
-      "voix": "[warm] Et vous, où vous situez-vous par rapport à ces mille quarante-huit patients ? | Deux recommandations : on vous les détaille sur le site du Cercle.",
+      "texte": "En moyenne, médecin traitant de *1 048 patients*. | Et vous ? Le Cercle fait *2 recommandations*.",
+      "voix": "[warm] En moyenne, un généraliste est le médecin traitant de mille quarante-huit patients. Et vous, où vous situez-vous ? | Deux recommandations : on vous les détaille sur le site du Cercle.",
       "insert": {
         "type": "verrou",
         "n": 2

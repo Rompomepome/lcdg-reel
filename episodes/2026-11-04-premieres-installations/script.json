@@ -8,7 +8,6 @@
   "voix_off": "femme_jeune",
   "badge": "Médecins généralistes",
   "bandeau": "L’analyse complète | sur *notre site*",
-  "voix_tempo": 1.13,
   "blocs": [
     {
       "duree": 3.0,
@@ -17,11 +16,11 @@
       "requete": "clinic entrance door"
     },
     {
-      "duree": 9.0,
+      "duree": 14.0,
       "fichier": "B1.mp4",
       "requete": "moving boxes new office",
-      "texte": "Plus d’installations, *moins de patients* par médecin. | *+22,8 %* de premières installations, sur 12 mois à fin juin 2026.",
-      "voix": "[curious] Médecins généralistes : plus d’installations, moins de patients vus par médecin. Pourquoi ? | Plus vingt-deux virgule huit pour cent de premières installations, selon l’Assurance Maladie.",
+      "texte": "Plus d’installations, mais *moins de patients* par médecin. | *+22,8 %* de premières installations en un an (Assurance Maladie).",
+      "voix": "[curious] Médecins généralistes : il y a plus d’installations, mais en moyenne, chaque médecin voit moins de patients. Pourquoi ? | Selon l’Assurance Maladie, les premières installations de généralistes ont augmenté de vingt-deux virgule huit pour cent en un an, jusqu’à fin juin deux mille vingt-six.",
       "insert": {
         "type": "plaques",
         "carre": false,
@@ -33,7 +32,7 @@
       }
     },
     {
-      "duree": 6.0,
+      "duree": 11.0,
       "type": "chiffre",
       "valeur": 2.5,
       "decimales": 1,
@@ -41,15 +40,15 @@
       "suffixe": " %",
       "fichier": "B5.mp4",
       "requete": "medical waiting room chairs",
-      "legende": "de file active moyenne des généralistes en 12 mois. *Spécialistes : −0,3 %*",
-      "voix": "[serious] File active : moins deux virgule cinq pour cent."
+      "legende": "de patients différents vus par généraliste en un an. *Spécialistes : −0,3 %*",
+      "voix": "[serious] Mais la file active moyenne, c’est-à-dire le nombre de patients différents vus dans l’année, a baissé de deux virgule cinq pour cent. Chez les spécialistes, la baisse n’est que de zéro virgule trois."
     },
     {
-      "duree": 8.0,
+      "duree": 14.0,
       "fichier": "B6.mp4",
       "requete": "page : https://www.assurance-maladie.ameli.fr/presse/2026-10-22-cp-observatoire-de-l-acces-aux-soins",
-      "texte": "Pas d’explication *officielle*. | Selon le Cercle, les nouveaux peuvent tirer la moyenne *vers le bas*.",
-      "voix": "Pas d’explication. | Selon le Cercle, les nouveaux installés peuvent tirer la moyenne vers le bas.",
+      "texte": "L’Assurance Maladie *ne l’explique pas*. | Selon le Cercle, c’est peut-être *un effet mécanique*. | Les nouveaux installés peuvent tirer la moyenne *vers le bas*.",
+      "voix": "Pourquoi ? L’Assurance Maladie donne le chiffre, sans l’expliquer. | Selon le Cercle, une partie de la baisse peut être mécanique : | les nouveaux installés, qui commencent à constituer leur patientèle, tirent la moyenne vers le bas. Elle peut aussi refléter des patients plus lourds.",
       "insert": {
         "type": "choix",
         "lignes": [
@@ -60,23 +59,27 @@
           {
             "label": "Effet des nouveaux installés",
             "temps": 1
+          },
+          {
+            "label": "Patients plus lourds",
+            "temps": 2
           }
         ]
       }
     },
     {
-      "duree": 9.0,
+      "duree": 15.0,
       "fichier": "B7.mp4",
       "requete": "page : https://www.ccomptes.fr/fr/publications/le-dispositif-du-medecin-traitant",
-      "texte": "La Cour des comptes recommande *un seuil obligatoire*. | Pour tout généraliste *libéral installé*. | Médecin traitant d’au moins *500 patients* : envisagé, modulable.",
-      "voix": "Or la Cour des comptes recommande un minimum obligatoire de patients médecin traitant, | pour tout généraliste libéral installé. | Elle envisage cinq cents, modulable notamment selon l’ancienneté."
+      "texte": "La Cour des comptes recommande *un seuil obligatoire*. | Pour tout généraliste *libéral installé*. | Elle envisage *500 patients* dont il est médecin traitant.",
+      "voix": "Et ce chiffre tombe en plein débat. La Cour des comptes recommande un seuil obligatoire, | pour tout généraliste libéral installé : un nombre minimal de patients dont il est le médecin traitant. | Elle envisage cinq cents patients, avec un seuil modulable, notamment selon l’ancienneté d’installation."
     },
     {
-      "duree": 9.0,
+      "duree": 12.0,
       "fichier": "B8.mp4",
       "requete": "doctor office chair empty daylight",
-      "texte": "Selon nous, l’ancienneté n’est *pas détaillée*. | Le Cercle demande la file active *sans les nouveaux*.",
-      "voix": "Selon nous, cette ancienneté n’est pas détaillée. | Nous demandons la file active hors nouveaux installés, avant qu’elle serve d’argument.",
+      "texte": "Selon nous, cette ancienneté *n’est pas détaillée*. | Le Cercle demande la file active *sans les nouveaux*.",
+      "voix": "Or, selon nous, l’Observatoire de l’Assurance Maladie ne détaille pas cette ancienneté. | Nous demandons donc la file active hors nouveaux installés, avant que ce chiffre serve d’argument pour imposer un minimum de patients.",
       "insert": {
         "type": "loupe",
         "site": "Assurance Maladie",
@@ -85,11 +88,11 @@
       }
     },
     {
-      "duree": 6.0,
+      "duree": 12.0,
       "fichier": "B2.mp4",
       "requete": "rural village aerial france",
-      "texte": "Contraindre l’installation maintenant ? | Selon nous, *un frein* à une dynamique qui repart.",
-      "voix": "Contraindre l’installation maintenant ? | [serious] Selon nous, un frein à une dynamique qui repart.",
+      "texte": "Là où les médecins manquent le plus : *+28,5 %* d’installations. | Selon nous, contraindre maintenant freinerait *cette dynamique*.",
+      "voix": "Et en zone d’intervention prioritaire, là où les médecins manquent le plus, les premières installations progressent encore plus : plus vingt-huit virgule cinq pour cent. | [serious] Selon nous, contraindre l’installation maintenant freinerait cette dynamique.",
       "insert": {
         "type": "barres",
         "unite": "+",
@@ -108,11 +111,11 @@
       }
     },
     {
-      "duree": 7.0,
+      "duree": 10.0,
       "fichier": "B9.mp4",
       "requete": "doctor desk stethoscope laptop daylight",
-      "texte": "En moyenne : médecin traitant de *1 048 patients*. | Et vous ? Le Cercle fait *2 recommandations*.",
-      "voix": "[warm] En moyenne, mille quarante-huit patients par médecin traitant. | Et vous ? Deux recommandations sur notre site.",
+      "texte": "En moyenne, médecin traitant de *1 048 patients*. | Et vous ? Le Cercle fait *2 recommandations*.",
+      "voix": "[warm] En moyenne, un généraliste est le médecin traitant de mille quarante-huit patients. Et vous, où vous situez-vous ? | Deux recommandations : on vous les détaille sur le site du Cercle.",
       "insert": {
         "type": "verrou",
         "n": 2

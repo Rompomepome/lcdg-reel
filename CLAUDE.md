@@ -204,12 +204,18 @@ se coupe jamais, donc il reste court : une vingtaine de caractères dans un text
 quinzaine dans une accroche ou une phrase forte. `render` refuse de monter un texte qui
 déborde, avant les minutes de rendu.
 
-**Durées.** Jamais plus d'une minute (Romain, 05/11/2026 : « il faudrait pas qu'il dépasse
-1 minute ») : vise 50 à 58 s, sept à dix plans. Compte 2,6 mots par seconde, un nombre vaut
+**Durées et phrases.** De vraies phrases construites, à l'écran comme à la voix, qui
+apprennent quelque chose au médecin ; jamais de style télégraphique (« Si rejet, à 4 :
+1 642,50 € dus ») pour gagner du temps. Le 05/11/2026, Romain avait demandé « pas plus d'une
+minute » ; le 06/11, devant le résultat : « il nous faut de vraies phrases car on ne comprend
+pas du tout », « fais de vraies phrases construites, on doit leur apprendre des choses
+réelles ». Vise environ 1 min 45 à 2 min pour un sujet à expliquer, sept à dix plans ; une
+notion technique s'explique en une phrase (« la file active, c'est-à-dire le nombre de
+patients différents vus dans l'année »). Si un écran déborde, ajoute un temps plutôt que de
+tronquer la phrase. Compte 2,6 mots par seconde, un nombre vaut
 un mot et demi, et une seconde de plus par plan pour l'arrivée du texte. Un chiffre clé tient
-5 à 6 s. Budget de voix pour tenir la minute, fin de reel comprise (4,3 s), mesuré sur les
-reels du 05/11/2026 : Guillaume environ 800 caractères lus, Emilie environ 900, Jeanne
-environ 830. Une prise v3 varie de ±5 % d'une génération à l'autre (832 caractères :
+5 à 6 s. Débit mesuré sur les reels du 05/11/2026, fin de reel comprise (4,3 s) : Guillaume
+environ 14,1 caractères lus par seconde, Emilie 15,8, Jeanne 14,6. Une prise v3 varie de ±5 % d'une génération à l'autre (832 caractères :
 63,0 s, quand 844 avaient donné 60,0 s) : mesure la durée après la voix. Pour rattraper
 une prise trop lente sans la régénérer, `"voix_tempo": 1.12` dans le script accélère la
 voix au montage (défaut `charte.VOIX_TEMPO_V3`, 1,05), sans changer sa hauteur ; au-delà

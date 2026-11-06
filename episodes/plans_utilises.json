@@ -1374,22 +1374,22 @@
   "auteur": "Ron Lach"
  },
  "2026-11-04-cotisation-ordre/2": {
-  "id": "page:https://www.csmf.org/actualites/flash-info-12/",
-  "url_page": "https://www.csmf.org/actualites/flash-info-12/",
-  "auteur_id": "https://www.csmf.org/actualites/flash-info-12/",
-  "auteur": "capture d'ecran"
- },
- "2026-11-04-cotisation-ordre/3": {
   "id": 6169101,
   "url_page": "https://www.pexels.com/video/warehouse-guy-making-entry-on-a-form-6169101/",
   "auteur_id": 3088726,
   "auteur": "Tima Miroshnichenko"
  },
- "2026-11-04-cotisation-ordre/4": {
+ "2026-11-04-cotisation-ordre/3": {
   "id": 5971050,
   "url_page": "https://www.pexels.com/video/a-woman-walking-down-the-hallway-5971050/",
   "auteur_id": 1437723,
   "auteur": "cottonbro studio"
+ },
+ "2026-11-04-cotisation-ordre/4": {
+  "id": "page:https://www.csmf.org/actualites/flash-info-12/",
+  "url_page": "https://www.csmf.org/actualites/flash-info-12/",
+  "auteur_id": "https://www.csmf.org/actualites/flash-info-12/",
+  "auteur": "capture d'ecran"
  },
  "2026-11-04-cotisation-ordre/5": {
   "id": "page:https://www.conseil-etat.fr/fr/arianeweb/CE/decision/2026-04-30/505930",
@@ -1404,12 +1404,18 @@
   "auteur": "https://kaboompics.com/"
  },
  "2026-11-04-cotisation-ordre/7": {
+  "id": 7710748,
+  "url_page": "https://www.pexels.com/video/woman-calculating-7710748/",
+  "auteur_id": 2332540,
+  "auteur": "https://kaboompics.com/"
+ },
+ "2026-11-04-cotisation-ordre/8": {
   "id": 5483208,
   "url_page": "https://www.pexels.com/video/person-working-in-the-office-5483208/",
   "auteur_id": 1437723,
   "auteur": "cottonbro studio"
  },
- "2026-11-04-cotisation-ordre/8": {
+ "2026-11-04-cotisation-ordre/9": {
   "id": 7279195,
   "url_page": "https://www.pexels.com/video/woman-is-writing-while-working-and-using-laptop-7279195/",
   "auteur_id": 2441340,
