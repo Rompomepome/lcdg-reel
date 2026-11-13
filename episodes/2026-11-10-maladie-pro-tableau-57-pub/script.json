@@ -1,0 +1,88 @@
+{
+  "slug": "maladie-pro-tableau-57-pub",
+  "date": "2026-11-10",
+  "rubrique": "pro",
+  "label": "Maladie professionnelle",
+  "sous_titre": "Épaule : vous attendez encore *l’IRM* ?",
+  "appel": "Nos 2 recommandations :",
+  "voix_off": "femme_agee",
+  "badge": "Médecins généralistes",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "son_limite_db": -4.0,
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "man rubbing shoulder pain"
+    },
+    {
+      "duree": 12.0,
+      "fichier": "B1.mp4",
+      "requete": "plasterer ceiling work bright",
+      "texte": "Maladie professionnelle de l’épaule : vous attendez *encore l’IRM* ? | Le tableau 57 *n’exige plus l’IRM*… | pour tout certificat médical initial établi *depuis le 30 septembre*.",
+      "voix": "[curious] Médecins généralistes : pour une maladie professionnelle de l’épaule, vous attendez encore l’I.R.M. ? | [matter-of-fact] Le tableau cinquante-sept ne l’exige plus, | pour tout certificat médical initial établi depuis le trente septembre.",
+      "insert": {
+        "type": "rature",
+        "dessin": "irm",
+        "carre": false,
+        "titre": "Tableau 57 · épaule",
+        "lignes": [
+          {
+            "texte": "« objectivée par IRM »",
+            "temps": 1
+          }
+        ],
+        "pilule": "Depuis le 30 septembre",
+        "temps_pilule": 2
+      }
+    },
+    {
+      "duree": 13.0,
+      "fichier": "B2.mp4",
+      "requete": "page : https://www.ameli.fr/medecin/exercice-liberal/prise-charge-situation-type-soin/situation-patient-mp/maladies-professionnelles",
+      "texte": "Début novembre, la FMF n’avait vu *aucune* communication… | ni de l’Assurance Maladie, ni du *ministère*. | La liste d’examens d’ameli indique toujours *l’IRM*.",
+      "voix": "[surprised] Vous ne le saviez pas ? Et pour cause : début novembre, la F.M.F. n’avait vu aucune communication, | ni de l’Assurance Maladie, ni du ministère. | [incredulous] Et sur ameli, la liste d’examens indique toujours l’I.R.M. de l’épaule !",
+      "insert": {
+        "type": "duel",
+        "cartes": [
+          {
+            "date": "Le décret",
+            "texte": "N’exige plus l’IRM",
+            "ok": true,
+            "temps": 2
+          },
+          {
+            "date": "La liste d’ameli",
+            "texte": "IRM de l’épaule",
+            "ok": false,
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B3.mp4",
+      "requete": "stack of files folders desk",
+      "texte": "Selon nous, sans examen daté, une note de votre dossier… | peut décider *du sort de la demande*. | *Laquelle* ?",
+      "voix": "[thoughtful] Dernier point : selon nous, sans examen daté, une note de votre dossier… | peut décider du sort de la demande. | [curious] Laquelle ?",
+      "insert": {
+        "type": "dossier",
+        "titre": "Dossier du patient",
+        "temps_question": 2
+      }
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B4.mp4",
+      "requete": "hands writing notebook desk",
+      "texte": "Quand rédiger *le certificat* ? | Que demander *à la caisse* ? | Nos *2 recommandations* sont sur le site.",
+      "voix": "[warm] La réponse est dans notre analyse. Quand rédiger le certificat, | que demander à la caisse : | nos deux recommandations sont sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ]
+}

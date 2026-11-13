@@ -114,6 +114,40 @@ Reels soins chez le pharmacien, cotisation a l'Ordre et installations (04/11/202
       des motifs en grille de deux colonnes : icone a gauche, libelle a droite, sans « ? »
   "icones" accepte aussi l'icone "horloge"
 
+Reels maladie professionnelle et TDAH (13/11/2026) :
+
+  {"type": "rature", "titre": "Tableau 57", "lignes": [{"texte": "« objectivée par IRM »", "temps": 1}],
+   "pilule": "Depuis le 30 septembre"}
+      un extrait de texte officiel : au temps de chaque ligne, un trait rouge raye ses mots (ceux que le texte
+      retire, cites tels quels) et ils s'estompent ; la pilule claque au coin apres la derniere rature, ou au
+      temps "temps_pilule"
+  {"type": "formulaire", "titre": "Qui peut remplir le formulaire ?", "lignes": [{"label": "Psychiatres", "temps": 1},
+                                                                                {"label": "Généralistes", "ferme": true}]}
+      un formulaire en grille de deux colonnes : chaque case se coche en vert a son temps ; une ligne "ferme" se
+      teinte de rouge et recoit un cadenas, qui tremble
+
+Scenes animees, en mouvement continu (Romain, 13/11/2026 : « le motion doit être beaucoup plus développé ») :
+
+  "rature" accepte "dessin": "irm" : a gauche des mots, un scanner d'IRM vu de cote, dont le lit coulisse ; quand
+      la premiere ligne est rayee, le lit ressort et la machine grisaille
+  {"type": "delai", "titre": "Délai de réponse de la caisse", "jours": 120, "temps": 1,
+   "fin": "Sans réponse : maladie reconnue", "temps_fin": 2, "retour": "Le délai repart-il ?", "temps_retour": 3}
+      un delai qui court : le compteur de jours monte, la piste se remplit ; un drapeau vert au bout ; au retour,
+      une fleche rouge ramene tout a zero, une pilule pose la question, et le delai repart en boucle
+  {"type": "jauge", "titre": "Votre indicateur", "tickets": [{"label": "Arrêt maladie"}, {..., "ton": "rouge", "temps": 1}]}
+      un cadran : chaque ticket qui tombe fait monter l'aiguille vers la zone rouge, ou elle tremble ; aucun chiffre
+  {"type": "dossier", "titre": "Dossier du patient", "temps_question": 2}
+      une chemise dont les notes sortent en eventail ; un « ? » va et vient, la note qu'il survole se souleve
+  {"type": "addition", "titre": "12 boîtes de Xurta 20 mg", "boites": 12, "prix": 31.96, "total": "384 €",
+   "legende": "plein tarif"}
+      des boites de medicament qui tombent une a une ; le total grimpe a chaque boite ("total" : l'arrondi cite)
+  {"type": "renvoi", "etapes": [{"label": "Assurance Maladie"}, {"label": "Pharmacien", "temps": 0},
+                                {"label": "Qui remplit ?", "question": true, "temps": 1}]}
+      un patient qu'on renvoie : son jeton saute de station en station, sa trace en pointilles ; la station
+      "question" le recoit avec un « ? » qui se balance
+  {"type": "guichet", "enseigne": "Généraliste", "papier": "Formulaire"}
+      un guichet, le medecin derriere la vitre : un formulaire glisse vers lui, bute sur un cadenas et repart
+
 Le champ "insert" peut aussi etre une liste : les elements s'empilent dans l'ordre, et
 "sur": true centre un element sur le premier (un tampon qui claque sur un dessin).
 
@@ -3674,6 +3708,890 @@ class Motifs(Icones):
         return out
 
 
+def _cadenas_rouge(c):
+    """Un cadenas ferme, rouge, de cote c."""
+    rouge = C.INSERT_ROUGE + (255,)
+
+    def dessin(d, k):
+        S = c * k
+        d.arc([S * 0.24, S * 0.02, S * 0.76, S * 0.62], 180, 360, fill=rouge, width=int(S * 0.12))
+        d.line([(S * 0.3, S * 0.3), (S * 0.3, S * 0.5)], fill=rouge, width=int(S * 0.12))
+        d.line([(S * 0.7, S * 0.3), (S * 0.7, S * 0.5)], fill=rouge, width=int(S * 0.12))
+        d.rounded_rectangle([S * 0.1, S * 0.44, S * 0.9, S * 0.98], radius=S * 0.12, fill=rouge)
+        d.ellipse([S * 0.43, S * 0.58, S * 0.57, S * 0.72], fill=C.BLANC + (255,))
+        d.rectangle([S * 0.47, S * 0.66, S * 0.53, S * 0.84], fill=C.BLANC + (255,))
+    return _net(c, c, dessin)
+
+
+def _personnage(w, h, couleur):
+    """Une silhouette : la tete et les epaules."""
+    def dessin(d, k):
+        r = w * k * 0.27
+        d.ellipse([w * k / 2 - r, 0, w * k / 2 + r, 2 * r], fill=tuple(couleur) + (255,))
+        d.rounded_rectangle([0, h * k * 0.46, w * k - 1, h * k * 1.4], radius=w * k * 0.42,
+                            fill=tuple(couleur) + (255,))
+    return _net(w, h, dessin)
+
+
+# ------------------------------------------------------------------ rature
+class Rature(_Insert):
+    """Un extrait de texte officiel (le tableau d'une maladie professionnelle, un article) : au temps de chaque
+    ligne, un trait rouge raye ses mots de gauche a droite, et ils s'estompent ; une pilule peut claquer au coin."""
+
+    def _corps_h(self):
+        """Hauteur nominale de la zone des lignes : le dessin "irm" demande sa place."""
+        h = len(self.spec["lignes"]) * C.RATURE_GEO["ligne_h"]
+        return max(h, C.RATURE_IRM["h"] + 16) if self.spec.get("dessin") == "irm" else h
+
+    def taille_nominale(self):
+        g = C.RATURE_GEO
+        bas = g["pilule_h"] * g["pilule_deborde"] if self.spec.get("pilule") else 0
+        return g["largeur"], int(g["tete"] + self._corps_h() + g["pad"] + bas)
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.RATURE_GEO
+        self.lignes = self.spec["lignes"]
+        self.tete, self.lh, self.pad = self.px(g["tete"]), self.px(g["ligne_h"]), self.px(g["pad"])
+        corps = self.px(self._corps_h())
+        self.ph = self.tete + corps + self.pad
+        self.y0 = self.tete + (corps - len(self.lignes) * self.lh) / 2      # haut de la premiere ligne
+        self.irm, dx = None, 0
+        if self.spec.get("dessin") == "irm":
+            self.irm = self._irm()
+            self.irm_y = self.tete + (corps - self.irm["h"]) / 2
+            dx = self.px(C.RATURE_IRM["largeur"])
+        page = _cadre(self.w, self.ph, self.s)
+        d = ImageDraw.Draw(page)
+        _ecrire(d, (self.pad, self.tete * 0.56), T.normaliser(self.spec.get("titre", "")).upper(),
+                self.px(g["titre_px"]), C.INSERT_GRAISSE_FORTE, C.INSERT_GRIS_TEXTE + (255,), "lm")
+        d.line([(self.pad, self.tete), (self.w - self.pad, self.tete)], fill=C.INSERT_GRIS + (255,),
+               width=max(1, self.px(3)))
+        barre = self.px(g["barre"])
+        self.tx = self.pad + dx + barre + self.px(g["barre_ecart"])
+        self.sprites = []
+        for i, l in enumerate(self.lignes):
+            y = self.y0 + i * self.lh
+            # la barre de citation, a la couleur de la rubrique
+            d.rounded_rectangle([self.pad + dx, y + self.lh * 0.24, self.pad + dx + barre, y + self.lh * 0.76],
+                                radius=barre / 2, fill=self.rubrique + (255,))
+            self.sprites.append(self._ligne(l["texte"]))
+        self.fond = _ombre_marge(page, self.s)
+        self.pilule = None
+        if self.spec.get("pilule"):
+            self.pilule = _bulle(self.spec["pilule"], self.px(g["pilule_px"]), self.px(g["pilule_h"]),
+                                 self.px(g["pilule_pad"]), C.INSERT_ROUGE, queue=False)
+
+    def _irm(self):
+        """Le scanner d'IRM vu de cote : le corps de la machine, son pied, et le lit ou le patient est allonge."""
+        g = C.RATURE_IRM
+        H = self.px(g["h"])
+        cw, ch = self.px(g["corps"][0]), self.px(g["corps"][1])
+        tw, th = self.px(g["table"][0]), self.px(g["table"][1])
+        pw, pe, r = self.px(g["patient"][0]), self.px(g["patient"][1]), self.px(g["tete"])
+        fw, fh = self.px(g["pied"][0]), self.px(g["pied"][1])
+        navy = C.NAVY + (255,)
+
+        def corps(d, k):
+            d.rounded_rectangle([0, 0, cw * k - 1, ch * k - 1], radius=cw * k * 0.3, fill=navy)
+            e = cw * k * g["anneau"]
+            d.rounded_rectangle([e, e, cw * k - 1 - e, ch * k - 1 - e], radius=cw * k * 0.2,
+                                fill=_teinte(C.NAVY, 0.2) + (255,))
+            y = ch * k * g["voyant_y"]                    # le voyant de la machine
+            d.ellipse([cw * k / 2 - e * 0.4, y - e * 0.4, cw * k / 2 + e * 0.4, y + e * 0.4],
+                      fill=self.rubrique + (255,))
+
+        def lit(d, k):                                   # le patient, la tete vers la machine
+            d.rounded_rectangle([0, pe * k, tw * k - 1, (pe + th) * k - 1], radius=th * k / 2,
+                                fill=_teinte(C.NAVY, 0.55) + (255,))
+            d.rounded_rectangle([(2 * r + 4) * k, 0, (2 * r + 4 + pw) * k, pe * k], radius=pe * k / 2,
+                                fill=_teinte(self.rubrique, 0.25) + (255,))
+            d.ellipse([0, (pe - 2 * r) * k, 2 * r * k, pe * k], fill=_teinte(C.NAVY, 0.4) + (255,))
+
+        def pied(d, k):
+            d.rounded_rectangle([0, 0, fw * k - 1, fh * k - 1], radius=fh * k * 0.3,
+                                fill=_teinte(C.NAVY, 0.35) + (255,))
+        lit_y = int(H / 2 - pe * 0.7)
+        machine = _net(cw, ch, corps)
+        _ecrire(ImageDraw.Draw(machine), (cw / 2, ch * g["nom_y"]), g["nom"], self.px(g["nom_px"]),
+                C.INSERT_GRAISSE_FORTE, C.BLANC + (255,), "mm")
+        return dict(h=H, w=self.px(g["largeur"]) - self.px(14), corps=machine,
+                    lit=_net(tw, pe + th, lit), pied=_net(fw, fh, pied), corps_y=(H - ch) // 2,
+                    lit_x=cw + self.px(8), lit_y=lit_y, pied_xy=(cw + self.px(10), lit_y + pe + th - 2))
+
+    def _dessin_irm(self, t, p, final):
+        """Le scanner a l'instant t : le lit coulisse dans la machine ; raye (p), il ressort et tout grisaille."""
+        g, m = C.RATURE_IRM, self.irm
+        im = Image.new("RGBA", (m["w"], m["h"]), (0, 0, 0, 0))
+        va = 0.0 if final else 0.5 - 0.5 * math.cos(2 * math.pi * max(0.0, t - self.t0()) / g["cycle"])
+        im.alpha_composite(m["pied"], m["pied_xy"])
+        im.alpha_composite(m["lit"], (int(m["lit_x"] - self.px(g["course"]) * va * (1 - p)), m["lit_y"]))
+        im.alpha_composite(m["corps"], (0, m["corps_y"]))
+        if p > 0:
+            im = Image.blend(im, im.convert("LA").convert("RGBA"), p * g["gris"])
+            im.putalpha(im.getchannel("A").point(lambda v: int(v * (1 - 0.35 * p))))
+        return im
+
+    def _ligne(self, texte):
+        """Les mots en bleu nuit, les memes en gris (une fois rayes), et le trait qui les raye."""
+        g = C.RATURE_GEO
+        texte = T.normaliser(texte)
+        place = self.w - self.tx - self.pad
+        px = self.px(g["texte_px"])
+        while px > self.px(g["texte_px_min"]) and T.largeur(texte, px, C.INSERT_GRAISSE_TEXTE, 0) > place:
+            px -= 1
+        tw, th = int(T.largeur(texte, px, C.INSERT_GRAISSE_TEXTE, 0)) + 4, int(px * 1.5)
+        versions = []
+        for couleur in (C.NAVY, C.INSERT_GRIS_TEXTE):
+            im = Image.new("RGBA", (tw, th), (0, 0, 0, 0))
+            _ecrire(ImageDraw.Draw(im), (0, th / 2), texte, px, C.INSERT_GRAISSE_TEXTE, couleur + (255,), "lm")
+            versions.append(im)
+        ep, deb = self.px(g["trait"]), self.px(g["deborde"])
+        sw, sh = tw + 2 * deb, max(ep * 2, int(px * 0.9))
+        dy = sw * g["pente"] / 2                       # le trait monte un peu, comme a la main
+
+        def dessin(dd, k):
+            a, b = (ep * k, (sh / 2 + dy) * k), ((sw - ep) * k, (sh / 2 - dy) * k)
+            dd.line([a, b], fill=C.INSERT_ROUGE + (255,), width=int(ep * k))
+            for cx, cy in (a, b):
+                dd.ellipse([cx - ep * k / 2, cy - ep * k / 2, cx + ep * k / 2, cy + ep * k / 2],
+                           fill=C.INSERT_ROUGE + (255,))
+        return versions[0], versions[1], _net(sw, sh, dessin)
+
+    def _t(self, i):
+        l = self.lignes[i]
+        precedentes = [j for j in range(i) if self.lignes[j].get("temps", 0) == l.get("temps", 0)]
+        return self.t0(l.get("temps", 0)) + C.INSERT_ENTREE * 0.8 + len(precedentes) * C.RATURE_GEO["decalage"]
+
+    def _t_pilule(self):
+        g = C.RATURE_GEO
+        if "temps_pilule" in self.spec:                 # avec le temps du texte qui la dit
+            return self.t0(self.spec["temps_pilule"]) + C.INSERT_ENTREE * 0.6
+        return max(self._t(i) for i in range(len(self.lignes))) + g["trace"] + g["pilule_delai"]
+
+    def image(self, t, final):
+        g = C.RATURE_GEO
+        k, a = _entree(t, self.t0(), final)
+        if a <= 0:
+            return None
+        cadre = Image.new("RGBA", (self.w + 2 * self.m, self.h + 2 * self.m), (0, 0, 0, 0))
+        cadre.alpha_composite(self.fond)
+        deb = self.px(g["deborde"])
+        if self.irm is not None:
+            p0 = 1.0 if final else T.lisse((t - self._t(0)) / g["trace"])
+            cadre.alpha_composite(self._dessin_irm(t, p0, final), (self.m + self.pad, int(self.m + self.irm_y)))
+        for i, (bleu, gris, trait) in enumerate(self.sprites):
+            p = 1.0 if final else T.lisse((t - self._t(i)) / g["trace"])
+            x, cy = self.m + self.tx, self.m + self.y0 + (i + 0.5) * self.lh
+            T.coller(cadre, bleu, (x, cy - bleu.height / 2), 1 - p)
+            T.coller(cadre, gris, (x, cy - gris.height / 2), p)
+            if p > 0:
+                cadre.alpha_composite(trait.crop((0, 0, max(1, int(trait.width * p)), trait.height)),
+                                      (int(x - deb), int(cy - trait.height / 2)))
+        if self.pilule is not None:
+            kk, aa = _frappe(t, self._t_pilule(), final)
+            if aa > 0:
+                _poser(cadre, self.pilule, self.m + self.w - self.pilule.width / 2 - self.pad / 2,
+                       self.m + self.ph - self.pilule.height * (0.5 - g["pilule_deborde"]), kk, aa, g["pilule_angle"])
+        out = Image.new("RGBA", cadre.size, (0, 0, 0, 0))
+        _poser(out, cadre, cadre.width / 2, cadre.height / 2, k, a)
+        return out
+
+    def sons(self):
+        s = [(self._t(i), "souffle") for i in range(len(self.lignes))]
+        if self.pilule is not None:
+            s.append((self._t_pilule() + C.TAMPON_FRAPPE, "impact"))
+        return s
+
+
+# -------------------------------------------------------------- formulaire
+class Formulaire(_Insert):
+    """Un formulaire et ceux qui peuvent le remplir, en grille : a son temps, chaque case se coche en vert ; une
+    ligne "ferme" se teinte de rouge et recoit un cadenas, qui tremble."""
+
+    def taille_nominale(self):
+        g = C.FORMULAIRE_GEO
+        rangs = -(-len(self.spec["lignes"]) // g["colonnes"])
+        return C.TEXTE_LARGEUR, g["tete"] + g["pad"] + rangs * g["cellule_h"] + (rangs - 1) * g["ecart"] + g["pad"]
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.FORMULAIRE_GEO
+        self.lignes = self.spec["lignes"]
+        self.tete, self.pad, self.ecart = self.px(g["tete"]), self.px(g["pad"]), self.px(g["ecart"])
+        self.cols = g["colonnes"]
+        self.cw = (self.w - 2 * self.pad - (self.cols - 1) * self.ecart) // self.cols
+        self.ch = self.px(g["cellule_h"])
+        self.case = self.px(g["case"])
+        ra = max(4, int(C.INSERT_RAYON * self.s))
+        m = self.m
+        carte = _cadre(self.w, self.h, self.s, marge=m)
+        d = ImageDraw.Draw(carte)
+        d.rounded_rectangle([m, m, m + self.w - 1, m + self.tete + ra], radius=ra, fill=C.NAVY + (255,))
+        d.rectangle([m, m + self.tete, m + self.w - 1, m + self.tete + ra], fill=C.BLANC + (255,))
+        _ecrire(d, (m + self.pad, m + self.tete / 2), self.spec.get("titre", ""), self.px(g["titre_px"]),
+                C.INSERT_GRAISSE_FORTE, C.BLANC + (255,), "lm")
+        self.cellules = [self._cellule(l, False) for l in self.lignes]
+        self.fermees = [self._cellule(l, True) if l.get("ferme") else None for l in self.lignes]
+        for i, im in enumerate(self.cellules):
+            carte.alpha_composite(im, self._xy(i))
+        self.carte = _ombre(carte, self.s)
+        self.coche = _icone_choix(True, self.case, self.px(g["case_trait"]) + 1, self.rubrique)
+        self.cadenas = self._cadenas(self.px(g["cadenas"]))
+
+    def _xy(self, i):
+        col, rang = i % self.cols, i // self.cols
+        return (int(self.m + self.pad + col * (self.cw + self.ecart)),
+                int(self.m + self.tete + self.pad + rang * (self.ch + self.ecart)))
+
+    def _centre_case(self, i):
+        x, y = self._xy(i)
+        return x + self.px(C.FORMULAIRE_GEO["label_x"]) + self.case / 2, y + self.ch / 2
+
+    def _cellule(self, l, ferme):
+        g = C.FORMULAIRE_GEO
+        w, h, case = self.cw, self.ch, self.case
+        fond = _teinte(C.INSERT_ROUGE, g["teinte_ferme"]) if ferme else _teinte(C.NAVY, g["teinte"])
+        x0 = self.px(g["label_x"])
+
+        def dessin(dd, k):
+            dd.rounded_rectangle([0, 0, w * k - 1, h * k - 1], radius=self.px(g["rayon"]) * k, fill=fond + (255,))
+            if not ferme:                                # la case a cocher, vide
+                dd.rounded_rectangle([x0 * k, (h - case) / 2 * k, (x0 + case) * k, (h + case) / 2 * k],
+                                     radius=self.px(g["case_rayon"]) * k, fill=C.BLANC + (255,),
+                                     outline=C.INSERT_GRIS_TEXTE + (255,), width=int(self.px(g["case_trait"]) * k))
+        im = _net(w, h, dessin)
+        x = x0 + case + self.px(g["label_x"])
+        texte = T.normaliser(l["label"])
+        px = self.px(g["label_px"])
+        while px > self.px(g["label_px_min"]) and T.largeur(texte, px, C.INSERT_GRAISSE_TEXTE, 0) > w - x - x0 / 2:
+            px -= 1
+        _ecrire(ImageDraw.Draw(im), (x, h / 2), texte, px, C.INSERT_GRAISSE_TEXTE,
+                (C.INSERT_ROUGE if ferme else C.NAVY) + (255,), "lm")
+        return im
+
+    def _cadenas(self, c):
+        return _cadenas_rouge(c)
+
+    def _t(self, i):
+        l = self.lignes[i]
+        precedentes = [j for j in range(i) if self.lignes[j].get("temps", 0) == l.get("temps", 0)]
+        return self.t0(l.get("temps", 0)) + C.INSERT_ENTREE * 0.7 + len(precedentes) * C.FORMULAIRE_GEO["decalage"]
+
+    def image(self, t, final):
+        g = C.FORMULAIRE_GEO
+        k, a = _entree(t, self.t0(), final)
+        if a <= 0:
+            return None
+        cadre = self.carte.copy()
+        for i, l in enumerate(self.lignes):
+            v = 1.0 if final else (t - self._t(i)) / C.INSERT_ENTREE
+            if v <= 0:
+                continue
+            alpha = 1.0 if final else T.lisse(v * C.INSERT_FONDU)
+            k0 = C.CHOIX_GEO["icone_depart"]
+            kk = k0 + (1 - k0) * (1.0 if final else T.rebond(v))
+            cx, cy = self._centre_case(i)
+            if l.get("ferme"):
+                T.coller(cadre, self.fermees[i], self._xy(i), alpha)
+                amp, delai, duree = g["secousse"]
+                w = 1.0 if final else (t - self._t(i) - delai) / duree
+                angle = amp * math.sin(2 * math.pi * 3 * w) * (1 - w) if 0 < w < 1 else 0.0
+                _poser(cadre, self.cadenas, cx, cy, kk, alpha, angle)
+            else:
+                _poser(cadre, self.coche, cx, cy, kk, alpha)
+        out = Image.new("RGBA", cadre.size, (0, 0, 0, 0))
+        _poser(out, cadre, cadre.width / 2, cadre.height / 2, k, a)
+        return out
+
+    def sons(self):
+        return [(self._t(i), "impact" if l.get("ferme") else "clic") for i, l in enumerate(self.lignes)]
+
+
+# ------------------------------------------------------------------- delai
+class Delai(_Insert):
+    """Un delai qui court : le compteur de jours monte et la piste se remplit ; au temps "temps_fin", un drapeau
+    vert se pose au bout (ce qui arrive a l'echeance) ; au temps "temps_retour", une fleche rouge ramene tout a
+    zero, une pilule pose la question, et le delai repart, en boucle."""
+
+    def taille_nominale(self):
+        return C.TEXTE_LARGEUR, C.DELAI_H
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.DELAI_GEO
+        m = self.m
+        self.pad = self.px(g["pad"])
+        self.jours = int(self.spec["jours"])
+        self.x0, self.x1 = m + self.pad, m + self.w - self.pad
+        self.py, self.pe = m + self.px(g["piste_y"]), self.px(g["piste_h"])
+        L, pe = self.x1 - self.x0, self.pe
+        carte = _cadre(self.w, self.h, self.s, marge=m)
+        _ecrire(ImageDraw.Draw(carte), (self.x0, m + self.pad), T.normaliser(self.spec.get("titre", "")).upper(),
+                self.px(g["titre_px"]), C.INSERT_GRAISSE_FORTE, C.INSERT_GRIS_TEXTE + (255,), "la")
+
+        def piste(couleur):
+            return _net(L, pe, lambda d, k: d.rounded_rectangle([0, 0, L * k - 1, pe * k - 1], radius=pe * k / 2,
+                                                                fill=tuple(couleur) + (255,)))
+        carte.alpha_composite(piste(C.INSERT_GRIS), (int(self.x0), int(self.py)))
+        self.plein = piste(self.rubrique)
+        self.carte = _ombre(carte, self.s)
+        c, tr = self.px(g["curseur"]), self.px(g["curseur_trait"])
+        self.curseur = _net(c, c, lambda d, k: d.ellipse([0, 0, c * k - 1, c * k - 1], fill=C.BLANC + (255,),
+                                                         outline=self.rubrique + (255,), width=int(tr * k)))
+        self.drapeau = self.question = None
+        if self.spec.get("fin"):
+            self.drapeau = _bulle(self.spec["fin"], self.px(g["drapeau_px"]), self.px(g["drapeau_h"]),
+                                  self.px(g["drapeau_pad"]), C.INSERT_VERT, queue=False)
+        if self.spec.get("retour"):
+            self.question = _bulle(self.spec["retour"], self.px(g["question_px"]), self.px(g["question_h"]),
+                                   self.px(g["question_pad"]), C.INSERT_ROUGE, queue=False)
+        self.fleche = self._fleche(L)
+
+    def _fleche(self, L):
+        """La fleche du retour : un arc qui passe sous la piste, de droite a gauche, et remonte a zero."""
+        g = C.DELAI_GEO
+        h, tr = self.px(g["fleche_h"]), self.px(g["fleche_trait"])
+        rouge = C.INSERT_ROUGE + (255,)
+
+        def dessin(d, k):
+            d.arc([tr * k * 2, (tr - h) * k, (L - tr * 2) * k, (h - tr) * k], 0, 180, fill=rouge, width=int(tr * k))
+            x = tr * k * 2.5
+            d.polygon([(x - tr * k * 2, tr * k * 2.6), (x + tr * k * 2, tr * k * 2.6), (x, 0)], fill=rouge)
+        return _net(L, h, dessin)
+
+    def _t_dep(self):
+        return self.t0(self.spec.get("temps", 0)) + C.INSERT_ENTREE * 0.8
+
+    def _t_cle(self, cle):
+        return self.t0(self.spec[cle]) + C.INSERT_ENTREE * 0.5 if cle in self.spec else None
+
+    def _fraction(self, t, final):
+        """Part du delai ecoulee : il court, puis, au retour, revient a zero et repart, en boucle."""
+        g = C.DELAI_GEO
+        tr = self._t_cle("temps_retour")
+        if final:
+            return 1.0 if tr is None else 0.0
+        f = T.lisse((t - self._t_dep()) / g["course"])
+        if tr is None or t < tr:
+            return f
+        tour, phase = divmod(t - tr, g["boucle"])
+        depart = T.lisse((tr - self._t_dep()) / g["course"]) if tour == 0 else 1.0
+        if phase < g["retour"]:
+            return depart * (1 - T.lisse(phase / g["retour"]))
+        return T.lisse((phase - g["retour"]) / g["course"])
+
+    def image(self, t, final):
+        g = C.DELAI_GEO
+        k, a = _entree(t, self.t0(), final)
+        if a <= 0:
+            return None
+        cadre = self.carte.copy()
+        d = ImageDraw.Draw(cadre)
+        f, L = self._fraction(t, final), self.x1 - self.x0
+        n = int(round(f * self.jours))
+        base, px = self.m + self.px(g["compteur_y"]), self.px(g["compteur_px"])
+        _ecrire(d, (self.x0, base), str(n), px, C.INSERT_GRAISSE_FORTE, C.NAVY + (255,), "ls")
+        _ecrire(d, (self.x0 + T.largeur(str(n), px, C.INSERT_GRAISSE_FORTE, 0) + self.px(g["unite_ecart"]), base),
+                "jours" if n > 1 else "jour", self.px(g["unite_px"]), C.INSERT_GRAISSE_TEXTE,
+                C.INSERT_GRIS_TEXTE + (255,), "ls")
+        if L * f > self.pe:
+            cadre.alpha_composite(self.plein.crop((0, 0, int(L * f), self.pe)), (int(self.x0), int(self.py)))
+        _poser(cadre, self.curseur, self.x0 + max(self.pe / 2, min(L - self.pe / 2, L * f)), self.py + self.pe / 2)
+        if self.drapeau is not None:
+            tf = self._t_cle("temps_fin")
+            kk, aa = _frappe(t, tf if tf is not None else self._t_dep() + g["course"], final)
+            if aa > 0:
+                _poser(cadre, self.drapeau, self.x1 - self.drapeau.width / 2,
+                       self.py - self.px(g["drapeau_dy"]) - self.drapeau.height / 2, kk, aa, C.PILULE_GEO["angle"])
+        tr = self._t_cle("temps_retour")
+        if tr is not None:
+            p = 1.0 if final else T.lisse((t - tr) / g["retour"])
+            y = self.py + self.pe + self.px(g["fleche_dy"])
+            if p > 0:
+                x = int(L * (1 - p))
+                cadre.alpha_composite(self.fleche.crop((x, 0, L, self.fleche.height)), (int(self.x0) + x, int(y)))
+            if self.question is not None:
+                kk, aa = _frappe(t, tr + g["retour"] * 0.7, final)
+                if aa > 0:
+                    _poser(cadre, self.question, self.m + self.w / 2, y + self.fleche.height * 0.62, kk, aa,
+                           C.PILULE_GEO["angle"])
+        out = Image.new("RGBA", cadre.size, (0, 0, 0, 0))
+        _poser(out, cadre, cadre.width / 2, cadre.height / 2, k, a)
+        return out
+
+    def sons(self):
+        s = [(self._t_dep(), "compteur")]
+        tf, tr = self._t_cle("temps_fin"), self._t_cle("temps_retour")
+        if self.drapeau is not None and tf is not None:
+            s.append((tf + C.TAMPON_FRAPPE, "impact"))
+        if tr is not None:
+            s += [(tr, "souffle"), (tr + C.DELAI_GEO["retour"] * 0.7 + C.TAMPON_FRAPPE, "impact")]
+        return s
+
+
+# ------------------------------------------------------------------- jauge
+class Jauge(_Insert):
+    """Un cadran : chaque ticket qui tombe a gauche (un arret de travail) fait monter l'aiguille vers la zone
+    rouge ; arrivee, elle tremble. Aucun chiffre : le cadran montre un mecanisme."""
+
+    def taille_nominale(self):
+        return C.TEXTE_LARGEUR, C.JAUGE_H
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.JAUGE_GEO
+        m = self.m
+        self.pad = self.px(g["pad"])
+        self.tickets = self.spec["tickets"]
+        carte = _cadre(self.w, self.h, self.s, marge=m)
+        _ecrire(ImageDraw.Draw(carte), (m + self.pad, m + self.pad), T.normaliser(self.spec.get("titre", "")).upper(),
+                self.px(g["titre_px"]), C.INSERT_GRAISSE_FORTE, C.INSERT_GRIS_TEXTE + (255,), "la")
+        R, e = self.px(g["rayon"]), self.px(g["epaisseur"])
+        self.cx, self.cy = m + self.w * g["centre"][0], m + self.px(g["centre"][1])
+        a0, a1 = g["angles"]
+        ar = a0 + (a1 - a0) * g["zone_rouge"]
+
+        def cadran(d, k):
+            boite = [0, 0, 2 * R * k - 1, 2 * R * k - 1]
+            d.arc(boite, a0, a1, fill=C.INSERT_GRIS + (255,), width=int(e * k))
+            d.arc(boite, ar, a1, fill=C.INSERT_ROUGE + (255,), width=int(e * k))
+        carte.alpha_composite(_net(2 * R, 2 * R, cadran), (int(self.cx - R), int(self.cy - R)))
+        self.carte = _ombre(carte, self.s)
+        al, ae, mo = self.px(g["aiguille"][0]), self.px(g["aiguille"][1]), self.px(g["moyeu"])
+
+        def aiguille(d, k):                              # elle pointe a droite ; le moyeu est au centre de l'image
+            c = al * k
+            d.polygon([(c, c - ae * k / 2), (2 * c - 2, c), (c, c + ae * k / 2)], fill=C.NAVY + (255,))
+            d.ellipse([c - mo * k, c - mo * k, c + mo * k, c + mo * k], fill=C.NAVY + (255,))
+            d.ellipse([c - mo * k * 0.4, c - mo * k * 0.4, c + mo * k * 0.4, c + mo * k * 0.4], fill=C.BLANC + (255,))
+        self.aiguille = _net(2 * al, 2 * al, aiguille)
+        self.sprites = [self._ticket(tk) for tk in self.tickets]
+
+    def _ticket(self, tk):
+        g = C.JAUGE_GEO
+        w, h = self.px(g["ticket"][0]), self.px(g["ticket"][1])
+        ton = _ton(tk, self.rubrique)
+
+        def dessin(d, k):
+            d.rounded_rectangle([0, 0, w * k - 1, h * k - 1], radius=h * k / 2, fill=_teinte(ton, 0.86) + (255,))
+            r = h * k * 0.2
+            d.ellipse([h * k * 0.5 - r, h * k / 2 - r, h * k * 0.5 + r, h * k / 2 + r], fill=tuple(ton) + (255,))
+        im = _net(w, h, dessin)
+        _ecrire(ImageDraw.Draw(im), (h * 0.95, h / 2), tk["label"], self.px(g["ticket_px"]), C.INSERT_GRAISSE_TEXTE,
+                C.NAVY + (255,), "lm")
+        return im
+
+    def _t(self, i):
+        tps = self.tickets[i].get("temps", 0)
+        avant = [j for j in range(i) if self.tickets[j].get("temps", 0) == tps]
+        return self.t0(tps) + C.INSERT_ENTREE * 0.7 + len(avant) * C.JAUGE_GEO["pas_duree"]
+
+    def _pos(self, t, final):
+        """Position de l'aiguille sur le cadran, de 0 a 1 : un pas par ticket pose, puis elle tremble."""
+        g = C.JAUGE_GEO
+        if final:
+            return g["cible"]
+        n = len(self.tickets)
+        p = g["depart"]
+        for i in range(n):
+            p += (g["cible"] - g["depart"]) / n * T.rebond((t - self._t(i) - C.INSERT_ENTREE * 0.6) / g["pas_duree"])
+        fin = self._t(n - 1) + C.INSERT_ENTREE * 0.6 + g["pas_duree"]
+        if t > fin:
+            amp, freq = g["tremble"]
+            p += amp / 100 * math.sin(2 * math.pi * freq * (t - fin))
+        return p
+
+    def image(self, t, final):
+        g = C.JAUGE_GEO
+        k, a = _entree(t, self.t0(), final)
+        if a <= 0:
+            return None
+        cadre = self.carte.copy()
+        pas = self.px(g["ticket"][1]) + self.px(g["ticket_ecart"])
+        for i, im in enumerate(self.sprites):
+            u = 1.0 if final else (t - self._t(i)) / C.INSERT_ENTREE
+            if u <= 0:
+                continue
+            dy = 0 if final else self.px(g["chute"]) * (1 - T.lisse(u))
+            T.coller(cadre, im, (self.m + self.pad, self.m + self.px(g["ticket_y"]) + i * pas - dy),
+                     1.0 if final else T.lisse(u * C.INSERT_FONDU))
+        a0, a1 = g["angles"]
+        _poser(cadre, self.aiguille, self.cx, self.cy, 1.0, 1.0, -(a0 + (a1 - a0) * self._pos(t, final)))
+        out = Image.new("RGBA", cadre.size, (0, 0, 0, 0))
+        _poser(out, cadre, cadre.width / 2, cadre.height / 2, k, a)
+        return out
+
+    def sons(self):
+        return [(self._t(i) + C.INSERT_ENTREE * 0.6, "clic") for i in range(len(self.tickets))]
+
+
+# ----------------------------------------------------------------- dossier
+class Dossier(_Insert):
+    """Le dossier d'un patient : ses notes sortent de la chemise en eventail ; au temps "temps_question", un « ? »
+    va et vient au-dessus d'elles, et la note qu'il survole se souleve (laquelle ?)."""
+
+    def taille_nominale(self):
+        return C.TEXTE_LARGEUR, C.DOSSIER_H
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.DOSSIER_GEO
+        cw, ch = self.px(g["chemise"][0]), self.px(g["chemise"][1])
+        ow, oh, ra = self.px(g["onglet"][0]), self.px(g["onglet"][1]), self.px(g["rayon"])
+        self.cx, self.haut = self.m + self.w / 2, self.m + self.h - ch
+        self.cw, self.ch, self.oh, self.rh = cw, ch, oh, int(ch * g["rabat"])
+        fonce, clair = _teinte(C.NAVY, 0.12) + (255,), _teinte(C.NAVY, 0.32) + (255,)
+
+        def dos(d, k):
+            d.rounded_rectangle([0, 0, ow * k, (oh + 2 * ra) * k], radius=ra * k, fill=fonce)
+            d.rounded_rectangle([0, oh * k, cw * k - 1, (oh + ch) * k - 1], radius=ra * k, fill=fonce)
+        self.dos = _net(cw, oh + ch, dos)
+        rh = self.rh
+        rabat = _net(cw, rh, lambda d, k: d.rounded_rectangle([0, 0, cw * k - 1, rh * k - 1], radius=ra * k, fill=clair))
+        _ecrire(ImageDraw.Draw(rabat), (cw / 2, rh / 2), self.spec.get("titre", ""), self.px(g["titre_px"]),
+                C.INSERT_GRAISSE_FORTE, C.BLANC + (255,), "mm")
+        self.rabat = _ombre_marge(rabat, self.s)
+        self.note = _ombre_marge(self._note(), self.s)
+        self.badge = _icone_choix(None, self.px(g["badge"]), self.px(C.CHOIX_GEO["trait"]), self.rubrique)
+
+    def _note(self):
+        g = C.DOSSIER_GEO
+        w, h, pad = self.px(g["note"][0]), self.px(g["note"][1]), self.px(g["note_pad"])
+        dw, dh, lh = self.px(g["date"][0]), self.px(g["date"][1]), self.px(g["ligne_h"])
+
+        def dessin(d, k):
+            d.rounded_rectangle([0, 0, w * k - 1, h * k - 1], radius=self.px(g["note_rayon"]) * k, fill=C.BLANC + (255,),
+                                outline=C.INSERT_GRIS + (255,), width=int(max(1, self.px(2)) * k))
+            d.rounded_rectangle([pad * k, pad * k, (pad + dw) * k, (pad + dh) * k], radius=dh * k / 2,
+                                fill=_teinte(self.rubrique, 0.45) + (255,))
+            for i, frac in enumerate(g["lignes"]):
+                y = (pad + dh + self.px(g["date_ecart"]) + i * self.px(g["ligne_pas"])) * k
+                d.rounded_rectangle([pad * k, y, (pad + (w - 2 * pad) * frac) * k, y + lh * k], radius=lh * k / 2,
+                                    fill=C.INSERT_GRIS + (255,))
+        return _net(w, h, dessin)
+
+    def _t_question(self):
+        return self.t0(self.spec["temps_question"]) + C.INSERT_ENTREE * 0.5 if "temps_question" in self.spec else None
+
+    def image(self, t, final):
+        g = C.DOSSIER_GEO
+        k, a = _entree(t, self.t0(), final)
+        if a <= 0:
+            return None
+        cadre = Image.new("RGBA", (self.w + 2 * self.m, self.h + 2 * self.m), (0, 0, 0, 0))
+        cadre.alpha_composite(self.dos, (int(self.cx - self.cw / 2), int(self.haut - self.oh)))
+        tq, ex = self._t_question(), self.px(g["ecart_x"])
+        bx = None                                        # ou est le « ? », par rapport au centre
+        if tq is not None and (final or t >= tq):
+            bx = 0.0 if final else ex * math.sin(2 * math.pi * g["va_et_vient"] * (t - tq))
+        y0 = self.haut + self.px(g["note_y"])
+        for i, angle in enumerate(g["eventail"]):
+            u = 1.0 if final else T.lisse((t - self.t0() - C.INSERT_ENTREE * 0.6 - i * g["decalage"]) / g["duree"])
+            dx = (i - (len(g["eventail"]) - 1) / 2) * ex
+            y = y0 - self.px(g["sortie"]) * u
+            if bx is not None:                           # la note que le « ? » survole se souleve
+                y -= self.px(g["levee"]) * max(0.0, 1 - abs(bx - dx) / ex)
+            _poser(cadre, self.note, self.cx + dx * u, y, 1.0, 1.0, -angle * u)
+        cadre.alpha_composite(self.rabat, (int(self.cx - self.cw / 2 - self.m),
+                                           int(self.haut + self.ch - self.rh - self.m)))
+        if bx is not None:
+            kk, aa = _entree(t, tq, final)
+            amp, freq = g["balance"]
+            _poser(cadre, self.badge, self.cx + bx,
+                   y0 - self.px(g["sortie"]) - self.px(g["note"][1]) / 2 - self.px(g["levee"]) + self.px(g["badge"]) * 0.2,
+                   kk, aa, 0.0 if final else amp * math.sin(2 * math.pi * freq * (t - tq)))
+        out = Image.new("RGBA", cadre.size, (0, 0, 0, 0))
+        _poser(out, cadre, cadre.width / 2, cadre.height / 2, k, a)
+        return out
+
+    def sons(self):
+        g = C.DOSSIER_GEO
+        s = [(self.t0() + C.INSERT_ENTREE * 0.6 + i * g["decalage"], "souffle") for i in range(len(g["eventail"]))]
+        if self._t_question() is not None:
+            s.append((self._t_question(), "clic"))
+        return s
+
+
+# ---------------------------------------------------------------- addition
+class Addition(_Insert):
+    """Des boites de medicament qui tombent une a une dans leur grille ; a droite, le total grimpe a chaque boite et
+    fait une bosse. "total" remplace le nombre calcule, une fois toutes les boites posees (l'arrondi de l'article)."""
+
+    def taille_nominale(self):
+        return C.TEXTE_LARGEUR, C.ADDITION_H
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.ADDITION_GEO
+        m = self.m
+        self.pad = self.px(g["pad"])
+        self.n, self.prix = int(self.spec["boites"]), float(self.spec["prix"])
+        carte = _cadre(self.w, self.h, self.s, marge=m)
+        d = ImageDraw.Draw(carte)
+        _ecrire(d, (m + self.pad, m + self.pad), T.normaliser(self.spec.get("titre", "")).upper(),
+                self.px(g["titre_px"]), C.INSERT_GRAISSE_FORTE, C.INSERT_GRIS_TEXTE + (255,), "la")
+        self.tx = m + self.w * g["total_x"]
+        _ecrire(d, (self.tx, m + self.px(g["legende_y"])), self.spec.get("legende", ""), self.px(g["legende_px"]),
+                C.INSERT_GRAISSE_TEXTE, C.INSERT_GRIS_TEXTE + (255,), "mm")
+        self.carte = _ombre(carte, self.s)
+        self.boite = self._boite()
+
+    def _boite(self):
+        g = C.ADDITION_GEO
+        w, h, b = self.px(g["boite"][0]), self.px(g["boite"][1]), self.px(g["bande"])
+        rub, pale = self.rubrique + (255,), _teinte(self.rubrique, 0.84) + (255,)
+
+        def dessin(d, k):
+            ra = w * k * 0.16
+            d.rounded_rectangle([0, 0, w * k - 1, h * k - 1], radius=ra, fill=pale)
+            d.rounded_rectangle([0, 0, w * k - 1, b * k + ra], radius=ra, fill=rub)
+            d.rectangle([0, b * k, w * k - 1, b * k + ra], fill=pale)
+            cx, cy, L, e = w * k / 2, (b + (h - b) * 0.52) * k, w * k * 0.58, (h - b) * k * 0.26   # une gelule
+            d.rounded_rectangle([cx - L / 2, cy - e / 2, cx + L / 2, cy + e / 2], radius=e / 2, fill=C.BLANC + (255,))
+            d.rounded_rectangle([cx, cy - e / 2, cx + L / 2, cy + e / 2], radius=e / 2, fill=rub)
+            d.rectangle([cx, cy - e / 2, cx + e / 2, cy + e / 2], fill=rub)
+        return _net(w, h, dessin)
+
+    def _t(self, i):
+        return self.t0(self.spec.get("temps", 0)) + C.INSERT_ENTREE * 0.7 + i * C.ADDITION_GEO["cadence"]
+
+    def image(self, t, final):
+        g = C.ADDITION_GEO
+        k, a = _entree(t, self.t0(), final)
+        if a <= 0:
+            return None
+        cadre = self.carte.copy()
+        bw, bh, ec = self.px(g["boite"][0]), self.px(g["boite"][1]), self.px(g["ecart"])
+        somme, derniere = 0.0, None
+        for i in range(self.n):
+            u = 1.0 if final else (t - self._t(i)) / g["duree"]
+            if u <= 0:
+                continue
+            col, rang = i % g["colonnes"], i // g["colonnes"]
+            chute = 0 if final else self.px(g["chute"]) * (1 - T.lisse(u))
+            T.coller(cadre, self.boite, (self.m + self.pad + col * (bw + ec),
+                                         self.m + self.px(g["grille_y"]) + rang * (bh + ec) - chute),
+                     1.0 if final else T.lisse(u * 2))
+            somme += self.prix * min(1.0, u)
+            if u >= 1:
+                derniere = i
+        complet = final or derniere == self.n - 1
+        texte = T.normaliser(self.spec["total"] if complet and self.spec.get("total")
+                             else f"{_nombre(round(somme), 0)}{NBSP}€")
+        kk = 1.0
+        if not final and derniere is not None:           # le total fait une bosse a chaque boite posee
+            dt, (amp, duree) = t - self._t(derniere) - g["duree"], g["bosse"]
+            if 0 <= dt < duree:
+                kk = 1 + amp * (1 - dt / duree)
+        px = self.px(g["total_px"])
+        tw = int(T.largeur(texte, px, C.INSERT_GRAISSE_FORTE, 0)) + 8
+        im = Image.new("RGBA", (tw, int(px * 1.3)), (0, 0, 0, 0))
+        _ecrire(ImageDraw.Draw(im), (tw / 2, px * 0.65), texte, px, C.INSERT_GRAISSE_FORTE, C.INSERT_ROUGE + (255,), "mm")
+        _poser(cadre, im, self.tx, self.m + self.px(g["total_y"]), kk)
+        out = Image.new("RGBA", cadre.size, (0, 0, 0, 0))
+        _poser(out, cadre, cadre.width / 2, cadre.height / 2, k, a)
+        return out
+
+    def sons(self):
+        # un clic a chaque boite posee (le total fait sa bosse au meme instant), l'impact sur la derniere
+        # (review Codex du 13/11/2026 : les boites du milieu tombaient sans bruit)
+        pose = C.ADDITION_GEO["duree"]
+        return [(self._t(i) + pose, "impact" if i == self.n - 1 else "clic") for i in range(self.n)]
+
+
+# ------------------------------------------------------------------ renvoi
+class Renvoi(_Insert):
+    """Un patient qu'on renvoie de l'un a l'autre : son jeton saute de station en station, sa trace en pointilles
+    derriere lui ; la station "question" le recoit avec un « ? » qui se balance."""
+
+    def taille_nominale(self):
+        return C.TEXTE_LARGEUR, C.RENVOI_H
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.RENVOI_GEO
+        self.st = self.spec["etapes"]
+        n = len(self.st)
+        self.sw, self.sh = self.px(g["station"][0]), self.px(g["station"][1])
+        ec = self.px(g["ecart"])
+        x0 = self.m + (self.w - n * self.sw - (n - 1) * ec) / 2
+        self.sx = [x0 + i * (self.sw + ec) + self.sw / 2 for i in range(n)]
+        self.sy = self.m + self.px(g["station_y"])
+        self.cartes = [self._station(s) for s in self.st]
+        j = self.px(g["jeton"])
+
+        def jeton(d, k):                                 # un rond a la couleur de la rubrique, une silhouette blanche
+            J = j * k
+            d.ellipse([0, 0, J - 1, J - 1], fill=self.rubrique + (255,))
+            d.ellipse([J * 0.36, J * 0.18, J * 0.64, J * 0.46], fill=C.BLANC + (255,))
+            d.pieslice([J * 0.22, J * 0.52, J * 0.78, J * 1.08], 180, 360, fill=C.BLANC + (255,))
+        self.jeton = _ombre_marge(_net(j, j, jeton), self.s)
+        self.badge = _icone_choix(None, int(j * 0.62), max(2, self.px(C.CHOIX_GEO["trait"]) - 1), C.INSERT_ROUGE)
+
+    def _station(self, s):
+        g = C.RENVOI_GEO
+        w, h, question = self.sw, self.sh, s.get("question")
+        fond = (_teinte(C.INSERT_ROUGE, g["teinte"]) if question else C.BLANC) + (255,)
+        im = _net(w, h, lambda d, k: d.rounded_rectangle([0, 0, w * k - 1, h * k - 1], radius=self.px(g["rayon"]) * k,
+                                                         fill=fond))
+        texte, px = T.normaliser(s["label"]), self.px(g["label_px"])
+        while px > self.px(g["label_px_min"]) and \
+                T.largeur(texte, px, C.INSERT_GRAISSE_FORTE, 0) > w - 2 * self.px(g["pad"]):
+            px -= 1
+        _ecrire(ImageDraw.Draw(im), (w / 2, h * 0.6), texte, px, C.INSERT_GRAISSE_FORTE,
+                (C.INSERT_ROUGE if question else C.NAVY) + (255,), "mm")
+        return _ombre_marge(im, self.s)
+
+    def _t(self, i):
+        """Depart du saut vers la station i (i >= 1)."""
+        g = C.RENVOI_GEO
+        tps = self.st[i].get("temps", 0)
+        avant = [j for j in range(1, i) if self.st[j].get("temps", 0) == tps]
+        return self.t0(tps) + C.INSERT_ENTREE * 0.9 + len(avant) * (g["duree"] + g["attente"])
+
+    def image(self, t, final):
+        g = C.RENVOI_GEO
+        k, a = _entree(t, self.t0(self.spec.get("temps", 0)), final)
+        if a <= 0:
+            return None
+        cadre = Image.new("RGBA", (self.w + 2 * self.m, self.h + 2 * self.m), (0, 0, 0, 0))
+        n, saut = len(self.st), self.px(g["saut"])
+        base = self.sy - self.px(g["jeton"]) * 0.3       # le jeton est pose sur le bord de la station
+        for i in range(n):
+            kk = 1.0
+            if i >= 1 and not final:                     # la station fait une bosse quand le jeton s'y pose
+                dt, (amp, duree) = t - self._t(i) - g["duree"], g["bosse"]
+                if 0 <= dt < duree:
+                    kk = 1 + amp * (1 - dt / duree)
+            _poser(cadre, self.cartes[i], self.sx[i], self.sy + self.sh / 2, kk)
+        d = ImageDraw.Draw(cadre)
+        jx, jy, arrive = self.sx[0], base, 0
+        points, rp = g["point"][0], self.px(g["point"][1]) / 2
+        for i in range(1, n):
+            u = 1.0 if final else (t - self._t(i)) / g["duree"]
+            if u <= 0:
+                break
+            u = min(1.0, u)
+            for q in range(1, points):                   # la trace : des points le long du saut, jusqu'au jeton
+                v = q / points
+                if v > u:
+                    break
+                x = self.sx[i - 1] + (self.sx[i] - self.sx[i - 1]) * v
+                y = base - saut * 4 * v * (1 - v)
+                d.ellipse([x - rp, y - rp, x + rp, y + rp], fill=C.INSERT_GRIS_TEXTE + (255,))
+            jx = self.sx[i - 1] + (self.sx[i] - self.sx[i - 1]) * u
+            jy = base - saut * 4 * u * (1 - u)
+            if u >= 1:
+                arrive = i
+        question = self.st[-1].get("question") and (final or arrive == n - 1)
+        tq = self._t(n - 1) + g["duree"]
+        amp, freq = g["balance"]
+        angle = amp * math.sin(2 * math.pi * freq * (t - tq)) if question and not final else 0.0
+        _poser(cadre, self.jeton, jx, jy, 1.0, 1.0, angle)
+        if question:
+            kq, aq = _entree(t, tq, final)
+            _poser(cadre, self.badge, jx + self.px(g["jeton"]) * 0.44, jy - self.px(g["jeton"]) * 0.44, kq, aq, angle)
+        out = Image.new("RGBA", cadre.size, (0, 0, 0, 0))
+        _poser(out, cadre, cadre.width / 2, cadre.height / 2, k, a)
+        return out
+
+    def sons(self):
+        g = C.RENVOI_GEO
+        return [x for i in range(1, len(self.st)) for x in ((self._t(i), "souffle"), (self._t(i) + g["duree"], "clic"))]
+
+
+# ----------------------------------------------------------------- guichet
+class Guichet(_Insert):
+    """Un guichet : derriere la vitre, le medecin ; un formulaire glisse vers lui, bute sur un cadenas et repart,
+    en boucle. Il est au guichet d'une regle qu'il ne peut pas appliquer."""
+
+    def taille_nominale(self):
+        return C.TEXTE_LARGEUR, C.GUICHET_H
+
+    def __init__(self, *a):
+        super().__init__(*a)
+        g = C.GUICHET_GEO
+        cw, ch = self.px(g["cadre"][0]), self.px(g["cadre"][1])
+        mo, eh, tb = self.px(g["montant"]), self.px(g["enseigne_h"]), self.px(g["tablette"])
+        pw, ph = self.px(g["personnage"][0]), self.px(g["personnage"][1])
+
+        def fenetre(d, k):
+            d.rounded_rectangle([0, 0, cw * k - 1, ch * k - 1], radius=mo * k, fill=C.NAVY + (255,))
+            d.rectangle([mo * k, eh * k, (cw - mo) * k, (ch - tb) * k],
+                        fill=_teinte(self.rubrique, g["vitre_teinte"]) + (255,))
+        im = _net(cw, ch, fenetre)
+        vitre = im.crop((mo, eh, cw - mo, ch - tb))      # le medecin, derriere la vitre, coupe par la tablette
+        vitre.alpha_composite(_personnage(pw, ph, _teinte(C.NAVY, 0.35)),
+                              ((cw - 2 * mo - pw) // 2, (ch - tb - eh) - int(ph * 0.92)))
+        im.paste(vitre, (mo, eh))
+        _ecrire(ImageDraw.Draw(im), (cw / 2, eh / 2), T.normaliser(self.spec.get("enseigne", "")).upper(),
+                self.px(g["enseigne_px"]), C.INSERT_GRAISSE_FORTE, C.BLANC + (255,), "mm")
+        self.fenetre = _ombre_marge(im, self.s)
+        self.gx, self.gy, self.cw, self.ch = self.m + self.px(g["pad"]), self.m + (self.h - ch) / 2, cw, ch
+        self.papier = _ombre_marge(self._papier(), self.s)
+        c = self.px(g["cadenas"])
+        rond = _net(c, c, lambda d, k: d.ellipse([0, 0, c * k - 1, c * k - 1], fill=C.BLANC + (255,)))
+        cad = _cadenas_rouge(int(c * 0.6))
+        rond.alpha_composite(cad, ((c - cad.width) // 2, (c - cad.height) // 2))
+        self.cadenas = _ombre_marge(rond, self.s)
+
+    def _papier(self):
+        g = C.GUICHET_GEO
+        w, h, pad = self.px(g["papier"][0]), self.px(g["papier"][1]), self.px(g["papier_pad"])
+        px, lh = self.px(g["papier_px"]), self.px(g["ligne_h"])
+
+        def dessin(d, k):
+            d.rounded_rectangle([0, 0, w * k - 1, h * k - 1], radius=self.px(g["papier_rayon"]) * k, fill=C.BLANC + (255,))
+            for i, frac in enumerate(g["lignes"]):
+                y = (pad + px * 1.8 + i * self.px(g["ligne_pas"])) * k
+                d.rounded_rectangle([pad * k, y, (pad + (w - 2 * pad) * frac) * k, y + lh * k], radius=lh * k / 2,
+                                    fill=C.INSERT_GRIS + (255,))
+        im = _net(w, h, dessin)
+        _ecrire(ImageDraw.Draw(im), (pad, pad), self.spec.get("papier", ""), px, C.INSERT_GRAISSE_FORTE,
+                C.NAVY + (255,), "la")
+        return im
+
+    def _t_depart(self):
+        return self.t0(self.spec.get("temps", 0)) + C.INSERT_ENTREE
+
+    def image(self, t, final):
+        g = C.GUICHET_GEO
+        k, a = _entree(t, self.t0(), final)
+        if a <= 0:
+            return None
+        cadre = Image.new("RGBA", (self.w + 2 * self.m, self.h + 2 * self.m), (0, 0, 0, 0))
+        _poser(cadre, self.fenetre, self.gx + self.cw / 2, self.gy + self.ch / 2)
+        ts, dep = self._t_depart(), self.px(g["depart"])
+        dx, angle = (0.0, 0.0) if final else (dep, 0.0)
+        if not final and t >= ts:
+            u = ((t - ts) % g["cycle"]) / g["cycle"]
+            if u < g["aller"]:
+                dx = dep * (1 - (u / g["aller"]) ** 2)    # le formulaire accelere vers le guichet
+            else:
+                dx = dep * T.lisse((u - g["aller"]) / (1 - g["aller"]) * 1.5)   # il bute, et repart
+                ti, (amp, duree) = (u - g["aller"]) * g["cycle"], g["secousse"]
+                if ti < duree:
+                    angle = amp * math.sin(2 * math.pi * 5 * ti) * (1 - ti / duree)
+        cy = self.gy + self.ch * 0.56
+        x0 = self.gx + self.cw + self.px(g["butee"])
+        _poser(cadre, self.papier, x0 + dx + self.px(g["papier"][0]) / 2, cy, 1.0, 1.0, -g["penche"] * dx / dep)
+        _poser(cadre, self.cadenas, self.gx + self.cw + self.px(g["butee"]) * 0.35, cy, 1.0, 1.0, angle)
+        out = Image.new("RGBA", cadre.size, (0, 0, 0, 0))
+        _poser(out, cadre, cadre.width / 2, cadre.height / 2, k, a)
+        return out
+
+    def sons(self):
+        # un impact a chaque fois que le formulaire bute, jusqu'a la fin de la scene (il en sonnait deux, puis le
+        # mouvement continuait sans bruit : review Codex du 13/11/2026)
+        g = C.GUICHET_GEO
+        out, i = [], 0
+        while self._t_depart() + (i + g["aller"]) * g["cycle"] < self.fin:
+            out.append((self._t_depart() + (i + g["aller"]) * g["cycle"], "impact"))
+            i += 1
+        return out
+
+
 TYPES = {"verrou": Verrou, "calendrier": Calendrier, "barres": Barres, "choix": Choix,
          "tampon": Tampon, "circuit": Circuit, "duel": Duel, "frise": Frise, "frigo": Frigo,
          "ticket": Ticket, "appel": Appel, "loupe": Loupe, "calcul": Calcul, "ages": Ages,
@@ -3681,7 +4599,8 @@ TYPES = {"verrou": Verrou, "calendrier": Calendrier, "barres": Barres, "choix": 
          "prix": Prix, "carte": Carte, "compteur": Compteur, "bouclier": Bouclier,
          "departements": Departements, "ordonnance": Ordonnance, "sablier": Sablier, "pilule": Pilule,
          "pharmacie": Pharmacie, "messagerie": Messagerie, "lettre": Lettre, "associes": Associes,
-         "plaques": Plaques, "motifs": Motifs}
+         "plaques": Plaques, "motifs": Motifs, "rature": Rature, "formulaire": Formulaire, "delai": Delai,
+         "jauge": Jauge, "dossier": Dossier, "addition": Addition, "renvoi": Renvoi, "guichet": Guichet}
 
 
 def inserts(ep, scenes, ouverture=None):

@@ -1,0 +1,79 @@
+{
+  "slug": "tdah-xurta-tentin-pub",
+  "date": "2026-11-10",
+  "rubrique": "clinique",
+  "label": "TDAH : Xurta et Tentin",
+  "sous_titre": "Xurta remboursé : *jusqu’à 384 €* pour votre patient ?",
+  "appel": "Nos 5 recommandations :",
+  "voix_off": "femme_jeune",
+  "badge": "Médecins généralistes",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "son_limite_db": -4.0,
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "pill blister pack hands"
+    },
+    {
+      "duree": 11.0,
+      "fichier": "B1.mp4",
+      "requete": "euro coins wallet hands",
+      "texte": "Jusqu’à *384 €* pour un patient déjà traité par Xurta. | S’il ne revoit son spécialiste que *dans 1 an*. | 12 boîtes plein tarif : le *calcul du Cercle*.",
+      "voix": "[surprised] Médecins généralistes : jusqu’à trois cent quatre-vingt-quatre euros ! C’est ce qu’un patient déjà traité par Xurta vingt milligrammes peut payer, | s’il ne revoit son spécialiste que dans un an. | Douze boîtes, plein tarif : c’est le calcul du Cercle.",
+      "insert": {
+        "type": "addition",
+        "carre": false,
+        "titre": "12 boîtes de Xurta 20 mg",
+        "boites": 12,
+        "prix": 31.96,
+        "total": "384 €",
+        "legende": "plein tarif"
+      }
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B2.mp4",
+      "requete": "page : https://www.ameli.fr/medecin/exercice-liberal/regles-de-prescription-et-formalites/psychostimulant-amphetaminique-prescription-tdah",
+      "texte": "Pourtant, Xurta et Tentin sont *remboursables*. | Mais seulement avec *un formulaire*… | que vous ne pouvez *pas remplir*.",
+      "voix": "[incredulous] Pourtant, depuis novembre, Xurta et Tentin, deux traitements du T.D.A.H., sont remboursables ! | Mais seulement avec un formulaire… | [serious] que vous ne pouvez pas remplir.",
+      "insert": [
+        {
+          "type": "pilule",
+          "texte": "Formulaire exigé",
+          "temps": 1
+        },
+        {
+          "type": "pilule",
+          "texte": "Remboursables depuis novembre",
+          "ton": "vert",
+          "temps": 0
+        }
+      ]
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B3.mp4",
+      "requete": "closed door office corridor",
+      "texte": "Selon nous, vous devenez *le guichet*… | d’une règle que vous ne pouvez *pas appliquer*.",
+      "voix": "[serious] Selon nous, vous devenez le guichet… | d’une règle que vous n’avez pas écrite, et que vous ne pouvez pas appliquer.",
+      "insert": {
+        "type": "guichet",
+        "enseigne": "Généraliste",
+        "papier": "Formulaire"
+      }
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B4.mp4",
+      "requete": "hands typing laptop bright desk",
+      "texte": "Et si le justificatif manque, faut-il écrire *« NR »* ? | Notre réponse et nos *5 recommandations* sont sur le site.",
+      "voix": "[warm] Et quand le justificatif manque, faut-il écrire « non remboursable » ? | Notre réponse, et nos cinq recommandations, sont sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 5
+      }
+    }
+  ]
+}

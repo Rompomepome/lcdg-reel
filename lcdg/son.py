@@ -2,7 +2,7 @@
 Bande son du reel : voix off, musique de fond et bruitages cales sur le motion.
 
 La musique s'efface sous la voix (compression declenchee par la voix) et suit la duree
-du reel. Les bruitages tombent sur les instants des animations, calcules sur les memes
+du reel : plus long que son morceau, le reel la fait boucler en fondu enchaine (13/11/2026). Les bruitages tombent sur les instants des animations, calcules sur les memes
 scenes que l'image (habillage.evenements) : ils restent synchrones quoi qu'il arrive.
 Musique et bruitages vivent dans assets/ (non versionnes). S'ils manquent, le reel sort
 avec la seule voix ; sans voix ni musique, il sort muet.
@@ -89,6 +89,44 @@ def effets(ep: dict, bornes: list, total: float, dest: Path) -> Path | None:
     return _ecrire(piste[:int(total * SR)], dest)
 
 
+def boucle_passages(nom: str, duree: float, total: float) -> list:
+    """Les passages du morceau a enchainer pour couvrir total secondes : [(debut, fin), ...]. Un seul passage, le
+    morceau entier, s'il suffit ; sinon le premier va du debut au point de sortie de la boucle, les suivants
+    repartent du point d'entree, chacun recouvrant le precedent de MUSIQUE_BOUCLE_FONDU (fondu enchaine)."""
+    entree, sortie = C.MUSIQUE_BOUCLES.get(nom, (C.MUSIQUE_FONDU_IN, duree - C.MUSIQUE_BOUCLE_MARGE))
+    sortie = min(sortie, duree)
+    # on compare a la sortie, pas a la duree du fichier : le morceau finit avant son fichier (Echo Sax : -23 dB a
+    # 97 s, -58 dB a 99 s, pour 101 s). Un reel de 98 s sans boucle entendrait la musique s'eteindre avant sa fin.
+    if total <= sortie:
+        return [(0.0, duree)]
+    f = C.MUSIQUE_BOUCLE_FONDU
+    if sortie - entree <= 2 * f:
+        raise SystemExit(f"[!] Musique {nom} : boucle trop courte ({entree} s a {sortie} s).")
+    passages, couvert = [(0.0, sortie)], sortie
+    while couvert < total:
+        passages.append((entree, sortie))
+        couvert += sortie - entree - f
+    return passages
+
+
+def _boucle(fond: Path, k: int, total: float, graphe: list) -> str:
+    """Etiquette de la musique a monter : l'entree k telle quelle, ou ses passages enchaines en fondu
+    (le graphe recoit les filtres de la boucle)."""
+    passages = boucle_passages(fond.name, B.duree(fond), total)
+    if len(passages) == 1:
+        return f"[{k}:a]"
+    n = len(passages)
+    graphe.append(f"[{k}:a]asplit={n}" + "".join(f"[mb{i}]" for i in range(n)))
+    for i, (a, b) in enumerate(passages):
+        graphe.append(f"[mb{i}]atrim={a:.3f}:{b:.3f},asetpts=N/SR/TB[mp{i}]")
+    prec = "[mp0]"
+    for i in range(1, n):
+        # courbes a puissance constante : pas de creux de volume au raccord
+        graphe.append(f"{prec}[mp{i}]acrossfade=d={C.MUSIQUE_BOUCLE_FONDU}:c1=qsin:c2=qsin[mx{i}]")
+        prec = f"[mx{i}]"
+    return prec
+
+
 def bande(episode: Path, ep: dict, bornes: list, total: float, voix: Path | None) -> Path | None:
     """Mixe voix, musique (sous la voix) et bruitages en une piste stereo 48 kHz au niveau
     de la charte. None si le reel n'a ni voix ni musique."""
@@ -111,7 +149,8 @@ def bande(episode: Path, ep: dict, bornes: list, total: float, voix: Path | None
         k = len(entrees) // 2 - 1
         extrait = f"aresample={SR},atrim=0:{total:.3f},asetpts=N/SR/TB"
         gain = C.MUSIQUE_LUFS - sonie(fond, extrait)
-        graphe.append(f"[{k}:a]{extrait},volume={gain:.2f}dB,"
+        source = _boucle(fond, k, total, graphe)
+        graphe.append(f"{source}{extrait},volume={gain:.2f}dB,"
                       f"afade=t=in:st=0:d={C.MUSIQUE_FONDU_IN},"
                       f"afade=t=out:st={max(0.0, total - C.MUSIQUE_FONDU_OUT):.3f}:"
                       f"d={C.MUSIQUE_FONDU_OUT}[fond]")

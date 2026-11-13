@@ -1,0 +1,204 @@
+{
+  "slug": "tdah-xurta-tentin",
+  "date": "2026-11-10",
+  "rubrique": "clinique",
+  "label": "TDAH : Xurta et Tentin",
+  "sous_titre": "Xurta remboursé : *jusqu’à 384 €* pour votre patient ?",
+  "appel": "Nos 5 recommandations :",
+  "voix_off": "femme_jeune",
+  "badge": "Médecins généralistes",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "son_limite_db": -4.0,
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "pill blister pack hands"
+    },
+    {
+      "duree": 11.0,
+      "fichier": "B5.mp4",
+      "requete": "euro coins wallet hands",
+      "texte": "Jusqu’à *384 €* pour un patient déjà traité par Xurta. | S’il ne revoit son spécialiste que *dans 1 an*. | 12 boîtes plein tarif : le *calcul du Cercle*.",
+      "voix": "[surprised] Médecins généralistes : jusqu’à trois cent quatre-vingt-quatre euros ! C’est ce qu’un patient déjà traité par Xurta vingt milligrammes peut payer, | s’il ne revoit son spécialiste que dans un an. | Douze boîtes, plein tarif : c’est le calcul du Cercle.",
+      "insert": {
+        "type": "addition",
+        "carre": false,
+        "titre": "12 boîtes de Xurta 20 mg",
+        "boites": 12,
+        "prix": 31.96,
+        "total": "384 €",
+        "legende": "plein tarif"
+      }
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B1.mp4",
+      "requete": "page : https://www.ameli.fr/medecin/exercice-liberal/regles-de-prescription-et-formalites/psychostimulant-amphetaminique-prescription-tdah",
+      "texte": "Pourtant, Xurta et Tentin sont *remboursables*. | Mais seulement avec *un formulaire*… | que vous ne pouvez *pas remplir*.",
+      "voix": "[incredulous] Pourtant, depuis novembre, Xurta et Tentin, deux traitements du T.D.A.H., sont remboursables ! | Mais seulement avec un formulaire… | [serious] que vous ne pouvez pas remplir.",
+      "insert": [
+        {
+          "type": "pilule",
+          "texte": "Formulaire exigé",
+          "temps": 1
+        },
+        {
+          "type": "pilule",
+          "texte": "Remboursables depuis novembre",
+          "ton": "vert",
+          "temps": 0
+        }
+      ]
+    },
+    {
+      "duree": 11.0,
+      "fichier": "B2.mp4",
+      "requete": "page : https://www.ameli.fr/medecin/exercice-liberal/regles-de-prescription-et-formalites/psychostimulant-amphetaminique-prescription-tdah",
+      "texte": "Seules *5 spécialités* peuvent remplir ce formulaire. | Pédopsychiatres, psychiatres, *pédiatres*, | neuropédiatres *et neurologues*.",
+      "voix": "Seules cinq spécialités peuvent le remplir : | pédopsychiatres, psychiatres, pédiatres, | neuropédiatres et neurologues. [matter-of-fact] Pas les généralistes.",
+      "insert": {
+        "type": "formulaire",
+        "titre": "Qui peut remplir le formulaire ?",
+        "lignes": [
+          {
+            "label": "Pédopsychiatres",
+            "temps": 1
+          },
+          {
+            "label": "Psychiatres",
+            "temps": 1
+          },
+          {
+            "label": "Pédiatres",
+            "temps": 1
+          },
+          {
+            "label": "Neuropédiatres",
+            "temps": 2
+          },
+          {
+            "label": "Neurologues",
+            "temps": 2
+          },
+          {
+            "label": "Généralistes",
+            "ferme": true,
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 15.0,
+      "fichier": "B3.mp4",
+      "requete": "card payment terminal pharmacy",
+      "texte": "L’Assurance Maladie invoque un risque *de mésusage*. | Mais sans formulaire, le pharmacien peut *délivrer quand même*. | Selon nous, seul *le remboursement* tombe.",
+      "voix": "[curious] Pourquoi ce formulaire ? L’Assurance Maladie invoque notamment un risque de mésusage, d’abus et de dépendance. | [incredulous] Mais sans formulaire, le pharmacien peut délivrer quand même ! | Selon nous, le formulaire ne réduit donc pas le mésusage : seul le remboursement tombe.",
+      "insert": {
+        "type": "pharmacie",
+        "pilules": [
+          {
+            "texte": "Délivrance possible",
+            "temps": 1
+          },
+          {
+            "texte": "Non remboursé",
+            "ton": "rouge",
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B7.mp4",
+      "requete": "paperwork pile desk hands",
+      "texte": "Et vos patients *déjà traités* ? | Le formulaire se remplit *à la primo-prescription*… | et les arrêtés ne prévoient *rien pour eux*.",
+      "voix": "[curious] Et vos patients déjà traités ? | Le formulaire se remplit lors de la primo-prescription, | et les arrêtés ne prévoient rien pour les traitements déjà commencés.",
+      "insert": {
+        "type": "choix",
+        "lignes": [
+          {
+            "label": "Primo-prescription : formulaire",
+            "ok": true,
+            "temps": 1
+          },
+          {
+            "label": "Traitement déjà commencé",
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B4.mp4",
+      "requete": "reading phone hands sofa",
+      "texte": "Une experte d’ameli renvoie même *vers le pharmacien*… | pour savoir *qui peut remplir* le formulaire.",
+      "voix": "[incredulous] Sur son forum, une experte de l’Assurance Maladie renvoie même un patient dans ce cas vers son pharmacien… | pour savoir qui peut remplir le formulaire !",
+      "insert": {
+        "type": "renvoi",
+        "etapes": [
+          {
+            "label": "Assurance Maladie"
+          },
+          {
+            "label": "Pharmacien",
+            "temps": 0
+          },
+          {
+            "label": "Qui remplit ?",
+            "question": true,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 17.0,
+      "fichier": "B6.mp4",
+      "requete": "writing prescription pad hands",
+      "texte": "Vous pouvez renouveler, *tous les 28 jours*. | Si le justificatif est hors indication *remboursable*… | l’ordonnance doit porter *« NR »*. | En cas d’oubli répété, vous risquez *une pénalité*.",
+      "voix": "[matter-of-fact] Vous, entre deux prescriptions annuelles du spécialiste, vous pouvez renouveler, tous les vingt-huit jours. | Mais si le justificatif du spécialiste est hors indication remboursable… | l’ordonnance doit porter la mention « non remboursable ». | [serious] Et en cas d’oubli répété, le code de la sécurité sociale prévoit une pénalité.",
+      "insert": {
+        "type": "ordonnance",
+        "titre": "Ordonnance sécurisée",
+        "marque": "28 jours",
+        "lignes": [
+          {
+            "label": "Xurta 20 mg",
+            "note": "Mention « NR »",
+            "temps": 2
+          }
+        ],
+        "pied": "Pénalité si oubli répété",
+        "temps_pied": 3
+      }
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B9.mp4",
+      "requete": "closed door office corridor",
+      "texte": "Selon nous, vous devenez *le guichet*… | d’une règle que vous ne pouvez *pas appliquer*.",
+      "voix": "[serious] Selon nous, vous devenez le guichet… | d’une règle que vous n’avez pas écrite, et que vous ne pouvez pas appliquer.",
+      "insert": {
+        "type": "guichet",
+        "enseigne": "Généraliste",
+        "papier": "Formulaire"
+      }
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B8.mp4",
+      "requete": "hands typing laptop bright desk",
+      "texte": "Et si le justificatif manque, faut-il écrire *« NR »* ? | Notre réponse et nos *5 recommandations* sont sur le site.",
+      "voix": "[warm] Et quand le justificatif manque, faut-il écrire « non remboursable » ? | Notre réponse, et nos cinq recommandations, sont sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 5
+      }
+    }
+  ]
+}

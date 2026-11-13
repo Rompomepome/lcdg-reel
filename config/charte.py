@@ -361,6 +361,49 @@ PLAQUES_GEO = dict(pad=26, titre_px=23, grille=(3, 2), plaque=(170, 96), ecart=1
                    rayon=10, laiton=(206, 174, 108), laiton_fonce=(160, 128, 66), chute=70, angle=4, decalage=0.2,
                    nombre_px=84, legende_px=24, nombre_duree=1.8)
 MOTIFS_GEO = dict(colonnes=2, carte_h=136, ecart=18, icone=96, icone_x=20, label_px=31, label_x=24, interligne=1.18)
+# reels du 13/11/2026 (maladie professionnelle, TDAH) ; Romain : « ameliore le motion si possible », « s'ameliorer un
+# petit peu a chaque fois ». La rature : les mots qu'un decret retire d'un texte, rayes au stylo rouge. Le formulaire :
+# ceux qui peuvent le remplir se cochent, la ligne fermee prend un cadenas.
+RATURE_GEO = dict(largeur=790, tete=62, ligne_h=100, pad=34, titre_px=24, texte_px=42, texte_px_min=28, barre=7,
+                  barre_ecart=22, trait=10, pente=0.1, deborde=16, trace=0.4, decalage=0.5, pilule_px=28, pilule_h=58,
+                  pilule_pad=24, pilule_angle=-4, pilule_deborde=0.5, pilule_delai=0.35)
+FORMULAIRE_GEO = dict(tete=66, cellule_h=90, pad=22, ecart=14, colonnes=2, titre_px=26, case=52, case_trait=5,
+                      case_rayon=13, label_px=31, label_px_min=23, label_x=16, rayon=18, teinte=0.93, teinte_ferme=0.86,
+                      decalage=0.16, cadenas=44, secousse=(10, 0.2, 0.45))
+# scenes animees du 13/11/2026 (Romain : « le motion doit etre beaucoup plus developpe que ca ») : du mouvement
+# continu, pas seulement une entree. Le scanner d'IRM de la rature (sa table coulisse, puis se fige), le delai qui
+# court et repart a zero, le cadran dont l'aiguille monte, le dossier et ses notes, les boites qui s'additionnent,
+# le patient qu'on renvoie de l'un a l'autre, le guichet ou le formulaire bute sur un cadenas.
+RATURE_IRM = dict(largeur=312, h=200, corps=(132, 190), anneau=0.16, table=(156, 16), patient=(108, 38), tete=19,
+                  course=80, cycle=3.0, pied=(120, 42), gris=0.8, nom="IRM", nom_px=32, nom_y=0.24, voyant_y=0.8)
+DELAI_H = 340
+DELAI_GEO = dict(pad=30, titre_px=25, piste_y=214, piste_h=30, compteur_px=92, unite_px=32, compteur_y=158,
+                 unite_ecart=14, course=2.6, retour=0.8, drapeau_px=26, drapeau_h=54, drapeau_pad=20, drapeau_dy=16,
+                 fleche_h=64, fleche_trait=7, fleche_dy=8, question_px=28, question_h=58, question_pad=24,
+                 curseur=50, curseur_trait=6, boucle=4.2)
+JAUGE_H = 350
+JAUGE_GEO = dict(pad=28, titre_px=25, rayon=158, epaisseur=36, centre=(0.69, 278), aiguille=(140, 10), moyeu=18,
+                 angles=(196, 344), depart=0.12, cible=0.7, zone_rouge=0.74, ticket=(292, 58), ticket_px=25,
+                 ticket_ecart=14, ticket_y=96, chute=70, pas_duree=0.55, tremble=(1.6, 6.0), zone_px=23)
+DOSSIER_H = 350
+DOSSIER_GEO = dict(chemise=(500, 230), onglet=(180, 38), rayon=18, note=(250, 190), note_y=110, note_pad=20,
+                   note_rayon=12, eventail=(-12, 0, 12), ecart_x=130, sortie=96, levee=36, ligne_h=11, ligne_pas=27,
+                   lignes=(0.82, 0.6, 0.74, 0.5), date=(84, 15), date_ecart=18, decalage=0.24, titre_px=25, badge=66,
+                   balance=(8, 0.7), va_et_vient=0.32, duree=0.6, rabat=0.62)
+ADDITION_H = 340
+ADDITION_GEO = dict(pad=28, colonnes=6, boite=(72, 90), ecart=12, bande=24, grille_y=104, chute=80, cadence=0.2,
+                    duree=0.34, titre_px=25, total_px=84, legende_px=24, total_x=0.81, total_y=176, legende_y=250,
+                    bosse=(0.16, 0.25))
+RENVOI_H = 330
+RENVOI_GEO = dict(pad=16, station=(240, 116), ecart=38, station_y=190, label_px=27, label_px_min=20, rayon=22,
+                  jeton=68, saut=92, duree=0.7, attente=0.45, trait=6, point=(14, 12), bosse=(0.08, 0.3),
+                  balance=(8, 0.7), teinte=0.86)
+GUICHET_H = 350
+GUICHET_GEO = dict(pad=20, cadre=(330, 310), montant=18, enseigne_h=60, enseigne_px=27, vitre_teinte=0.88,
+                   tablette=26, personnage=(132, 176), papier=(200, 132), papier_px=24, papier_pad=18,
+                   papier_rayon=12, depart=236, butee=34,
+                   cycle=2.4, aller=0.38, cadenas=64, secousse=(13, 0.3), ligne_h=10, ligne_pas=25,
+                   lignes=(0.8, 0.55, 0.7), penche=5)
 
 # Credit (champ "credit" d'un bloc) : la source d'un plan qui ne vient pas d'une banque
 # d'images libre de droits, en petit sous le logo, le temps du plan (02/10/2026)
@@ -523,6 +566,14 @@ MUSIQUE_LUFS = -27             # avant compression : environ 13 dB sous la voix
 MUSIQUE_DUCKING = "threshold=0.03:ratio=4:attack=30:release=400"
 MUSIQUE_FONDU_IN = 0.6
 MUSIQUE_FONDU_OUT = 3.0        # la musique s'eteint avec la croix et la carte finale
+# Un reel plus long que son morceau (13/11/2026, Romain : « pourquoi la musique s'arrête brusquement ? » : le reel
+# maladie professionnelle dure 1 min 52, echo-sax 1 min 41 et finit de lui-meme vers 1 min 37) : la musique
+# boucle, en fondu enchaine, avant que le morceau ne se termine. Points de boucle mesures (debut et fin du corps
+# du morceau, hors intro et hors fin), en secondes ; un morceau absent de la liste boucle entre son fondu
+# d'entree et MUSIQUE_BOUCLE_MARGE avant sa fin.
+MUSIQUE_BOUCLES = {"echo-sax-no4.mp3": (2.0, 96.0)}
+MUSIQUE_BOUCLE_MARGE = 6.0
+MUSIQUE_BOUCLE_FONDU = 3.0     # s : fondu enchaine d'un passage au suivant
 # niveau de chaque bruitage, en dB sous son propre sommet : presents mais jamais
 # au-dessus de la voix
 SFX_GAINS = {"souffle": -20, "clic": -22, "compteur": -24, "impact": -17,

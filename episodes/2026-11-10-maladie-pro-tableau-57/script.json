@@ -1,0 +1,182 @@
+{
+  "slug": "maladie-pro-tableau-57",
+  "date": "2026-11-10",
+  "rubrique": "pro",
+  "label": "Maladie professionnelle",
+  "sous_titre": "Épaule : vous attendez encore *l’IRM* ?",
+  "appel": "Nos 2 recommandations :",
+  "voix_off": "femme_agee",
+  "badge": "Médecins généralistes",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "son_limite_db": -4.0,
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "man rubbing shoulder pain"
+    },
+    {
+      "duree": 12.0,
+      "fichier": "B1.mp4",
+      "requete": "plasterer ceiling work bright",
+      "texte": "Maladie professionnelle de l’épaule : vous attendez *encore l’IRM* ? | Le tableau 57 *n’exige plus l’IRM*… | pour tout certificat médical initial établi *depuis le 30 septembre*.",
+      "voix": "[curious] Médecins généralistes : pour une maladie professionnelle de l’épaule, vous attendez encore l’I.R.M. ? | [matter-of-fact] Le tableau cinquante-sept ne l’exige plus, | pour tout certificat médical initial établi depuis le trente septembre.",
+      "insert": {
+        "type": "rature",
+        "dessin": "irm",
+        "carre": false,
+        "titre": "Tableau 57 · épaule",
+        "lignes": [
+          {
+            "texte": "« objectivée par IRM »",
+            "temps": 1
+          }
+        ],
+        "pilule": "Depuis le 30 septembre",
+        "temps_pilule": 2
+      }
+    },
+    {
+      "duree": 13.0,
+      "fichier": "B4.mp4",
+      "requete": "page : https://www.ameli.fr/medecin/exercice-liberal/prise-charge-situation-type-soin/situation-patient-mp/maladies-professionnelles",
+      "texte": "Début novembre, la FMF n’avait vu *aucune* communication… | ni de l’Assurance Maladie, ni du *ministère*. | La liste d’examens d’ameli indique toujours *l’IRM*.",
+      "voix": "[surprised] Vous ne le saviez pas ? Et pour cause : début novembre, la F.M.F. n’avait vu aucune communication, | ni de l’Assurance Maladie, ni du ministère. | [incredulous] Et sur ameli, la liste d’examens indique toujours l’I.R.M. de l’épaule !",
+      "insert": {
+        "type": "duel",
+        "cartes": [
+          {
+            "date": "Le décret",
+            "texte": "N’exige plus l’IRM",
+            "ok": true,
+            "temps": 2
+          },
+          {
+            "date": "La liste d’ameli",
+            "texte": "IRM de l’épaule",
+            "ok": false,
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 11.0,
+      "fichier": "B2.mp4",
+      "requete": "pen signing paper close up",
+      "texte": "Un décret a modifié *une quarantaine* de tableaux. | Un examen n’est exigé que s’il est *nécessaire* au diagnostic… | et conforme *aux recommandations*.",
+      "voix": "[matter-of-fact] Ce qui a changé ? Un décret a modifié une quarantaine de tableaux. | Désormais, un examen n’est exigé que s’il est nécessaire au diagnostic, | et conforme aux recommandations.",
+      "insert": {
+        "type": "choix",
+        "lignes": [
+          {
+            "label": "Nécessaire au diagnostic",
+            "ok": true,
+            "temps": 1
+          },
+          {
+            "label": "Conforme aux recommandations",
+            "ok": true,
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 5.0,
+      "type": "phrase",
+      "fichier": "B9.mp4",
+      "requete": "radiologist looking scan screen",
+      "texte": "Le décret retire l’examen, *pas la maladie*.",
+      "voix": "[serious] Mais attention : le décret retire la mention de l’examen… pas la description de la maladie."
+    },
+    {
+      "duree": 16.0,
+      "fichier": "B3.mp4",
+      "requete": "shoulder ultrasound examination",
+      "texte": "Selon la FMF, le tableau 57 vise toujours *la même maladie*. | Une tendinopathie non rompue, *non calcifiante*. | Sans imagerie, comment montrer *la tendinopathie* ? | Selon le Cercle, l’examen peut rester *nécessaire en pratique*.",
+      "voix": "Selon la F.M.F., le tableau vise toujours la même maladie : | une tendinopathie non rompue, non calcifiante. | [curious] Alors, sans imagerie, comment la montrer ? | Selon le Cercle, l’examen peut rester nécessaire en pratique, même s’il n’est plus exigé en droit.",
+      "insert": {
+        "type": "choix",
+        "lignes": [
+          {
+            "label": "Exigé en droit",
+            "ok": false,
+            "temps": 2
+          },
+          {
+            "label": "Nécessaire en pratique ?",
+            "temps": 3
+          }
+        ]
+      }
+    },
+    {
+      "duree": 18.0,
+      "fichier": "B5.mp4",
+      "requete": "hourglass sand timer",
+      "texte": "La caisse peut toujours *réclamer un examen*. | La caisse a *120 jours* pour répondre. | Sans réponse à temps, la maladie est *reconnue*. | Et si la caisse réclame un examen après coup, le délai *repart-il* ?",
+      "voix": "Et la caisse, elle, peut toujours réclamer un examen. | Selon l’Assurance Maladie, elle a cent vingt jours pour répondre : | sans réponse dans ce délai, la maladie est reconnue. | [curious] Mais ce délai ne démarre qu’avec le résultat des examens nécessaires. Alors, si la caisse juge après coup qu’il en manquait un… le délai repart-il ?",
+      "insert": {
+        "type": "delai",
+        "titre": "Délai de réponse de la caisse",
+        "jours": 120,
+        "temps": 1,
+        "fin": "Sans réponse : maladie reconnue",
+        "temps_fin": 2,
+        "retour": "Le délai repart-il ?",
+        "temps_retour": 3
+      }
+    },
+    {
+      "duree": 15.0,
+      "fichier": "B6.mp4",
+      "requete": "laptop spreadsheet charts hands",
+      "texte": "Selon MG France, la MSO compte les arrêts *liés au travail*… | comme les autres, *dès le 1er jour*. | Selon nous, les arrêts du patient pèsent… | sur *votre indicateur*, que sa maladie soit reconnue *ou non*.",
+      "voix": "[serious] Et en attendant la réponse ? Selon MG France, la mise sous objectifs compte les arrêts liés au travail… | comme les autres, et dès le premier jour. | [concerned] Selon nous, les arrêts de votre patient pèsent donc | sur votre indicateur, que sa maladie soit reconnue ou non.",
+      "insert": {
+        "type": "jauge",
+        "titre": "Votre indicateur d’arrêts de travail",
+        "tickets": [
+          {
+            "label": "Arrêt maladie",
+            "temps": 0
+          },
+          {
+            "label": "Arrêt maladie",
+            "temps": 0
+          },
+          {
+            "label": "Arrêt lié au travail",
+            "ton": "rouge",
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B7.mp4",
+      "requete": "stack of files folders desk",
+      "texte": "Selon nous, sans examen daté, une note de votre dossier… | peut décider *du sort de la demande*. | *Laquelle* ?",
+      "voix": "[thoughtful] Dernier point : selon nous, sans examen daté, une note de votre dossier… | peut décider du sort de la demande. | [curious] Laquelle ?",
+      "insert": {
+        "type": "dossier",
+        "titre": "Dossier du patient",
+        "temps_question": 2
+      }
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B8.mp4",
+      "requete": "hands writing notebook desk",
+      "texte": "Quand rédiger *le certificat* ? | Que demander *à la caisse* ? | Nos *2 recommandations* sont sur le site.",
+      "voix": "[warm] La réponse est dans notre analyse. Quand rédiger le certificat, | que demander à la caisse : | nos deux recommandations sont sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ]
+}
