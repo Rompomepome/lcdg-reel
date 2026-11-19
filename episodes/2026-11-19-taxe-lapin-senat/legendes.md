@@ -18,7 +18,7 @@ Taxe lapin : 5 € annoncés en séance, jusqu'au prix de la consultation dans l
 
 Le 16 novembre, le Sénat a adopté une pénalité pour les rendez-vous non honorés. En séance, le sénateur qui défendait l'amendement a parlé d'une « pénalité limitée à 5 euros » et d'une annulation possible « jusqu'à 24 heures avant ». Le texte adopté ne contient ni ce montant ni ce délai : la pénalité « ne peut en aucun cas excéder le montant de la consultation », et l'annulation doit respecter « un délai raisonnable », qu'un décret en Conseil d'État doit fixer.
 
-Pas de pénalité si le patient justifie d'un motif impérieux, d'ordre personnel, familial ou professionnel, ou d'un motif de santé. Et pour la réclamer, le médecin doit avoir informé le patient à la prise de rendez-vous et lui avoir rappelé la date et l'heure au moins une fois.
+Pas de pénalité si le patient justifie d'un motif impérieux d'ordre personnel, familial ou professionnel, ou d'un motif de santé. Et pour la réclamer, le médecin doit avoir informé le patient à la prise de rendez-vous et lui avoir rappelé la date et l'heure au moins une fois.
 
 Qui encaisse ? Le texte prévoit un paiement à la caisse d'assurance maladie du patient, sans dire si la somme est ensuite reversée au médecin. Selon le Cercle, tant que rien ne le dit, la pénalité ne compense pas le créneau perdu.
 
@@ -33,7 +33,7 @@ Et vous, si la loi passe, l'appliqueriez-vous à vos patients ? Notre analyse co
 Titre, à placer en première ligne (pour que ce soient les médecins qui réagissent, pas les patients) :
 Taxe lapin : ce que le texte voté change pour votre cabinet
 
-Médecins libéraux : le texte voté par le Sénat le 16 novembre permet une pénalité jusqu'au prix de la consultation, pas les 5 € annoncés en séance. À une condition : avoir informé le patient à la prise de rendez-vous, et lui avoir rappelé la date et l'heure au moins une fois. Pas de pénalité si le patient justifie d'un motif impérieux, d'ordre personnel, familial ou professionnel, ou d'un motif de santé. Et le texte ne dit pas si la somme payée à la caisse du patient vous est reversée.
+Médecins libéraux : le texte voté par le Sénat le 16 novembre permet une pénalité jusqu'au prix de la consultation ; les 5 € annoncés en séance ne figurent pas dans le texte. À deux conditions : avoir informé le patient à la prise de rendez-vous, et lui avoir rappelé la date et l'heure au moins une fois. Pas de pénalité si le patient justifie d'un motif impérieux d'ordre personnel, familial ou professionnel, ou d'un motif de santé. Et le texte ne dit pas si la somme payée à la caisse du patient vous est reversée.
 
 Texte non définitif. Notre analyse et notre recommandation pour le cabinet : [URL-ARTICLE]?utm_source=facebook&utm_medium=reel&utm_campaign=taxe-lapin
 
@@ -43,7 +43,7 @@ Le Sénat a adopté le 16 novembre 2026 les amendements identiques n° 7 rectifi
 
 En séance, le sénateur qui a défendu l'amendement n° 7 a présenté une « pénalité limitée à 5 euros » et une « possibilité d'annuler un rendez-vous jusqu'à 24 heures avant ». Ni ce montant ni ce délai ne figurent dans le texte adopté : la pénalité « est proportionnelle au tarif de la consultation ou est fixée à une somme forfaitaire, et ne peut en aucun cas excéder le montant de la consultation ». Un décret en Conseil d'État doit fixer le délai raisonnable, les motifs d'exonération et les voies de règlement amiable des litiges.
 
-Pour la réclamer, le professionnel doit avoir informé le patient à la prise de rendez-vous et lui avoir rappelé la date et l'horaire au moins une fois. Le paiement va à l'organisme d'assurance maladie de l'assuré, prélevé sur son compte après autorisation ou récupéré sur ses prestations à venir ; le texte ne dit pas si la somme est ensuite reversée au professionnel.
+Pour la réclamer, le professionnel doit avoir informé le patient à la prise de rendez-vous et lui avoir rappelé la date et l'horaire au moins une fois. La pénalité peut être payée à l'organisme d'assurance maladie de l'assuré, prélevée sur son compte après autorisation ou récupérée sur ses prestations à venir ; le texte ne dit pas si la somme est ensuite reversée au professionnel.
 
 Le projet de loi de financement a été adopté par le Sénat le 18 novembre (201 voix contre 124). Rien n'est définitif : le texte doit passer en commission mixte paritaire. La pénalité votée en 2025 avait été censurée par le Conseil constitutionnel.
 
@@ -52,7 +52,7 @@ Notre analyse et notre recommandation pour le cabinet (inscription gratuite) : [
 ## Publicité Meta (reel boosté)
 
 Texte principal (les 125 premiers caractères s'affichent sans « Plus ») :
-Médecins libéraux : la pénalité pour rendez-vous manqué pourrait aller jusqu'au prix de la consultation. À une condition : le rappel au patient.
+Médecins libéraux : la pénalité pour rendez-vous manqué pourrait aller jusqu'au prix de la consultation, si le patient a été informé et a reçu un rappel.
 
 Titre : Rendez-vous manqués : ce qui change au cabinet
 
