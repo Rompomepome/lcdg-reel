@@ -1,0 +1,189 @@
+{
+  "slug": "taxe-lapin-senat",
+  "date": "2026-11-19",
+  "rubrique": "pro",
+  "label": "Taxe lapin",
+  "sous_titre": "5 € annoncés, mais *jusqu’au prix* de la consultation",
+  "appel": "Notre recommandation :",
+  "voix_off": "femme_jeune",
+  "badge": "Médecins libéraux",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "son_limite_db": -4.0,
+  "voix_tempo": 1.08,
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "empty waiting room chairs daylight"
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B1.mp4",
+      "requete": "appointment book calendar desk pen",
+      "texte": "Médecins libéraux : la taxe lapin a été présentée *à 5 €*… | par *le sénateur* qui la défendait. | Le texte voté va *jusqu’au prix* de la consultation.",
+      "voix": "[curious] Médecins libéraux : la taxe lapin a été présentée à cinq euros, | par le sénateur qui la défendait. | [matter-of-fact] Mais le texte voté va jusqu’au prix de la consultation.",
+      "insert": {
+        "type": "duel",
+        "carre": false,
+        "cartes": [
+          {
+            "date": "Le sénateur",
+            "texte": "5 € annoncés",
+            "temps": 0
+          },
+          {
+            "date": "Le texte voté",
+            "texte": "Jusqu’au prix de la consultation",
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B2.mp4",
+      "requete": "wall clock office daylight",
+      "texte": "Il parlait d’annuler jusqu’à *24 heures avant*. | Le texte dit *« un délai raisonnable »*, | qu’un décret doit *encore fixer*.",
+      "voix": "Il parlait d’annuler jusqu’à vingt-quatre heures avant. | Le texte dit : « un délai raisonnable », | qu’un décret doit encore fixer.",
+      "insert": {
+        "type": "sablier",
+        "pilules": [
+          {
+            "texte": "24 h annoncées",
+            "temps": 0
+          },
+          {
+            "texte": "« Un délai raisonnable »",
+            "temps": 1
+          },
+          {
+            "texte": "À fixer par décret",
+            "ton": "rouge",
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 15.0,
+      "fichier": "B3.mp4",
+      "requete": "doctor desk empty chair afternoon",
+      "texte": "Le texte voté permettrait *une pénalité*… | si le patient ne vient pas, ou annule *hors délai*. | Jamais plus que *la consultation*. | Sauf si le patient justifie d’un motif *impérieux*… | personnel, familial ou professionnel, *ou de santé*.",
+      "voix": "Le texte voté permettrait une pénalité, | si le patient ne vient pas, ou annule hors délai. | Jamais plus que le prix de la consultation. | Sauf s’il justifie d’un motif impérieux, | personnel, familial ou professionnel, ou d’un motif de santé.",
+      "insert": {
+        "type": "ticket",
+        "titre": "Rendez-vous non honoré",
+        "lignes": [
+          {
+            "label": "Absent ou hors délai",
+            "valeur": "pénalité",
+            "ok": true,
+            "temps": 1
+          },
+          {
+            "label": "Plafond",
+            "valeur": "1 consultation",
+            "ok": true,
+            "temps": 2
+          },
+          {
+            "label": "Motif justifié",
+            "valeur": "pas de pénalité",
+            "ok": false,
+            "temps": 3
+          }
+        ]
+      }
+    },
+    {
+      "duree": 4.0,
+      "type": "phrase",
+      "fichier": "B4.mp4",
+      "requete": "smartphone notification hand",
+      "texte": "Mais il y a *deux conditions*.",
+      "voix": "[matter-of-fact] Mais il y a deux conditions."
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B5.mp4",
+      "requete": "receptionist phone call hands desk",
+      "texte": "Vous devez avoir *informé le patient* à la prise de rendez-vous. | Et lui avoir rappelé la date et l’heure *au moins une fois*. | Sinon, *rien à réclamer*.",
+      "voix": "Vous devez avoir informé le patient à la prise de rendez-vous, | et lui avoir rappelé la date et l’heure, au moins une fois. | [serious] Sinon, rien à réclamer.",
+      "insert": {
+        "type": "icones",
+        "cartes": [
+          {
+            "icone": "patient",
+            "label": "Patient informé",
+            "question": false,
+            "temps": 0
+          },
+          {
+            "icone": "horloge",
+            "label": "Rappel, au moins 1 fois",
+            "question": false,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B6.mp4",
+      "requete": "card payment terminal hand counter",
+      "texte": "Et qui *encaisse* ? | Le patient paierait la pénalité *à sa caisse*. | Le texte ne dit pas si la somme *vous est reversée*.",
+      "voix": "[curious] Et qui encaisse ? | Le patient paierait la pénalité à sa caisse d’assurance maladie. | [thoughtful] Mais le texte ne dit pas si la somme vous est reversée.",
+      "insert": {
+        "type": "renvoi",
+        "etapes": [
+          {
+            "label": "Patient"
+          },
+          {
+            "label": "Sa caisse",
+            "temps": 1
+          },
+          {
+            "label": "Au médecin ?",
+            "question": true,
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B7.mp4",
+      "requete": "hands typing laptop calendar bright",
+      "texte": "Selon nous, activez dès maintenant *un rappel*… | avant chaque rendez-vous. | Mais ne réclamez *aucune pénalité* : le texte n’est pas définitif.",
+      "voix": "[warm] Selon nous, activez dès maintenant un rappel | avant chaque rendez-vous. | [matter-of-fact] Mais ne réclamez aucune pénalité : le texte n’est pas définitif.",
+      "insert": {
+        "type": "choix",
+        "lignes": [
+          {
+            "label": "Un rappel avant chaque rendez-vous",
+            "ok": true,
+            "temps": 0
+          },
+          {
+            "label": "Une pénalité avant la loi définitive",
+            "ok": false,
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 7.0,
+      "fichier": "B8.mp4",
+      "requete": "notebook pen desk window light",
+      "texte": "Comment décider *si vous l’appliquerez* ? | Notre recommandation complète est *sur le site*.",
+      "voix": "[curious] Et comment décider si vous l’appliquerez ? | [warm] Notre recommandation complète est sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 1
+      }
+    }
+  ]
+}
