@@ -1,8 +1,6 @@
 # Taxe lapin : le texte voté par le Sénat — légendes de publication
 
 À faire par Romain avant de publier :
-- remplacer `[URL-ARTICLE]` par l'adresse du dossier « PLFSS 2027 : ce que le Sénat a voté pour votre cabinet » sur le site (le site n'était pas joignable depuis la session du 19/11) ;
-- relire le texte adopté n° 33 (article 23 bis) et le compte rendu du 16/11 sur senat.fr : le Sénat était hors réseau de la session, le reel s'appuie sur les citations du dossier ;
 - à publier tant que la commission mixte paritaire n'a pas statué : le reel dit « le texte n'est pas définitif » ;
 - étiquette « Info IA » (voix de synthèse) sur Instagram et Facebook ;
 - format 4:5 : le reel 9:16 est composé pour le recadrage 4:5 du fil. Un fichier 4:5 se tire du 9:16 livré, sans rien perdre : `ffmpeg -i final/reel.mp4 -vf "crop=1080:1350:0:285" -c:a copy reel_4x5.mp4` ;
@@ -35,7 +33,7 @@ Taxe lapin : ce que le texte voté change pour votre cabinet
 
 Médecins libéraux : le texte voté par le Sénat le 16 novembre permet une pénalité jusqu'au prix de la consultation ; les 5 € annoncés en séance ne figurent pas dans le texte. À deux conditions : avoir informé le patient à la prise de rendez-vous, et lui avoir rappelé la date et l'heure au moins une fois. Pas de pénalité si le patient justifie d'un motif impérieux d'ordre personnel, familial ou professionnel, ou d'un motif de santé. Et le texte ne dit pas si la somme payée à la caisse du patient vous est reversée.
 
-Texte non définitif. Notre analyse et notre recommandation pour le cabinet : [URL-ARTICLE]?utm_source=facebook&utm_medium=reel&utm_campaign=taxe-lapin
+Texte non définitif. Notre analyse et notre recommandation pour le cabinet : https://www.lecercledesgeneralistes.fr/article/plfss-2027-ce-que-le-senat-a-vote-pour-votre-cabinet?utm_source=facebook&utm_medium=reel&utm_campaign=taxe-lapin
 
 ## LinkedIn (version carrée, lien dans la publication)
 
@@ -47,7 +45,7 @@ Pour la réclamer, le professionnel doit avoir informé le patient à la prise d
 
 Le projet de loi de financement a été adopté par le Sénat le 18 novembre (201 voix contre 124). Rien n'est définitif : le texte doit passer en commission mixte paritaire. La pénalité votée en 2025 avait été censurée par le Conseil constitutionnel.
 
-Notre analyse et notre recommandation pour le cabinet (inscription gratuite) : [URL-ARTICLE]?utm_source=linkedin&utm_medium=social&utm_campaign=taxe-lapin
+Notre analyse et notre recommandation pour le cabinet (inscription gratuite) : https://www.lecercledesgeneralistes.fr/article/plfss-2027-ce-que-le-senat-a-vote-pour-votre-cabinet?utm_source=linkedin&utm_medium=social&utm_campaign=taxe-lapin
 
 ## Publicité Meta (reel boosté)
 
@@ -56,14 +54,14 @@ Médecins libéraux : la pénalité pour rendez-vous manqué pourrait aller jusq
 
 Titre : Rendez-vous manqués : ce qui change au cabinet
 
-Bouton : En savoir plus. Lien : [URL-ARTICLE]?utm_source=meta&utm_medium=paid&utm_campaign=taxe-lapin
+Bouton : En savoir plus. Lien : https://www.lecercledesgeneralistes.fr/article/plfss-2027-ce-que-le-senat-a-vote-pour-votre-cabinet?utm_source=meta&utm_medium=paid&utm_campaign=taxe-lapin
 
 ## Stories du jour (Instagram et Facebook)
 
 1. `story_taxe_lapin_sondage.png` : poser le sticker sondage sous la flèche. Question : « L'appliqueriez-vous ? » ; réponses : « Oui » / « Non ».
 2. `story_taxe_lapin_lien.png` : poser le sticker lien sous la flèche, texte du sticker « L'analyse complète ».
-   Lien : [URL-ARTICLE]?utm_source=instagram&utm_medium=story&utm_campaign=taxe-lapin
+   Lien : https://www.lecercledesgeneralistes.fr/article/plfss-2027-ce-que-le-senat-a-vote-pour-votre-cabinet?utm_source=instagram&utm_medium=story&utm_campaign=taxe-lapin
 
 ## Lien de la bio Instagram, à mettre à jour le jour de la publication
 
-[URL-ARTICLE]?utm_source=instagram&utm_medium=reel&utm_campaign=taxe-lapin
+https://www.lecercledesgeneralistes.fr/article/plfss-2027-ce-que-le-senat-a-vote-pour-votre-cabinet?utm_source=instagram&utm_medium=reel&utm_campaign=taxe-lapin

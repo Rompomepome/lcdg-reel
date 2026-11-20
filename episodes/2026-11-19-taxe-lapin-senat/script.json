@@ -9,7 +9,7 @@
   "badge": "Médecins libéraux",
   "bandeau": "L’analyse complète | sur *notre site*",
   "son_limite_db": -4.0,
-  "voix_tempo": 1.08,
+  "voix_tempo": 1.12,
   "blocs": [
     {
       "duree": 3.0,
@@ -22,7 +22,7 @@
       "fichier": "B1.mp4",
       "requete": "appointment book calendar desk pen",
       "texte": "Médecins libéraux : la taxe lapin a été présentée *à 5 €*… | par *le sénateur* qui la défendait. | Le texte voté va *jusqu’au prix* de la consultation.",
-      "voix": "[curious] Médecins libéraux : la taxe lapin a été présentée à cinq euros, | par le sénateur qui la défendait. | [matter-of-fact] Mais le texte voté va jusqu’au prix de la consultation.",
+      "voix": "[curious] Médecins libéraux : la taxe lapin a été présentée à cinq euros, | par le sénateur qui la défendait. | Mais le texte voté va jusqu’au prix de la consultation.",
       "insert": {
         "type": "duel",
         "carre": false,
@@ -102,28 +102,28 @@
       "fichier": "B4.mp4",
       "requete": "smartphone notification hand",
       "texte": "Mais il y a *deux conditions*.",
-      "voix": "[matter-of-fact] Mais il y a deux conditions."
+      "voix": "Mais il y a deux conditions."
     },
     {
       "duree": 10.0,
       "fichier": "B5.mp4",
       "requete": "receptionist phone call hands desk",
-      "texte": "Vous devez avoir *informé le patient* à la prise de rendez-vous. | Et lui avoir rappelé la date et l’heure *au moins une fois*. | Sinon, *rien à réclamer*.",
-      "voix": "Vous devez avoir informé le patient à la prise de rendez-vous, | et lui avoir rappelé la date et l’heure, au moins une fois. | [serious] Sinon, rien à réclamer.",
+      "texte": "Un : à la prise de rendez-vous, *prévenir le patient*… | qu’une pénalité est possible, *sauf motif* ou annulation à temps. | Deux : lui rappeler la date et l’heure, *au moins une fois*. | Sinon, *rien à réclamer*.",
+      "voix": "Un : à la prise de rendez-vous, prévenir le patient… | qu’une pénalité est possible, sauf motif valable ou annulation à temps. | Deux : lui rappeler la date et l’heure, au moins une fois avant le rendez-vous. | [serious] Sinon, rien à réclamer.",
       "insert": {
-        "type": "icones",
-        "cartes": [
+        "type": "appel",
+        "etapes": [
           {
-            "icone": "patient",
-            "label": "Patient informé",
-            "question": false,
+            "icone": "telephone",
+            "label": "Prise de rendez-vous",
+            "note": "pénalité annoncée",
             "temps": 0
           },
           {
-            "icone": "horloge",
-            "label": "Rappel, au moins 1 fois",
-            "question": false,
-            "temps": 1
+            "icone": "courrier",
+            "label": "Rappel date et heure",
+            "note": "au moins 1 fois",
+            "temps": 2
           }
         ]
       }
@@ -133,7 +133,7 @@
       "fichier": "B6.mp4",
       "requete": "card payment terminal hand counter",
       "texte": "Et qui *encaisse* ? | Le patient paierait la pénalité *à sa caisse*. | Le texte ne dit pas si la somme *vous est reversée*.",
-      "voix": "[curious] Et qui encaisse ? | Le patient paierait la pénalité à sa caisse d’assurance maladie. | [thoughtful] Mais le texte ne dit pas si la somme vous est reversée.",
+      "voix": "[curious] Et qui encaisse ? | Le patient paierait la pénalité à sa caisse d’assurance maladie. | Mais le texte ne dit pas si la somme vous est reversée.",
       "insert": {
         "type": "renvoi",
         "etapes": [
@@ -157,7 +157,7 @@
       "fichier": "B7.mp4",
       "requete": "hands typing laptop calendar bright",
       "texte": "Selon nous, activez dès maintenant *un rappel*… | avant chaque rendez-vous. | Mais ne réclamez *aucune pénalité* : le texte n’est pas définitif.",
-      "voix": "[warm] Selon nous, activez dès maintenant un rappel | avant chaque rendez-vous. | [matter-of-fact] Mais ne réclamez aucune pénalité : le texte n’est pas définitif.",
+      "voix": "[warm] Selon nous, activez dès maintenant un rappel | avant chaque rendez-vous. | Mais ne réclamez aucune pénalité : le texte n’est pas définitif.",
       "insert": {
         "type": "choix",
         "lignes": [
@@ -179,7 +179,7 @@
       "fichier": "B8.mp4",
       "requete": "notebook pen desk window light",
       "texte": "Comment décider *si vous l’appliquerez* ? | Notre recommandation complète est *sur le site*.",
-      "voix": "[curious] Et comment décider si vous l’appliquerez ? | [warm] Notre recommandation complète est sur le site du Cercle.",
+      "voix": "[curious] Et comment décider si vous l’appliquerez ? | Notre recommandation complète est sur le site du Cercle.",
       "insert": {
         "type": "verrou",
         "n": 1
