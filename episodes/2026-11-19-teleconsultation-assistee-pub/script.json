@@ -1,0 +1,109 @@
+{
+  "slug": "teleconsultation-assistee-pub",
+  "date": "2026-11-19",
+  "rubrique": "pro",
+  "label": "Téléconsultation assistée",
+  "sous_titre": "Votre patient âgé, vu par *un autre* médecin ?",
+  "appel": "Nos 2 recommandations :",
+  "voix_off": "femme_agee",
+  "badge": "Médecins traitants",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "son_limite_db": -4.0,
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "elderly woman video call tablet bright home"
+    },
+    {
+      "duree": 12.0,
+      "fichier": "B1.mp4",
+      "requete": "nurse hands tablet home visit daylight",
+      "texte": "Médecins traitants : le Sénat a voté le remboursement… | de la téléconsultation *assistée* à domicile… | par des infirmiers *salariés* de sociétés de téléconsultation. | Sans rien prévoir pour *vous prévenir*.",
+      "voix": "Médecins traitants : le Sénat a voté le remboursement | de la téléconsultation assistée à domicile | par des infirmiers salariés de sociétés de téléconsultation. | [serious] Sans rien prévoir pour vous prévenir.",
+      "insert": {
+        "type": "appel",
+        "carre": false,
+        "etapes": [
+          {
+            "icone": "infirmier",
+            "label": "Infirmier salarié",
+            "note": "au domicile",
+            "temps": 2
+          },
+          {
+            "icone": "telephone",
+            "label": "Téléconsultation",
+            "note": "remboursée",
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B2.mp4",
+      "requete": "elderly man sofa tablet nurse",
+      "texte": "Et qui sera *le médecin* au bout de l’écran ? | Le texte ne dit pas si ce sera vous… *ou un autre médecin*.",
+      "voix": "[curious] Et qui sera le médecin, au bout de l’écran ? | Le texte ne dit pas si ce sera vous, ou un autre médecin.",
+      "insert": {
+        "type": "renvoi",
+        "etapes": [
+          {
+            "label": "Patient"
+          },
+          {
+            "label": "Infirmier salarié",
+            "temps": 0
+          },
+          {
+            "label": "Quel médecin ?",
+            "question": true,
+            "temps": 1
+          }
+        ]
+      }
+    },
+    {
+      "duree": 13.0,
+      "fichier": "B3.mp4",
+      "requete": "hands on steering wheel driving daylight",
+      "texte": "Le texte n’est *pas définitif*. | Mais vous pouvez déjà la proposer avec *les infirmiers libéraux*. | Selon le rapport, ils la facturent : *15 €* au domicile.",
+      "voix": "Le texte n’est pas définitif. | [warm] Mais vous pouvez déjà la proposer à vos patients âgés, avec les infirmiers libéraux du secteur. | Selon le rapport, ils la facturent déjà : quinze euros au domicile.",
+      "insert": {
+        "type": "ticket",
+        "titre": "Infirmier libéral, selon le rapport",
+        "lignes": [
+          {
+            "label": "Pendant un soin",
+            "valeur": "10 €",
+            "temps": 2
+          },
+          {
+            "label": "Dans un lieu dédié",
+            "valeur": "12 €",
+            "temps": 2
+          },
+          {
+            "label": "Au domicile",
+            "valeur": "15 €",
+            "ok": true,
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 8.0,
+      "fichier": "B4.mp4",
+      "requete": "notebook pen desk window light morning",
+      "texte": "Comment repérer une téléconsultation *faite ailleurs* ? | Nos *2 recommandations* sont sur le site.",
+      "voix": "[curious] Et comment repérer une téléconsultation faite ailleurs ? | Nos deux recommandations sont sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 2
+      }
+    }
+  ]
+}
