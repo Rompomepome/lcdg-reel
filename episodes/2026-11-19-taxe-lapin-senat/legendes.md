@@ -7,8 +7,8 @@
 - le même jour : la story sondage, puis la story lien (`lcdg-reel-atelier/lcdg_1119/visuels/story_taxe_lapin_*.png`, textes ci-dessous).
 
 Version publicité, après le rendu du reel complet (sa narration doit être en cache) :
-`python scripts/pub.py episodes/2026-11-19-taxe-lapin-senat 0,1,4,5,6,8 --badge "Rendez-vous manqués"` puis
-`python scripts/livrer.py episodes/2026-11-19-taxe-lapin-senat-pub` (environ 40 s : l'écart 5 € / prix de la consultation, les deux conditions, qui encaisse, la promesse). Attention : Meta refuse en Europe les publicités qu'il classe comme politiques (refus du reel « minimum de patients ») ; le reel cite un sénateur et « le texte voté ». Si la publicité est refusée, ne pas la reformuler pour contourner : garder le reel en organique.
+`python scripts/pub.py episodes/2026-11-19-taxe-lapin-senat 0,1,4,5,7,8 --badge "Rendez-vous manqués"` puis
+`python scripts/livrer.py episodes/2026-11-19-taxe-lapin-senat-pub` (environ 42 s : l'écart 5 € / prix de la consultation, les deux conditions, le rappel et le texte non définitif, la promesse). Attention : Meta refuse en Europe les publicités qu'il classe comme politiques (refus du reel « minimum de patients ») ; le reel cite un sénateur et « le texte voté ». Si la publicité est refusée, ne pas la reformuler pour contourner : garder le reel en organique.
 
 ## Instagram (reel)
 

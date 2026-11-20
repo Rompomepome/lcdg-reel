@@ -7,8 +7,8 @@
 - le jour de la publication, une story avec un sticker lien vers l'article (lien « story » en bas de ce fichier).
 
 Version publicité, après le rendu du reel complet :
-`python scripts/pub.py episodes/2026-11-19-teleconsultation-assistee 0,1,2,4,5,7` puis
-`python scripts/livrer.py episodes/2026-11-19-teleconsultation-assistee-pub` (le fait, le chiffre, la question du médecin téléconsultant, l'ordonnance d'origine inconnue, la promesse).
+`python scripts/pub.py episodes/2026-11-19-teleconsultation-assistee 0,1,4,6,7` puis
+`python scripts/livrer.py episodes/2026-11-19-teleconsultation-assistee-pub` (le fait et le conflit, la question du médecin téléconsultant, le texte non définitif et ce qu'on peut déjà faire, la promesse).
 
 ## Instagram (reel)
 

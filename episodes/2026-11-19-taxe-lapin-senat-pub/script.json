@@ -1,0 +1,109 @@
+{
+  "slug": "taxe-lapin-senat-pub",
+  "date": "2026-11-19",
+  "rubrique": "pro",
+  "label": "Taxe lapin",
+  "sous_titre": "5 € annoncés, mais *jusqu’au prix* de la consultation",
+  "appel": "Notre recommandation :",
+  "voix_off": "femme_jeune",
+  "badge": "Rendez-vous manqués",
+  "bandeau": "L’analyse complète | sur *notre site*",
+  "son_limite_db": -4.0,
+  "voix_tempo": 1.12,
+  "blocs": [
+    {
+      "duree": 3.0,
+      "texte": null,
+      "fichier": "B0.mp4",
+      "requete": "empty waiting room chairs daylight"
+    },
+    {
+      "duree": 9.0,
+      "fichier": "B1.mp4",
+      "requete": "appointment book calendar desk pen",
+      "texte": "Médecins libéraux : la taxe lapin a été présentée *à 5 €*… | par *le sénateur* qui la défendait. | Le texte voté va *jusqu’au prix* de la consultation.",
+      "voix": "[curious] Médecins libéraux : la taxe lapin a été présentée à cinq euros, | par le sénateur qui la défendait. | Mais le texte voté va jusqu’au prix de la consultation.",
+      "insert": {
+        "type": "duel",
+        "carre": false,
+        "cartes": [
+          {
+            "date": "Le sénateur",
+            "texte": "5 € annoncés",
+            "temps": 0
+          },
+          {
+            "date": "Le texte voté",
+            "texte": "Jusqu’au prix de la consultation",
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 4.0,
+      "type": "phrase",
+      "fichier": "B2.mp4",
+      "requete": "smartphone notification hand",
+      "texte": "Mais il y a *deux conditions*.",
+      "voix": "Mais il y a deux conditions."
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B3.mp4",
+      "requete": "receptionist phone call hands desk",
+      "texte": "Un : à la prise de rendez-vous, *prévenir le patient*… | qu’une pénalité est possible, *sauf motif* ou annulation à temps. | Deux : lui rappeler la date et l’heure, *au moins une fois*. | Sinon, *rien à réclamer*.",
+      "voix": "Un : à la prise de rendez-vous, prévenir le patient… | qu’une pénalité est possible, sauf motif valable ou annulation à temps. | Deux : lui rappeler la date et l’heure, au moins une fois avant le rendez-vous. | [serious] Sinon, rien à réclamer.",
+      "insert": {
+        "type": "appel",
+        "etapes": [
+          {
+            "icone": "telephone",
+            "label": "Prise de rendez-vous",
+            "note": "pénalité annoncée",
+            "temps": 0
+          },
+          {
+            "icone": "courrier",
+            "label": "Rappel date et heure",
+            "note": "au moins 1 fois",
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 10.0,
+      "fichier": "B4.mp4",
+      "requete": "hands typing laptop calendar bright",
+      "texte": "Selon nous, activez dès maintenant *un rappel*… | avant chaque rendez-vous. | Mais ne réclamez *aucune pénalité* : le texte n’est pas définitif.",
+      "voix": "[warm] Selon nous, activez dès maintenant un rappel | avant chaque rendez-vous. | Mais ne réclamez aucune pénalité : le texte n’est pas définitif.",
+      "insert": {
+        "type": "choix",
+        "lignes": [
+          {
+            "label": "Un rappel avant chaque rendez-vous",
+            "ok": true,
+            "temps": 0
+          },
+          {
+            "label": "Une pénalité avant la loi définitive",
+            "ok": false,
+            "temps": 2
+          }
+        ]
+      }
+    },
+    {
+      "duree": 7.0,
+      "fichier": "B5.mp4",
+      "requete": "notebook pen desk window light",
+      "texte": "Comment décider *si vous l’appliquerez* ? | Notre recommandation complète est *sur le site*.",
+      "voix": "[curious] Et comment décider si vous l’appliquerez ? | Notre recommandation complète est sur le site du Cercle.",
+      "insert": {
+        "type": "verrou",
+        "n": 1
+      }
+    }
+  ]
+}
